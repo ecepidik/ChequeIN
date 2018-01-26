@@ -1,6 +1,6 @@
 # ChequeIN
 
-![alt text](https://www.underconsideration.com/brandnew/archives/kickin_chicken_01.jpg)
+![alt text](chicken.png)
 
 ## The 10 golden rules of the Chicken
 1. Do not talk about fight club
