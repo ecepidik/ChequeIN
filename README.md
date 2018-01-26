@@ -1,5 +1,7 @@
 # ChequeIN
 
+![alt text](https://www.underconsideration.com/brandnew/archives/kickin_chicken_01.jpg)
+
 ## The 10 golden rules of the Chicken
 1. Do not talk about fight club
 2. Create a new branch for every user story
