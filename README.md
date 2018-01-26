@@ -1,6 +1,6 @@
 # ChequeIN
 
-![alt text](https://github.com/matlapo/ChequeIN/edit/master/chicken.png)
+![alt text](chicken.png)
 
 ## The 10 golden rules of the Chicken
 1. Do not talk about fight club
