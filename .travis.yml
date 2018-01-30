@@ -1,0 +1,12 @@
+dist: trusty
+sudo: true 
+language: csharp
+mono: none
+dotnet: 2.1.4 
+branches:
+    except:
+        - master
+install:
+  - cd server && dotnet restore && cd ..
+script:
+  - cd server && dotnet build && cd ..
