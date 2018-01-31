@@ -1,7 +1,12 @@
-language: csharp
-mono: none
-dotnet: 2.1.4
-script:
- - cd backend
- - dotnet restore
- - dotnet test ChequeIN.Tests
+matrix:
+  include:
+    - language: csharp
+      mono: none
+      dotnet: 2.1.4
+      script:
+      - cd backend
+      - dotnet restore
+      - dotnet test ChequeIN.Tests
+    - language: node_js
+      node_js: "8"
+
