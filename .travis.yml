@@ -9,4 +9,6 @@ matrix:
       - dotnet test ChequeIN.Tests
     - language: node_js
       node_js: "8"
+      before_install:
+        - cd frontend
 
