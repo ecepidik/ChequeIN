@@ -10,6 +10,6 @@
 5. Every commit will be scrupulously validated by Lord Travis CI the Grey
 6. A pull request will not be accepted unless 2 contributors approve
 7. All hail to C#
-8. Stay away from typescript
+8. Stay away from untyped javascript
 9. Small people are the last ones to know it's raining
 10. Java is to JavaScript as ham is to hamster - Jeremy Keith
