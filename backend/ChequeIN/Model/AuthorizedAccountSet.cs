@@ -1,11 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChequeIN.Model
 {
-    public class AuthorizedAccountSet
+    public abstract class AuthorizedAccountSet
     {
+        // May need to add associations with the FinancialAdministrator and the FinancialOfficer classes. Need clarification from Kareem.
+
+        [DisplayName("Parent Group")]
+        [Required]
+        public LedgerAccountGroup Parent { get; set; }
+
     }
 }
