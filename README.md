@@ -13,3 +13,6 @@
 8. Stay away from untyped javascript
 9. Small people are the last ones to know it's raining
 10. Java is to JavaScript as ham is to hamster - Jeremy Keith
+
+## EditorConfig
+To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.

@@ -1,7 +1,18 @@
-language: csharp
-mono: none
-dotnet: 2.1.4
-script:
- - cd backend
- - dotnet restore
- - dotnet test ChequeIN.Tests
+matrix:
+  include:
+    - language: csharp
+      mono: none
+      dotnet: 2.1.4
+      script:
+      - cd backend
+      - dotnet restore
+      - dotnet test ChequeIN.Tests
+
+    # Most of this config is taken from https://github.com/angular/angular-cli/wiki/stories-continuous-integration
+    - language: node_js
+      node_js: "8"
+      before_install:
+        - cd frontend
+      script:
+        - export CHROME_BIN=chromium-browser
+        - xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
