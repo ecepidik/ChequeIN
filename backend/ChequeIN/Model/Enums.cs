@@ -9,7 +9,7 @@ namespace ChequeIN.Model
     {
         public enum Province
         {
-            QC,
+            NONE,
             AB,
             BC,
             MB,
@@ -19,6 +19,7 @@ namespace ChequeIN.Model
             NT,
             NU,
             ON,
+            QC,
             PE,
             SK,
             YT,

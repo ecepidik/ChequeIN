@@ -14,9 +14,11 @@ namespace ChequeIN.Model
         private String city;
         private String postalCode;
 
+        //Line 1 must begin with a number, followed by a space, and then a collection of letters
+        //(including accented letters) or numbers.
         [DisplayName("Address Line 1")]
         [Required]
-        [RegularExpression(@"^\d+ +(\w| )+$", ErrorMessage = "Invalid Address Line 1 format.")]
+        [RegularExpression(@"^\d+ +(\p{L}|\p{Pd}|\d| )+$", ErrorMessage = "Invalid Address Line 1 format.")]
         public String Line1
         {
             get
@@ -29,8 +31,10 @@ namespace ChequeIN.Model
             }
         }
 
+        //Line 2 must begin with a number, followed by a space, and then a collection of letters
+        //(including accented letters) or numbers.
         [DisplayName("Address Line 2")]
-        [RegularExpression(@"^\d+ +(\w| )+$", ErrorMessage = "Invalid Address Line 2 format.")]
+        [RegularExpression(@"^\d+ +(\p{L}|\p{Pd}|\d| )+$", ErrorMessage = "Invalid Address Line 2 format.")]
         public String Line2
         {
             get
@@ -43,8 +47,10 @@ namespace ChequeIN.Model
             }
         }
 
+        //The City can be a collection of any letters, including accented letters, and can include dashes or spaces.
+        //Numbers are not allowed. 
         [Required]
-        [RegularExpression(@"^([A-Z]|[a-z]| )+$", ErrorMessage = "Invalid City format.")]
+        [RegularExpression(@"^(\p{L}|\p{Pd}| )+$", ErrorMessage = "Invalid City format.")]
         public String City
         {
             get
@@ -56,7 +62,9 @@ namespace ChequeIN.Model
                 this.city = value.Trim();
             }
         }
-
+        
+        //Postal Codes can contain any of 'ABCEGHJKLMNPRSTVXY' in uppercase or lowercase. They must follow this format:
+        //"C#C#C#" or "C#C #C#" where C is an accepted character, and # is a digit. 
         [DisplayName("Postal Code")]
         [Required]
         [RegularExpression(@"^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstv‌​xy]{1} ??\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvxy]{1}\d{1}$",
@@ -73,7 +81,7 @@ namespace ChequeIN.Model
             }
         }
 
-        [Required]
+        [Range(1, 13)] //When it isn't explicitly set, it takes the default value (0 or NONE in enum form), so this acts as "Required"
         public Enums.Province Province { get; set; }
 
     }
