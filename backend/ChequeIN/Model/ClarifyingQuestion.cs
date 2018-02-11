@@ -9,9 +9,19 @@ namespace ChequeIN.Model
 {
     public class ClarifyingQuestion
     {
+        private String question;
 
         [Required]
-        public String Question { get; set; }
+        public String Question {
+            get
+            {
+                return this.question;
+            }
+            set
+            {
+                this.question = value.Trim();
+            }
+        }
 
         [DisplayName("Message Type")]
         [Required]

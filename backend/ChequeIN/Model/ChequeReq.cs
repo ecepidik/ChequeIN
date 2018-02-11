@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,9 +7,10 @@ namespace ChequeIN.Model
 {
     public class ChequeReq
     {
+        private String payeeName;
+        private String description;
 
-        [Required]
-        public long ID { get; set; }
+        public long ChequeReqID { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
         [Required]
@@ -27,15 +26,33 @@ namespace ChequeIN.Model
 
         [DisplayName("Payee Name")]
         [Required]
-        public String PayeeName { get; set; }
+        public String PayeeName {
+            get
+            {
+                return this.payeeName;
+            }
+            set
+            {
+                this.payeeName = value.Trim();
+            }
+        }
 
         [Required]
-        public String Description { get; set; }
+        public String Description {
+            get
+            {
+                return this.description;
+            }
+            set
+            {
+                this.description = value.Trim();
+            }
+        }
 
         [DisplayName("Financial Officer Approver")]
-        public String ApprovedBy { get; set; }
+        public FinancialOfficer ApprovedBy { get; set; }
 
-        public List<ClarifyingQuestion> Questions { get; set; }
+        public ICollection<ClarifyingQuestion> Questions { get; set; }
 
         [DisplayName("Mailing Address")]
         [Required]
@@ -44,18 +61,18 @@ namespace ChequeIN.Model
         // TODO: Need a custom DataAnnotation that ensures that the list is min length 1.
         [DisplayName("Supporting Documents")]
         [Required]
-        public List<SupportingDocument> SupportingDocuments { get; set; }
+        public ICollection<SupportingDocument> SupportingDocuments { get; set; }
 
         // TODO: Need a custom DataAnnotation that ensures that the list is min length 1.
         [DisplayName("Status History")]
         [Required]
-        public List<Status> StatusHistory { get; set; }
+        public ICollection<Status> StatusHistory { get; set; }
 
         // TODO: Need a custom DataAnnotation that ensures that the list is max length 2 and min length 1.
         // Could instead switch this to 2 separate associations.
         [DisplayName("Submitters")]
         [Required]
-        public List<UserProfile> Submitters { get; set; }
+        public ICollection<UserProfile> Submitters { get; set; }
 
         [DisplayName("Ledger Account")]
         [Required]

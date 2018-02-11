@@ -10,9 +10,19 @@ namespace ChequeIN.Model
 {
     public class FinancialAdministrator : UserProfile
     {
+        private String name;
 
         [Required]
-        public String Name { get; set; }
+        public String Name {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value.Trim();
+            }
+        }
 
         [Required]
         public AuthorizedAccountSet Root { get; set; }

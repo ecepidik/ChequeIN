@@ -9,10 +9,22 @@ namespace ChequeIN.Model
 {
     public abstract class UserProfile
     {
+        private String email;
+
+        public long UserProfileID { get; set; }
 
         [Required]
-        // TODO: Add a RegularExpression specifying acceptable email formatting.
-        public String Email { get; set; }
+        [EmailAddress]
+        public String Email {
+            get
+            {
+                return this.email;
+            }
+            set
+            {
+                this.email = value.Trim();
+            }
+        }
 
     }
 }

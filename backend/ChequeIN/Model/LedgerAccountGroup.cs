@@ -9,13 +9,23 @@ namespace ChequeIN.Model
 {
     public class LedgerAccountGroup : AuthorizedAccountSet
     {
+        private String groupName;
 
         [DisplayName("Group Name")]
         [Required]
-        public String GroupName { get; set; }
+        public String GroupName {
+            get
+            {
+                return this.groupName;
+            }
+            set
+            {
+                this.groupName = value.Trim();
+            }
+        }
 
         [Required]
-        public List<AuthorizedAccountSet> Children { get; set; }
+        public ICollection<AuthorizedAccountSet> Children { get; set; }
 
     }
 }

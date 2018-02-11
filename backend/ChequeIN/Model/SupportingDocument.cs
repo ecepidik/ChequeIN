@@ -9,14 +9,24 @@ namespace ChequeIN.Model
 {
     public class SupportingDocument
     {
+        private String description;
 
         [DisplayName("Document Description")]
         [Required]
-        public String Description { get; set; }
+        public String Description {
+            get
+            {
+                return this.description;
+            }
+            set
+            {
+                this.description = value.Trim();
+            }
+        }
 
         [DisplayName("Document ID")]
         [Required]
-        public long FileID { get; set; }
+        public long FileIdentifier { get; set; }
 
     }
 }

@@ -9,9 +9,20 @@ namespace ChequeIN.Model
 {
     public class LedgerAccount : AuthorizedAccountSet
     {
+        private String name;
+
         [DisplayName("Account Name")]
         [Required]
-        public String Name { get; set; }
+        public String Name {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value.Trim();
+            }
+        }
 
         [DisplayName("Account Number")]
         [Required]
@@ -19,7 +30,7 @@ namespace ChequeIN.Model
 
         [DisplayName("Associated Cheque Reqs")]
         [Required]
-        public List<ChequeReq> ChequeReqs { get; set; }
+        public ICollection<ChequeReq> ChequeReqs { get; set; }
 
     }
 }
