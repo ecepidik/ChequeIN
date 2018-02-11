@@ -9,6 +9,7 @@ namespace ChequeIN.Model
     {
         private String payeeName;
         private String description;
+        private LedgerAccount account;
 
         public long ChequeReqID { get; set; }
 
@@ -76,7 +77,23 @@ namespace ChequeIN.Model
 
         [DisplayName("Ledger Account")]
         [Required]
-        public LedgerAccount Account { get; set; }
+        public LedgerAccount Account
+        {
+            get
+            {
+                return this.account;
+            }
+
+            set
+            {
+                this.account = value;
+                if(!value.ChequeReqs.Contains(this))
+                {
+                    value.ChequeReqs.Add(this);
+                }
+            }
+
+        }
 
     }
 }
