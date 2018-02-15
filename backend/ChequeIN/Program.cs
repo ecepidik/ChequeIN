@@ -87,7 +87,7 @@ namespace ChequeIN
                 }
 
                 // Save changes to the database
-                context.SaveChanges ();
+                context.SaveChanges();
 
             }
 
