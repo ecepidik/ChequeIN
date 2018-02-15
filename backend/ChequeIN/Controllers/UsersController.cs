@@ -24,7 +24,8 @@ namespace ChequeIN.Controllers
         [HttpGet("{id}")]
         public UserProfile Get(long id)
         {
-            return (UserProfile) Program.getFinancialOfficerFromId(id);
+            var user = Program.tryGetUserById(id);
+            return user;
         }
     }
 }

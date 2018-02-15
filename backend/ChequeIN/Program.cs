@@ -15,8 +15,7 @@ namespace ChequeIN
         public static void Main(string[] args)
         {
 
-            Console.WriteLine("Hello, world!");
-
+            //for testing purposes
             var profile = new Model.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
@@ -34,17 +33,6 @@ namespace ChequeIN
             ledger.Number = 0;
             ledger.ChequeReqs = new List<Model.ChequeReq>();
             addToDatabase(ledger);
-
-            var user = getFinancialOfficerFromId(2001);
-            if (user != null)
-            {
-                Console.WriteLine(user.Email);
-            }
-            else
-            {
-                Console.WriteLine("No user found.");
-            }
-
 
             BuildWebHost(args).Run();
 
@@ -78,21 +66,23 @@ namespace ChequeIN
 
         }
 
-        public static Model.FinancialOfficer getFinancialOfficerFromId(long input_id)
+        public static Model.UserProfile tryGetUserById(long id)
         {
-            using (var context = new DatabaseContext ()) {
+            using (var context = new DatabaseContext()) {
 
-                // Create the database if it does not exist
-                context.Database.EnsureCreated ();
-
-                var user = from v in context.FinancialOfficers where v.UserProfileID == input_id
+                context.Database.EnsureCreated();
+                var officers = from v in context.FinancialOfficers where v.UserProfileID == id
                 select v;
 
-                if (user.Any())
-                {
-                    return user.First();
-                }
-                return null;
+                var admins = from v in context.FinancialAdministrators where v.UserProfileID == id
+                select v;
+
+                if (officers.Any())
+                    return officers.First();
+                else if (admins.Any())
+                    return admins.First();
+                else
+                    return null;
             }
         }
 
