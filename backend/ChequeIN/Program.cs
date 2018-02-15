@@ -16,23 +16,26 @@ namespace ChequeIN
         {
 
             //for testing purposes
+            var ledger = new Model.LedgerAccount();
+            var ledgerAccountID = new Random().Next(1000);
+            ledger.ID = ledgerAccountID;
+            ledger.Name = "Bob";
+            ledger.Number = 0;
+            ledger.ChequeReqs = new List<Model.ChequeReq>();
+            addToDatabase(ledger);
+
             var profile = new Model.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
+            profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
             var profile2 = new Model.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
             profile2.Name = "my name";
             profile2.UserProfileID = new Random().Next(1000);
+            profile2.RootID = ledgerAccountID;
             addToDatabase(profile2);
-
-            var ledger = new Model.LedgerAccount();
-            ledger.ID = new Random().Next(1000);
-            ledger.Name = "Bob";
-            ledger.Number = 0;
-            ledger.ChequeReqs = new List<Model.ChequeReq>();
-            addToDatabase(ledger);
 
             var chequeReq = new Model.ChequeReq();
             var chequeReqID = new Random().Next(1000);
