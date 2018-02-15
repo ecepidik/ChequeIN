@@ -33,7 +33,7 @@ namespace ChequeIN
             {
                 Console.WriteLine("No user found.");
             }
-            
+
 
             BuildWebHost(args).Run();
 
@@ -72,16 +72,16 @@ namespace ChequeIN
                 profile.Email = email;
                 profile.UserProfileID = input_id;
                 context.FinancialOfficers.Add (profile);
-                
+
                 // Save changes to the database
                 context.SaveChanges ();
 
             }
 
         }
+
         public static Model.FinancialOfficer getFinancialOfficerFromId(long input_id)
         {
-
             using (var context = new DatabaseContext ()) {
 
                 // Create the database if it does not exist
@@ -95,11 +95,18 @@ namespace ChequeIN
                     return user.First();
                 }
                 return null;
-
             }
-
         }
 
+        public static List<Model.FinancialOfficer> getAllFinancialOfficers()
+        {
+            using (var context = new DatabaseContext ()) {
+
+                context.Database.EnsureCreated();
+
+                return context.FinancialOfficers.ToList();
+            }
+        }
         // public static void createChequeReq(long id, string payeeName)
         // {
 
@@ -112,7 +119,7 @@ namespace ChequeIN
         //         chequeReq.ChequeReqID = id;
         //         chequeReq.PayeeName = payeeName;
         //         context.ChequeReqs.Add (chequeReq);
-                
+
         //         // Save changes to the database
         //         context.SaveChanges ();
 

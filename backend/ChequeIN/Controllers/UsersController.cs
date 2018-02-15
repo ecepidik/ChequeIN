@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ChequeIN;
 using ChequeIN.Model;
+
 
 namespace ChequeIN.Controllers
 {
@@ -27,12 +30,12 @@ namespace ChequeIN.Controllers
 
         // GET api/users
         [HttpGet]
-        public List<UserProfile> Get()
+        public IEnumerable<UserProfile> Get()
         {
             //TODO: get all users from Entity, add them to users and return it
-            users.Add(mockAdmin);
-            users.Add(mockOfficer);
-            return users;
+            //users.Add(mockAdmin);
+            //users.Add(mockOfficer);
+            return Program.getAllFinancialOfficers().Select(x => (UserProfile)x);
         }
 
         // GET api/users/id
