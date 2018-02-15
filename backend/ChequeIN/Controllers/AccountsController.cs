@@ -11,19 +11,14 @@ namespace ChequeIN.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        LedgerAccount account = new LedgerAccount()
-        {
-            Name = "myAccount",
-            Number = 60
-        };
-
         // GET api/accounts
         [HttpGet]
-        public AuthorizedAccountSet Get()
+        public IActionResult Get()
         {
-
-            var account = Program.getAccountsOfUserId(965);
-            return account;
+            var account = Program.getAccountsOfUserId(301);
+            if (account == null)
+                return StatusCode(500);
+            return Ok(account);
         }
     }
 }

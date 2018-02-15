@@ -88,9 +88,7 @@ namespace ChequeIN
 
                 // Save changes to the database
                 context.SaveChanges();
-
             }
-
         }
 
         public static Model.UserProfile tryGetUserById(long id)
@@ -153,10 +151,7 @@ namespace ChequeIN
                         return account.First();
                     }
                 }
-
                 return null;
-
-                
             }
         }
 
