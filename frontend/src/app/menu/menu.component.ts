@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { ApiService } from '../api.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +9,11 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor(public auth: AuthService) {}
+  values$: Observable<any>;
 
-  ngOnInit() {}
+  constructor(public auth: AuthService, private api: ApiService) {}
+
+  ngOnInit() {
+    this.values$ = this.api.getValues();
+  }
 }
