@@ -17,31 +17,56 @@ namespace ChequeIN
 
             Console.WriteLine("Hello, world!");
 
+            addFinancialOfficer("alex@hotmail.com", new Random().Next(1000));
+
+            var user = getFinancialOfficerFromId(2001);
+            if (user != null)
+            {
+                Console.WriteLine(user.Email);
+            }
+            else
+            {
+                Console.WriteLine("No user found.");
+            }
+            
+
+            BuildWebHost(args).Run();
+
+        }
+
+        public static void addFinancialOfficer(string email, long input_id)
+        {
+
             using (var context = new DatabaseContext ()) {
 
                 // Create the database if it does not exist
                 context.Database.EnsureCreated ();
 
                 var profile = new Model.FinancialOfficer();
-                profile.Email = "a@a.com";
-                profile.UserProfileID = 2001;
+                profile.Email = email;
+                profile.UserProfileID = input_id;
                 context.FinancialOfficers.Add (profile);
                 
                 // Save changes to the database
                 context.SaveChanges ();
 
-                // Fetch all financial officers
-                Console.WriteLine ("Current financial officers");
-                foreach (var user in context.FinancialOfficers.ToList ()) {
-                    Console.WriteLine ($"{user.Email} - {user.UserProfileID}");
-                }
-
             }
 
+        }
+        public static Model.FinancialOfficer getFinancialOfficerFromId(long input_id)
+        {
 
+            using (var context = new DatabaseContext ()) {
 
+                // Create the database if it does not exist
+                context.Database.EnsureCreated ();
 
-            BuildWebHost(args).Run();
+                var user = from v in context.FinancialOfficers where v.UserProfileID == input_id
+                select v;
+
+                return user.First();
+
+            }
 
         }
 
