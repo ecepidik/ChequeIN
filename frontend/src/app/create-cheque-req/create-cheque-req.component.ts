@@ -13,7 +13,19 @@ export class CreateChequeReqComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
   }
+
+  cheque_description = '';
+  description_error = false;
+  
+  updateDescription(value: string) { 
+    this.cheque_description = value; 
+    if(this.cheque_description == '') {
+      this.description_error = true;
+    } else {
+      this.description_error = false;
+    }
+  }
+
 
 }

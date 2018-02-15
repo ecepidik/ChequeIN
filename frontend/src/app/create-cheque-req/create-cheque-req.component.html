@@ -1,3 +1,17 @@
 <p>
   create-cheque-req works!
 </p>
+<div>
+  <label for="Description">Description:</label>
+  <br>
+  <textarea #descriptionBox type="text" class="create_cheque_req" id="Description" placeholder="Enter a description"
+    (keyup.enter)="updateDescription(descriptionBox.value)" (blur)="updateDescription(descriptionBox.value)"
+    rows="5" style="width: 700px;"></textarea>
+  <br>
+  <label for="Error" *ngIf="description_error" style="color:red; font-style:italic;">*You need to enter a description</label>
+</div>
+
+<!-- <mat-form-field>
+  <textarea matInput placeholder="Autosize textarea" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"></textarea>
+</mat-form-field> -->
