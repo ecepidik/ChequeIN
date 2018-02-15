@@ -1,12 +1,29 @@
 <p>
   create-cheque-req works!
 </p>
-<div>
-  <label for="Description">Description:</label>
-  <br>
-  <textarea #descriptionBox type="text" class="create_cheque_req" id="Description" placeholder="Enter a description"
-    (keyup.enter)="updateDescription(descriptionBox.value)" (blur)="updateDescription(descriptionBox.value)"
-    rows="5" style="width: 700px;"></textarea>
-  <br>
-  <label for="Error" *ngIf="description_error" style="color:red; font-style:italic;">*You need to enter a description</label>
+<div layout="column" style="width: 700px; padding-left: 20px;">
+  <div>
+    <label for="Description">Description:</label>
+    <br>
+    <textarea #descriptionBox type="text" class="create_cheque_req" id="Description" placeholder="Enter a description" (keyup.enter)="updateDescription(descriptionBox.value)"
+      (blur)="updateDescription(descriptionBox.value)" rows="5" style="width: 700px"></textarea>
+    <br>
+    <label for="Error" *ngIf="description_error" style="color:red; font-style:italic;">*You need to enter a description</label>
+  </div>
+
+  <div>
+    <label for="OnlinePurchaseQuestion">Is this cheque req for an online purchase?</label>
+    <br>
+    <select (change)="onlinePurchaseUpdate($event.target.value)">
+      <option value="Select">Select an option</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <br>
+    <label for="Error" *ngIf="online_purchase_error" style="color:red; font-style:italic;">*You need to select an option</label>
+    <p style="font-size: small; font-style: italic;" *ngIf="online_purchase">
+      Note! You must upload a proof of payment. For example a Credit Card statement or screenshot that includes the date, merchant,
+      amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
+      </p>
+  </div>
 </div>

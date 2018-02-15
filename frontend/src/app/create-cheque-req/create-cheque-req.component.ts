@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { print } from 'util';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -27,5 +28,21 @@ export class CreateChequeReqComponent implements OnInit {
     }
   }
 
-
+  online_purchase = false;
+  online_purchase_error = false;
+  onlinePurchaseUpdate(value) {
+    console.log(value);
+    if (value == "Yes") {
+      this.online_purchase = true;
+      this.online_purchase_error = false;
+    }
+    else if (value == "No") {
+      this.online_purchase = false;
+      this.online_purchase_error = false;
+    }
+    else {
+      this.online_purchase = false;
+      this.online_purchase_error = true;
+    }
+  }
 }
