@@ -15,9 +15,9 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var account = Program.getAccountsOfUserId(301);
+            var account = Program.getAccountsOfUserId(301); //TODO replace this id
             if (account == null)
-                return StatusCode(500);
+                return StatusCode(404);
             return Ok(account);
         }
     }

@@ -26,7 +26,7 @@ namespace ChequeIN.Controllers
         {
             var user = Program.tryGetUserById(id);
             if (user == null) {
-                return StatusCode(500);
+                return StatusCode(404);
             }
             return Ok(user);
         }
