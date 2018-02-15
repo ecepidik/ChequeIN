@@ -22,7 +22,7 @@ namespace ChequeIN.Tests
                 MailingAddress = new MailingAddress(),
                 SupportingDocuments = new List<SupportingDocument>(),
                 StatusHistory = new List<Status>(),
-                Submitters = new List<UserProfile>(),
+                Submitters = new List<FinancialOfficer>(),
                 Account = new LedgerAccount() { ChequeReqs = new List<ChequeReq>() }
             };
         }
