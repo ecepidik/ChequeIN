@@ -44,13 +44,16 @@ namespace ChequeIN
 
             using (var context = new DatabaseContext ()) {
 
+                // Create the database if it does not exist
+                context.Database.EnsureCreated ();
+
                 if (obj is Model.FinancialOfficer)
                 {
-                    Console.Write("heyyyy!");
+                    context.FinancialOfficers.Add (obj as Model.FinancialOfficer);
                 }
                 else if (obj is Model.FinancialAdministrator)
                 {
-                    Console.Write("Nooooo");
+                    context.FinancialAdministrators.Add (obj as Model.FinancialAdministrator);
                 }
 
                 // Save changes to the database
