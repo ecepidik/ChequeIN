@@ -25,8 +25,15 @@ namespace ChequeIN
             var profile2 = new Model.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
             profile2.Name = "my name";
-            profile2.UserProfileID = 123;
+            profile2.UserProfileID = new Random().Next(1000);
             addToDatabase(profile2);
+
+            var ledger = new Model.LedgerAccount();
+            ledger.ID = new Random().Next(1000);
+            ledger.Name = "Bob";
+            ledger.Number = 0;
+            ledger.ChequeReqs = new List<Model.ChequeReq>();
+            addToDatabase(ledger);
 
             var user = getFinancialOfficerFromId(2001);
             if (user != null)
@@ -58,6 +65,10 @@ namespace ChequeIN
                 else if (obj is Model.FinancialAdministrator)
                 {
                     context.FinancialAdministrators.Add (obj as Model.FinancialAdministrator);
+                }
+                else if (obj is Model.LedgerAccount)
+                {
+                    context.LedgerAccounts.Add (obj as Model.LedgerAccount);
                 }
 
                 // Save changes to the database
