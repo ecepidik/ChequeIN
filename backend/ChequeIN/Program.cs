@@ -24,6 +24,8 @@ namespace ChequeIN
 
             var profile2 = new Model.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
+            profile2.Name = "my name";
+            profile2.UserProfileID = 123;
             addToDatabase(profile2);
 
             var user = getFinancialOfficerFromId(2001);
@@ -83,15 +85,19 @@ namespace ChequeIN
             }
         }
 
-        public static List<Model.FinancialOfficer> getAllFinancialOfficers()
+        public static IEnumerable<Model.UserProfile> getAllUsers()
         {
             using (var context = new DatabaseContext ()) {
 
                 context.Database.EnsureCreated();
 
-                return context.FinancialOfficers.ToList();
+                var officers = (IEnumerable<Model.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Model.UserProfile) x);
+                var admins = (IEnumerable<Model.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Model.UserProfile) x);
+
+                return officers.Concat(admins);
             }
         }
+
         // public static void createChequeReq(long id, string payeeName)
         // {
 

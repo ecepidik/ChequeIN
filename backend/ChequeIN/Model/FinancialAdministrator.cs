@@ -24,8 +24,8 @@ namespace ChequeIN.Model
             }
         }
 
-        [Required]
-        public AuthorizedAccountSet Root { get; set; }
+        // [Required]
+        // public AuthorizedAccountSet Root { get; set; }
 
     }
 }

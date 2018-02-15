@@ -17,7 +17,7 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IEnumerable<UserProfile> Get()
         {
-            return Program.getAllFinancialOfficers().Select(x => (UserProfile)x);
+            return Program.getAllUsers();
         }
 
         // GET api/users/id
