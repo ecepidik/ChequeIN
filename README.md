@@ -14,8 +14,18 @@
 9. Small people are the last ones to know it's raining
 10. Java is to JavaScript as ham is to hamster - Jeremy Keith
 
-## EditorConfig
-To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.
+## Running the project
+### Requirements
+* The .NET Core framework 2.0+
+* Node 8+
+
+### Starting the backend
+* Run `dotnet start` in the `backend/ChequeIN` directory. The following environment environment variable needs to be set for it to work: `ASPNETCORE_ENVIRONMENT=Development`
+
+### Starting the frontend
+* Navigate to the `frontend` directory
+* Make sure the dependencies are installed: `npm install`
+* `npm start`
 
 ## Authentication
 ### How to protect an API call (in the backend)
@@ -30,3 +40,8 @@ public IEnumerable<string> Get()
     return new string[] { "value1", "value2"};
 }
 ```
+### How to make an authenticated API call in the frontend
+Use the ApiService located in frontend/app/api.service.ts. Add your calls to it, just like the example call and then use the service from your component.
+
+## EditorConfig
+To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.
