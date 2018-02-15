@@ -10,6 +10,6 @@ export class ApiService {
   getValues(): Observable<any> {
     return this.authHttp
       .get(`${environment.apiUrl}/values`)
-      .map((res) => res.json()).do(console.log);
+      .map((res) => res.json());
   }
 }
