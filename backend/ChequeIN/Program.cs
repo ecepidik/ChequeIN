@@ -22,6 +22,10 @@ namespace ChequeIN
             profile.UserProfileID = new Random().Next(1000);
             addToDatabase(profile);
 
+            var profile2 = new Model.FinancialAdministrator();
+            profile2.Email = "mathieu@gmail.com";
+            addToDatabase(profile2);
+
             var user = getFinancialOfficerFromId(2001);
             if (user != null)
             {
