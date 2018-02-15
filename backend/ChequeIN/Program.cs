@@ -19,6 +19,11 @@ namespace ChequeIN
 
             addFinancialOfficer("alex@hotmail.com", new Random().Next(1000));
 
+            var profile = new Model.FinancialOfficer();
+            profile.Email = "alex@hotmail.com";
+            profile.UserProfileID = new Random().Next(1000);
+            addToDatabase(profile);
+
             var user = getFinancialOfficerFromId(2001);
             if (user != null)
             {
@@ -31,6 +36,27 @@ namespace ChequeIN
             
 
             BuildWebHost(args).Run();
+
+        }
+
+        public static void addToDatabase<T>(T obj)
+        {
+
+            using (var context = new DatabaseContext ()) {
+
+                if (obj is Model.FinancialOfficer)
+                {
+                    Console.Write("heyyyy!");
+                }
+                else if (obj is Model.FinancialAdministrator)
+                {
+                    Console.Write("Nooooo");
+                }
+
+                // Save changes to the database
+                context.SaveChanges ();
+
+            }
 
         }
 
@@ -64,7 +90,11 @@ namespace ChequeIN
                 var user = from v in context.FinancialOfficers where v.UserProfileID == input_id
                 select v;
 
-                return user.First();
+                if (user.Any())
+                {
+                    return user.First();
+                }
+                return null;
 
             }
 
