@@ -19,6 +19,7 @@ namespace ChequeIN
             var profile = new Model.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
+            addToDatabase(profile);
 
             var profile2 = new Model.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
@@ -31,6 +32,7 @@ namespace ChequeIN
             ledger.Name = "Bob";
             ledger.Number = 0;
             ledger.ChequeReqs = new List<Model.ChequeReq>();
+            addToDatabase(ledger);
 
             var chequeReq = new Model.ChequeReq();
             var chequeReqID = new Random().Next(1000);
@@ -48,7 +50,7 @@ namespace ChequeIN
             chequeReq.StatusHistory = new List<Model.Status>();
             chequeReq.Submitters = new List<Model.FinancialOfficer>();
             chequeReq.SupportingDocuments = new List<Model.SupportingDocument>();
-            addToDatabase(chequeReq);
+            // TO DO Add chequeReq in database without duplicating the Account and ApprovedBy (LedgerAccount)
 
             BuildWebHost(args).Run();
 
