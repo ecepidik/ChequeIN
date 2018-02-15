@@ -15,6 +15,8 @@ namespace ChequeIN
         public DbSet<Model.ChequeReq> ChequeReqs {get; set;}
         public DbSet<Model.LedgerAccount> LedgerAccounts {get; set;}
 
+        public DbSet<Model.AuthorizedAccountSet> AuthorizedAccountSet {get; set;}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             // Specify the path of the database here
             optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite");

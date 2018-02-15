@@ -21,6 +21,8 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public AuthorizedAccountSet Get()
         {
+
+            var account = Program.getAccountsOfUserId(965);
             return account;
         }
     }

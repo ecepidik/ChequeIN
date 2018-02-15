@@ -55,6 +55,8 @@ namespace ChequeIN
             chequeReq.SupportingDocuments = new List<Model.SupportingDocument>();
             // TO DO Add chequeReq in database without duplicating the Account and ApprovedBy (LedgerAccount)
 
+            Console.Write(getAccountsOfUserId(965));
+
             BuildWebHost(args).Run();
 
         }
@@ -124,25 +126,40 @@ namespace ChequeIN
             }
         }
 
-        // public static void createChequeReq(long id, string payeeName)
-        // {
+        public static Model.AuthorizedAccountSet getAccountsOfUserId(long id)
+        {
+            using (var context = new DatabaseContext ()) {
 
-        //     using (var context = new DatabaseContext ()) {
+                context.Database.EnsureCreated();
 
-        //         // Create the database if it does not exist
-        //         context.Database.EnsureCreated ();
+                var user = tryGetUserById(id);
+                long accountID = -1;
+                if (user is Model.FinancialOfficer)
+                {
+                    accountID = (user as Model.FinancialOfficer).AuthorizedAccountsID;
+                }
+                else if (user is Model.FinancialAdministrator)
+                {
+                    accountID = (user as Model.FinancialAdministrator).RootID;
+                }
 
-        //         var chequeReq = new Model.ChequeReq();
-        //         chequeReq.ChequeReqID = id;
-        //         chequeReq.PayeeName = payeeName;
-        //         context.ChequeReqs.Add (chequeReq);
+                if (accountID != -1)
+                {
+                    var account = from v in context.AuthorizedAccountSet where v.ID == accountID
+                    select v;
 
-        //         // Save changes to the database
-        //         context.SaveChanges ();
+                    if (account.Any())
+                    {
+                        return account.First();
+                    }
+                }
 
-        //     }
+                return null;
 
-        // }
+                
+            }
+        }
+
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
