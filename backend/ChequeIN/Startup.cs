@@ -26,6 +26,15 @@ namespace ChequeIN
         {
             services.AddMvc();
 
+            // For development purposes only. Allows the frontend to be served
+            // from a different domain.
+            services.AddCors(o => o.AddPolicy("AllowAllOrigins", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             // Setting up Auth0 authentication
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
@@ -46,6 +55,7 @@ namespace ChequeIN
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("AllowAllOrigins");
             }
 
             app.UseAuthentication();
