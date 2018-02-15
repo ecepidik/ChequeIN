@@ -17,8 +17,6 @@ namespace ChequeIN
 
             Console.WriteLine("Hello, world!");
 
-            addFinancialOfficer("alex@hotmail.com", new Random().Next(1000));
-
             var profile = new Model.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
@@ -55,26 +53,6 @@ namespace ChequeIN
                 {
                     context.FinancialAdministrators.Add (obj as Model.FinancialAdministrator);
                 }
-
-                // Save changes to the database
-                context.SaveChanges ();
-
-            }
-
-        }
-
-        public static void addFinancialOfficer(string email, long input_id)
-        {
-
-            using (var context = new DatabaseContext ()) {
-
-                // Create the database if it does not exist
-                context.Database.EnsureCreated ();
-
-                var profile = new Model.FinancialOfficer();
-                profile.Email = email;
-                profile.UserProfileID = input_id;
-                context.FinancialOfficers.Add (profile);
 
                 // Save changes to the database
                 context.SaveChanges ();

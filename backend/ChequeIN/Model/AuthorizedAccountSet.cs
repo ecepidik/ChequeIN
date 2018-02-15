@@ -11,6 +11,7 @@ namespace ChequeIN.Model
     {
         // May need to add associations with the FinancialAdministrator and the FinancialOfficer classes. Need clarification from Kareem.
 
+        [Key]
         public long ID { get; set; }
         
         [DisplayName("Parent Group")]

@@ -11,6 +11,9 @@ namespace ChequeIN.Model
     {
         private String question;
 
+        [Key]
+        public long QuestionID { get; set; }
+
         [Required]
         public String Question {
             get

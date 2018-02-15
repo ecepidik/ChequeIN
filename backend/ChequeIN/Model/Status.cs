@@ -12,6 +12,9 @@ namespace ChequeIN.Model
 
         private String feedback;
 
+        [Key]
+        public long ChequeReqID { get; set; }
+
         [DisplayName("Date of Status")]
         [Required]
         public DateTime StatusDate { get; set; }

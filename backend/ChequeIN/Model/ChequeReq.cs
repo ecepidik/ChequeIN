@@ -11,6 +11,7 @@ namespace ChequeIN.Model
         private String description;
         private LedgerAccount account;
 
+        [Key]
         public long ChequeReqID { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
@@ -77,7 +78,7 @@ namespace ChequeIN.Model
         // Could instead switch this to 2 separate associations.
         [DisplayName("Submitters")]
         [Required]
-        public ICollection<UserProfile> Submitters { get; set; }
+        public ICollection<FinancialOfficer> Submitters { get; set; }
 
         [DisplayName("Ledger Account")]
         [Required]

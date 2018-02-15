@@ -14,6 +14,9 @@ namespace ChequeIN.Model
         private String city;
         private String postalCode;
 
+        [Key]
+        public long ChequeReqID { get; set; }
+
         //Line 1 must begin with a number, followed by a space, and then a collection of letters
         //(including accented letters) or numbers.
         [DisplayName("Address Line 1")]

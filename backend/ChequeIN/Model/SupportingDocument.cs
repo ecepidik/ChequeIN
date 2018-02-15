@@ -25,6 +25,7 @@ namespace ChequeIN.Model
         }
 
         [DisplayName("Document ID")]
+        [Key]
         [Required]
         public long FileIdentifier { get; set; }
 

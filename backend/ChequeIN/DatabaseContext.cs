@@ -12,9 +12,8 @@ namespace ChequeIN
         /// </summary>
         public DbSet<Model.FinancialOfficer> FinancialOfficers {get; set;}
         public DbSet<Model.FinancialAdministrator> FinancialAdministrators {get; set;}
-        // public DbSet<Model.ChequeReq> ChequeReqs {get; set;}
+        public DbSet<Model.ChequeReq> ChequeReqs {get; set;}
         // public DbSet<Model.LedgerAccount> LedgerAccounts {get; set;}
-        public DbSet<Model.UserProfile> Users {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             // Specify the path of the database here
