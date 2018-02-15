@@ -32,20 +32,14 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IEnumerable<UserProfile> Get()
         {
-            //TODO: get all users from Entity, add them to users and return it
-            //users.Add(mockAdmin);
-            //users.Add(mockOfficer);
             return Program.getAllFinancialOfficers().Select(x => (UserProfile)x);
         }
 
         // GET api/users/id
         [HttpGet("{id}")]
-        public Tuple<Utils.UserType, long> Get(int id)
+        public UserProfile Get(long id)
         {
-            //TODO: query Entity with specific id
-            var tuple = new Tuple<Utils.UserType, long>(Utils.UserType.Admin, mockAdmin.UserProfileID);
-
-            return tuple;
+            return (UserProfile) Program.getFinancialOfficerFromId(id);
         }
     }
 }
