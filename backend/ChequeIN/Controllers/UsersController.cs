@@ -22,9 +22,14 @@ namespace ChequeIN.Controllers
 
         // GET api/users/id
         [HttpGet("{id}")]
-        public UserProfile Get(long id)
+        public IActionResult Get(long id)
         {
             var user = Program.tryGetUserById(id);
+            if (user == null) {
+                //return new HttpStatusCodeResult(500);
+                // StatusCode = 500;
+                //return StatusCode(500);;
+            }
             return user;
         }
     }
