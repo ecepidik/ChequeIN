@@ -15,14 +15,18 @@ namespace ChequeIN.Model
 
         [DisplayName("Pre-Tax Cost")]
         [Required]
+        [StrictlyPositive(ErrorMessage = "Must be greater than 0")]
         public float PreTax { get; set; }
 
         [Required]
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float GST { get; set; }
 
         [Required]
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float PST { get; set; }
 
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float HST { get; set; }
 
         [DisplayName("Payee Name")]
