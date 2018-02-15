@@ -11,6 +11,7 @@ namespace ChequeIN
         /// This property allows to manipoulate the video games table
         /// </summary>
         public DbSet<Model.FinancialOfficer> FinancialOfficers {get; set;}
+        public DbSet<Model.ChequeReq> ChequeReqs {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             // Specify the path of the database here
