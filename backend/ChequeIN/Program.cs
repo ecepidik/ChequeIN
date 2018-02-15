@@ -14,7 +14,35 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
+
+            Console.WriteLine("Hello, world!");
+
+            using (var context = new DatabaseContext ()) {
+
+                // Create the database if it does not exist
+                context.Database.EnsureCreated ();
+
+                var profile = new Model.FinancialOfficer();
+                profile.Email = "a@a.com";
+                profile.UserProfileID = 2001;
+                context.FinancialOfficers.Add (profile);
+                
+                // Save changes to the database
+                context.SaveChanges ();
+
+                // Fetch all financial officers
+                Console.WriteLine ("Current financial officers");
+                foreach (var user in context.FinancialOfficers.ToList ()) {
+                    Console.WriteLine ($"{user.Email} - {user.UserProfileID}");
+                }
+
+            }
+
+
+
+
             BuildWebHost(args).Run();
+
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

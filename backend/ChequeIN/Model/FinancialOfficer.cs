@@ -10,9 +10,11 @@ namespace ChequeIN.Model
     public class FinancialOfficer : UserProfile
     {
 
-        [DisplayName("Authorized Accounts")]
-        [Required]
-        public AuthorizedAccountSet AuthorizedAccounts { get; set; }
+        // *********** TEMPORARILY COMMENTED. NEEDS TO BE FIXED (MODEL)
+
+        // [DisplayName("Authorized Accounts")]
+        // [Required]
+        // public AuthorizedAccountSet AuthorizedAccounts { get; set; }
 
     }
 }

@@ -10,7 +10,8 @@ namespace ChequeIN.Model
     public abstract class UserProfile
     {
         private String email;
-
+        
+        [Key]
         public long UserProfileID { get; set; }
 
         [Required]
