@@ -1,6 +1,6 @@
 # ChequeIN
 
-![alt text](chicken.png)
+![ChequeIN logo](chicken.png)
 
 ## The 10 golden rules of the Chicken
 1. Do not talk about fight club
@@ -16,3 +16,17 @@
 
 ## EditorConfig
 To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.
+
+## Authentication
+### How to protect an API call (in the backend)
+Add the `[Authorize]` decorator on the method of a call.
+
+```
+// Example
+[HttpGet]
+[Authorize]
+public IEnumerable<string> Get()
+{
+    return new string[] { "value1", "value2"};
+}
+```
