@@ -19,7 +19,6 @@ namespace ChequeIN
             var profile = new Model.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
-            addToDatabase(profile);
 
             var profile2 = new Model.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
@@ -32,7 +31,24 @@ namespace ChequeIN
             ledger.Name = "Bob";
             ledger.Number = 0;
             ledger.ChequeReqs = new List<Model.ChequeReq>();
-            addToDatabase(ledger);
+
+            var chequeReq = new Model.ChequeReq();
+            var chequeReqID = new Random().Next(1000);
+            chequeReq.ChequeReqID = chequeReqID;
+            chequeReq.Account = ledger;
+            chequeReq.ApprovedBy = profile;
+            chequeReq.Description = "This is the first chequre req ever !";
+            chequeReq.GST = 5.1f;
+            chequeReq.HST = 4.9f;
+            chequeReq.MailingAddress = new Model.MailingAddress{ChequeReqID = chequeReqID, Line1 = "244", City = "Montreal", Province = Model.Enums.Province.QC, PostalCode = "J4P3A5"};
+            chequeReq.PayeeName = "Mathieu";
+            chequeReq.PreTax = 2.0f;
+            chequeReq.PST = 6.7f;
+            chequeReq.Questions = new List<Model.ClarifyingQuestion>();
+            chequeReq.StatusHistory = new List<Model.Status>();
+            chequeReq.Submitters = new List<Model.FinancialOfficer>();
+            chequeReq.SupportingDocuments = new List<Model.SupportingDocument>();
+            addToDatabase(chequeReq);
 
             BuildWebHost(args).Run();
 
@@ -57,6 +73,10 @@ namespace ChequeIN
                 else if (obj is Model.LedgerAccount)
                 {
                     context.LedgerAccounts.Add (obj as Model.LedgerAccount);
+                }
+                else if (obj is Model.ChequeReq)
+                {
+                    context.ChequeReqs.Add (obj as Model.ChequeReq);
                 }
 
                 // Save changes to the database

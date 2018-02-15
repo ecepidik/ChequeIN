@@ -12,7 +12,7 @@ namespace ChequeIN.Model
         private String question;
 
         [Key]
-        public long QuestionID { get; set; }
+        public long ChequeReqID { get; set; }
 
         [Required]
         public String Question {
