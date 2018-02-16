@@ -26,7 +26,7 @@ namespace ChequeIN
 
             var profile = new Models.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
-            profile.UserProfileID = new Random().Next(1000).ToString();
+            profile.UserProfileID = "auth0|5a84eafef5c8213cb27c27e2";
             profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
