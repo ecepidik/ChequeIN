@@ -12,7 +12,7 @@ namespace ChequeIN.Models
         private String email;
         
         [Key]
-        public long UserProfileID { get; set; }
+        public string UserProfileID { get; set; }
 
         [Required]
         [EmailAddress]

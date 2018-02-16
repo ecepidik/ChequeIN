@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ChequeIN.Models;
 
@@ -20,7 +21,7 @@ namespace ChequeIN.Database
             }
         }
 
-        public static bool TryGetUserById(long id, out UserProfile user)
+        public static bool TryGetUserById(string id, out UserProfile user)
         {
             using (var context = new DatabaseContext())
             {

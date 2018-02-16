@@ -22,7 +22,7 @@ namespace ChequeIN.Controllers
 
         // GET api/users/id
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public IActionResult Get(string id)
         {
             var exists = Database.Users.TryGetUserById(id, out UserProfile user);
 

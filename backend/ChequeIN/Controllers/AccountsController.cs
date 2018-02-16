@@ -15,7 +15,7 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            bool exists = Database.Accounts.TryGetAccountsOfUserId(301, out AuthorizedAccountSet account); //TODO replace this id
+            bool exists = Database.Accounts.TryGetAccountsOfUserId("301", out AuthorizedAccountSet account); //TODO replace this id
             if (!exists)
                 return StatusCode(404);
             return Ok(account);

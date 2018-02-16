@@ -26,14 +26,14 @@ namespace ChequeIN
 
             var profile = new Models.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
-            profile.UserProfileID = new Random().Next(1000);
+            profile.UserProfileID = new Random().Next(1000).ToString();
             profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
             var profile2 = new Models.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
             profile2.Name = "my name";
-            profile2.UserProfileID = new Random().Next(1000);
+            profile2.UserProfileID = new Random().Next(1000).ToString();
             profile2.RootID = ledgerAccountID;
             addToDatabase(profile2);
 

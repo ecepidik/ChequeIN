@@ -5,7 +5,7 @@ namespace ChequeIN.Database
 {
     public static class Accounts
     {
-        public static bool TryGetAccountsOfUserId(long id, out AuthorizedAccountSet account)
+        public static bool TryGetAccountsOfUserId(string id, out AuthorizedAccountSet account)
         {
             using (var context = new DatabaseContext())
             {
