@@ -3,4 +3,5 @@ export class ChequeReq {
   public onlinePurchase: boolean = false;
   public payableAddressee: string = '';
   public approver: string = '';
+  public account: Account | undefined;
 }
