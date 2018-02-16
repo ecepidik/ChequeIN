@@ -13,6 +13,13 @@ import { MenuComponent } from './menu/menu.component';
 import { Http, RequestOptions, HttpModule } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { ApiService } from './api/api.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatInputModule,
+  MatButton
+} from '@angular/material';
 import 'rxjs/Rx';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -34,8 +41,17 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MenuComponent
   ],
-
-  imports: [AppRoutingModule, BrowserModule, HttpModule, NgbModule, FormsModule],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpModule,
+    FormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    NgbModule
+  ],
   providers: [
     AuthService,
     ApiService,

@@ -1,25 +1,25 @@
-<div layout="column" style="width: 700px; padding-left: 20px;">
+<div style="width: 700px; padding-left: 20px;">
   <div>
-    <label for="Description">Description:</label>
     <br>
-    <textarea #descriptionBox type="text" [(ngModel)]="chequeReq.description" class="create_cheque_req" id="Description" placeholder="Enter a description"
-      rows="5" style="width: 700px" required></textarea>
-    <br>
-    <label for="Error" *ngIf="description_error" style="color:red; font-style:italic;">*You need to enter a description</label>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="chequeReq.description" #description="ngModel" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
+        required></textarea>
+      <mat-error *ngIf="description.errors.required">
+        You need to enter a description
+      </mat-error>
+    </mat-form-field>
   </div>
-  <br>
   <div>
-    <input type="checkbox"[(ngModel)]="chequeReq.onlinePurchase">
-    <label for="OnlinePurchaseQuestion">This cheque req is for an online purchase</label>
-    <br>
+    <mat-checkbox [(ngModel)]="chequeReq.onlinePurchase">This cheque req is for an online purchase</mat-checkbox>
     <p style="font-size: small; font-style: italic;" *ngIf="chequeReq.onlinePurchase">
       Note! You must upload a proof of payment. For example a Credit Card statement or screenshot that includes the date, merchant,
       amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
     </p>
   </div>
-</div>
-<div>
-  <label>Payable Addressee:
-    <input [(ngModel)]="chequeReq.payableAddressee" placeholder="Payable Addressee">
-  </label>
+  <mat-form-field>
+    <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" #payableAddressee="ngModel" required>
+    <mat-error *ngIf="description.errors.required">
+        You need to enter a payable addressee
+      </mat-error>
+  </mat-form-field>
 </div>
