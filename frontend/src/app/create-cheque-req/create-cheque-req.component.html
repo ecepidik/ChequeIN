@@ -21,6 +21,8 @@
       amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
     </p>
   </div>
+  <mat-checkbox [(ngModel)]="chequeReq.freeFood">This cheque req includes food items that were distributed for free and not part of any paid event. (Ex: public forums,
+    food for meetings)</mat-checkbox>
   <mat-form-field>
     <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" #payableAddressee="ngModel" required>
     <mat-error *ngIf="description.errors?.required">
