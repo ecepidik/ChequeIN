@@ -5,4 +5,6 @@ export class ChequeReq {
   public approver: string = '';
   public account: Account | undefined;
   public freeFood: boolean = false;
+  public mailCheque: boolean = false;
+  public mailingAddress: string = '';
 }
