@@ -26,7 +26,7 @@ namespace ChequeIN
 
             var profile = new Models.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
-            profile.UserProfileID = "301";
+            profile.UserProfileID = "301"; // TODO: use the real test user ID
             profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
