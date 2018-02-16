@@ -23,8 +23,16 @@
   </div>
   <mat-form-field>
     <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" #payableAddressee="ngModel" required>
-    <mat-error *ngIf="description.errors?.required">
-      You need to enter a payable addressee
-    </mat-error>
+    <mat-error *ngIf="payableAddressee.errors.required">
+        You need to enter a payable addressee
+      </mat-error>
   </mat-form-field>
+  <mat-divider></mat-divider>
+  <mat-checkbox [(ngModel)]="chequeReq.mailCheque">I would like this cheque to be mailed</mat-checkbox>
+  <mat-form-field *ngIf="chequeReq.mailCheque">
+      <input matInput placeholder="Mailing Address" [(ngModel)]="chequeReq.mailingAddress" #mailingAddress="ngModel" required>
+      <mat-error *ngIf="mailingAddress.errors.required">
+          You need to enter a mailing address
+        </mat-error>
+    </mat-form-field>
 </div>

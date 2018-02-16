@@ -19,6 +19,7 @@ import {
   MatCheckboxModule,
   MatInputModule,
   MatButton,
+  MatDividerModule,
   MatSelectModule
 } from '@angular/material';
 import 'rxjs/Rx';
@@ -49,6 +50,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     FormsModule,
     MatButtonModule,
+    MatDividerModule,
     MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
