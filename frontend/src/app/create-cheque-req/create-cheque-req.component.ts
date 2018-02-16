@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Approver, PayableAddressee} from '../cheque-req';
 import { print } from 'util';
 
 /**
@@ -11,6 +12,14 @@ import { print } from 'util';
 })
 export class CreateChequeReqComponent implements OnInit {
 
+  approver: Approver = {
+    name: ''
+  };
+
+  payableAddressee: PayableAddressee = {
+    name: ''
+  };
+
   constructor() { }
 
   ngOnInit() {
@@ -18,9 +27,9 @@ export class CreateChequeReqComponent implements OnInit {
 
   cheque_description = '';
   description_error = false;
-  
-  updateDescription(value: string) { 
-    this.cheque_description = value; 
+
+  updateDescription(value: string) {
+    this.cheque_description = value;
     if(this.cheque_description == '') {
       this.description_error = true;
     } else {
