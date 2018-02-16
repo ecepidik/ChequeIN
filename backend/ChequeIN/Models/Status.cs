@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
     public class Status
     {
 
         private String feedback;
+
+        [Key]
+        public long ChequeReqID { get; set; }
 
         [DisplayName("Date of Status")]
         [Required]

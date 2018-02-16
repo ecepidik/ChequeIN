@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
     public class MailingAddress
     {
@@ -13,6 +13,9 @@ namespace ChequeIN.Model
         private String line2;
         private String city;
         private String postalCode;
+
+        [Key]
+        public long ChequeReqID { get; set; }
 
         //Line 1 must begin with a number, followed by a space, and then a collection of letters
         //(including accented letters) or numbers.

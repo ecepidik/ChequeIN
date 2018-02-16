@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
     public class FinancialOfficer : UserProfile
     {
 
         [DisplayName("Authorized Accounts")]
         [Required]
-        public AuthorizedAccountSet AuthorizedAccounts { get; set; }
+        public long AuthorizedAccountsID { get; set; }
 
     }
 }
