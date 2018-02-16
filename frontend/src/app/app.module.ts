@@ -12,7 +12,7 @@ import { CallbackComponent } from './auth/callback/callback.component';
 import { MenuComponent } from './menu/menu.component';
 import { Http, RequestOptions, HttpModule } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { ApiService } from './api.service';
+import { ApiService } from './api/api.service';
 import 'rxjs/Rx';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
