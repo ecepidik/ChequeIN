@@ -1,3 +1,30 @@
-<p>
-  create-cheque-req works!
-</p>
+<div style="width: 700px; padding-left: 20px;">
+  <mat-form-field>
+    <mat-select matInput [(value)]="chequeReq.account" required>
+      <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{ account.number }} - {{ account.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <br>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="chequeReq.description" #description="ngModel" matTextareaAutosize
+        matAutosizeMinRows="2" matAutosizeMaxRows="5" required></textarea>
+      <mat-error *ngIf="description.errors?.required">
+        You need to enter a description
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="chequeReq.onlinePurchase">This cheque req is for an online purchase</mat-checkbox>
+    <p style="font-size: small; font-style: italic;" *ngIf="chequeReq.onlinePurchase">
+      Note! You must upload a proof of payment. For example a Credit Card statement or screenshot that includes the date, merchant,
+      amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
+    </p>
+  </div>
+  <mat-form-field>
+    <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" #payableAddressee="ngModel" required>
+    <mat-error *ngIf="description.errors?.required">
+      You need to enter a payable addressee
+    </mat-error>
+  </mat-form-field>
+</div>

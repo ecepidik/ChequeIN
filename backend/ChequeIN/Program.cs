@@ -14,19 +14,19 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
-
+            // TODO: Clear the old database before each test run
             //for testing purposes
             var ledger = new Models.LedgerAccount();
             var ledgerAccountID = new Random().Next(1000);
             ledger.ID = ledgerAccountID;
-            ledger.Name = "Bob";
-            ledger.Number = 0;
+            ledger.Name = "General Expenses";
+            ledger.Number = 6530;
             ledger.ChequeReqs = new List<Models.ChequeReq>();
             addToDatabase(ledger);
 
             var profile = new Models.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
-            profile.UserProfileID = "auth0|5a84eafef5c8213cb27c27e2";
+            profile.UserProfileID = "301"; // TODO: use the real test user ID
             profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
