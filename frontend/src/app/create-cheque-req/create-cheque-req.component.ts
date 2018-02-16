@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChequeReq } from '../../app/api/cheque-req';
 import { print } from 'util';
+import { ApiService } from '../api/api.service';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -12,10 +14,11 @@ import { print } from 'util';
 })
 export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReq = new ChequeReq();
+  accounts$: Observable<Account[]>;
 
-  constructor() {
-    (window as any).t = this.chequeReq;
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.accounts$ = this.api.getAccounts();
   }
-
-  ngOnInit() {}
 }
