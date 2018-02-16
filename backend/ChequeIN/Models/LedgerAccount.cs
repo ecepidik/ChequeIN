@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
-    public class FinancialAdministrator : UserProfile
+    public class LedgerAccount : AuthorizedAccountSet
     {
         private String name;
 
+        [DisplayName("Account Name")]
         [Required]
         public String Name {
             get
@@ -24,8 +24,13 @@ namespace ChequeIN.Model
             }
         }
 
+        [DisplayName("Account Number")]
         [Required]
-        public AuthorizedAccountSet Root { get; set; }
+        public int Number { get; set; }
+
+        [DisplayName("Associated Cheque Reqs")]
+        [Required]
+        public ICollection<ChequeReq> ChequeReqs { get; set; }
 
     }
 }
