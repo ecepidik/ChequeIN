@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChequeIN.Controllers
 {
@@ -13,9 +13,13 @@ namespace ChequeIN.Controllers
     {
         // GET api/accounts
         [HttpGet]
+        [Authorize]
         public IActionResult Get()
         {
-            bool exists = Database.Accounts.TryGetAccountsOfUserId("301", out AuthorizedAccountSet account); //TODO replace this id
+            var user = Database.Users.GetCurrentUser(User);
+            if (user == null) // TODO: This shouldn't have to be handled by individual api calls
+                return StatusCode(404);
+            bool exists = Database.Accounts.TryGetAccountsOfUserId(user.UserProfileID, out AuthorizedAccountSet account); //TODO replace this id
             if (!exists)
                 return StatusCode(404);
             return Ok(account);

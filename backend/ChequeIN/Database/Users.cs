@@ -49,5 +49,17 @@ namespace ChequeIN.Database
                 return true;
             }
         }
+
+        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity)
+        {
+            var id = identity.Identities.First().Claims.ElementAt(1).Value;
+            var exists = TryGetUserById(id, out UserProfile user);
+            if (!exists)
+            {
+                // TODO: Handle when a user is authenticated, but not in the DB
+                return null;
+            }
+            return user;
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN;
 using ChequeIN.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChequeIN.Controllers
 {
@@ -15,6 +15,7 @@ namespace ChequeIN.Controllers
     {
         // GET api/users
         [HttpGet]
+        [Authorize]
         public IEnumerable<UserProfile> Get()
         {
             return Database.Users.GetAllUsers();
@@ -22,6 +23,7 @@ namespace ChequeIN.Controllers
 
         // GET api/users/id
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(string id)
         {
             var exists = Database.Users.TryGetUserById(id, out UserProfile user);
