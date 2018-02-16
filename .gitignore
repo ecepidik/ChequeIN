@@ -477,4 +477,4 @@ typings/
 
 
 # End of https://www.gitignore.io/api/macos,windows,aspnetcore,visualstudio,visualstudiocode
-*.sqlite
+**.sqlite
