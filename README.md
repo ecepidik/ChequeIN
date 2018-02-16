@@ -22,10 +22,19 @@
 ### Starting the backend
 * Run `dotnet start` in the `backend/ChequeIN` directory. The following environment environment variable needs to be set for it to work: `ASPNETCORE_ENVIRONMENT=Development`
 
+*Note:* if you get an unhandled exception, delete `backend/ChequeIN/chequein_db.sqlite` and run the project again.
+
 ### Starting the frontend
 * Navigate to the `frontend` directory
 * Make sure the dependencies are installed: `npm install`
 * `npm start`
+
+### Login with a test user
+To test the app, use the following account:
+```
+email: user@test.com
+password: ChequeIn1234
+```
 
 ## Authentication
 ### How to protect an API call (in the backend)
