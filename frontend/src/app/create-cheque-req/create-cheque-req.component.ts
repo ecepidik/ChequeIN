@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Approver, PayableAddressee} from '../cheque-req';
+import { ChequeReq } from '../../app/api/cheque-req';
 import { print } from 'util';
 
 /**
@@ -11,47 +11,11 @@ import { print } from 'util';
   styleUrls: ['./create-cheque-req.component.scss']
 })
 export class CreateChequeReqComponent implements OnInit {
+  chequeReq: ChequeReq = new ChequeReq();
 
-  approver: Approver = {
-    name: ''
-  };
-
-  payableAddressee: PayableAddressee = {
-    name: ''
-  };
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    (window as any).t = this.chequeReq;
   }
 
-  cheque_description = '';
-  description_error = false;
-
-  updateDescription(value: string) {
-    this.cheque_description = value;
-    if(this.cheque_description == '') {
-      this.description_error = true;
-    } else {
-      this.description_error = false;
-    }
-  }
-
-  online_purchase = false;
-  online_purchase_error = false;
-  onlinePurchaseUpdate(value) {
-    console.log(value);
-    if (value == "Yes") {
-      this.online_purchase = true;
-      this.online_purchase_error = false;
-    }
-    else if (value == "No") {
-      this.online_purchase = false;
-      this.online_purchase_error = false;
-    }
-    else {
-      this.online_purchase = false;
-      this.online_purchase_error = true;
-    }
-  }
+  ngOnInit() {}
 }
