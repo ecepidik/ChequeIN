@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
 import { CallbackComponent } from './auth/callback/callback.component';
@@ -33,7 +34,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MenuComponent
   ],
-  imports: [AppRoutingModule, BrowserModule, HttpModule, NgbModule],
+
+  imports: [AppRoutingModule, BrowserModule, HttpModule, NgbModule, FormsModule],
   providers: [
     AuthService,
     ApiService,
