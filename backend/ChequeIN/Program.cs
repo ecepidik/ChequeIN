@@ -16,28 +16,28 @@ namespace ChequeIN
         {
 
             //for testing purposes
-            var ledger = new Model.LedgerAccount();
+            var ledger = new Models.LedgerAccount();
             var ledgerAccountID = new Random().Next(1000);
             ledger.ID = ledgerAccountID;
             ledger.Name = "Bob";
             ledger.Number = 0;
-            ledger.ChequeReqs = new List<Model.ChequeReq>();
+            ledger.ChequeReqs = new List<Models.ChequeReq>();
             addToDatabase(ledger);
 
-            var profile = new Model.FinancialOfficer();
+            var profile = new Models.FinancialOfficer();
             profile.Email = "alex@hotmail.com";
             profile.UserProfileID = new Random().Next(1000);
             profile.AuthorizedAccountsID = ledgerAccountID;
             addToDatabase(profile);
 
-            var profile2 = new Model.FinancialAdministrator();
+            var profile2 = new Models.FinancialAdministrator();
             profile2.Email = "mathieu@gmail.com";
             profile2.Name = "my name";
             profile2.UserProfileID = new Random().Next(1000);
             profile2.RootID = ledgerAccountID;
             addToDatabase(profile2);
 
-            var chequeReq = new Model.ChequeReq();
+            var chequeReq = new Models.ChequeReq();
             var chequeReqID = new Random().Next(1000);
             chequeReq.ChequeReqID = chequeReqID;
             chequeReq.Account = ledger;
@@ -45,17 +45,15 @@ namespace ChequeIN
             chequeReq.Description = "This is the first chequre req ever !";
             chequeReq.GST = 5.1f;
             chequeReq.HST = 4.9f;
-            chequeReq.MailingAddress = new Model.MailingAddress{ChequeReqID = chequeReqID, Line1 = "244", City = "Montreal", Province = Model.Enums.Province.QC, PostalCode = "J4P3A5"};
+            chequeReq.MailingAddress = new Models.MailingAddress{ChequeReqID = chequeReqID, Line1 = "244", City = "Montreal", Province = Models.Enums.Province.QC, PostalCode = "J4P3A5"};
             chequeReq.PayeeName = "Mathieu";
             chequeReq.PreTax = 2.0f;
             chequeReq.PST = 6.7f;
-            chequeReq.Questions = new List<Model.ClarifyingQuestion>();
-            chequeReq.StatusHistory = new List<Model.Status>();
-            chequeReq.Submitters = new List<Model.FinancialOfficer>();
-            chequeReq.SupportingDocuments = new List<Model.SupportingDocument>();
+            chequeReq.Questions = new List<Models.ClarifyingQuestion>();
+            chequeReq.StatusHistory = new List<Models.Status>();
+            chequeReq.Submitters = new List<Models.FinancialOfficer>();
+            chequeReq.SupportingDocuments = new List<Models.SupportingDocument>();
             // TO DO Add chequeReq in database without duplicating the Account and ApprovedBy (LedgerAccount)
-
-            Console.Write(getAccountsOfUserId(965));
 
             BuildWebHost(args).Run();
 
@@ -69,92 +67,27 @@ namespace ChequeIN
                 // Create the database if it does not exist
                 context.Database.EnsureCreated ();
 
-                if (obj is Model.FinancialOfficer)
+                if (obj is Models.FinancialOfficer)
                 {
-                    context.FinancialOfficers.Add (obj as Model.FinancialOfficer);
+                    context.FinancialOfficers.Add (obj as Models.FinancialOfficer);
                 }
-                else if (obj is Model.FinancialAdministrator)
+                else if (obj is Models.FinancialAdministrator)
                 {
-                    context.FinancialAdministrators.Add (obj as Model.FinancialAdministrator);
+                    context.FinancialAdministrators.Add (obj as Models.FinancialAdministrator);
                 }
-                else if (obj is Model.LedgerAccount)
+                else if (obj is Models.LedgerAccount)
                 {
-                    context.LedgerAccounts.Add (obj as Model.LedgerAccount);
+                    context.LedgerAccounts.Add (obj as Models.LedgerAccount);
                 }
-                else if (obj is Model.ChequeReq)
+                else if (obj is Models.ChequeReq)
                 {
-                    context.ChequeReqs.Add (obj as Model.ChequeReq);
+                    context.ChequeReqs.Add (obj as Models.ChequeReq);
                 }
 
                 // Save changes to the database
                 context.SaveChanges();
             }
         }
-
-        public static Model.UserProfile tryGetUserById(long id)
-        {
-            using (var context = new DatabaseContext()) {
-
-                context.Database.EnsureCreated();
-                var officers = from v in context.FinancialOfficers where v.UserProfileID == id
-                select v;
-
-                var admins = from v in context.FinancialAdministrators where v.UserProfileID == id
-                select v;
-
-                if (officers.Any())
-                    return officers.First();
-                else if (admins.Any())
-                    return admins.First();
-                else
-                    return null;
-            }
-        }
-
-        public static IEnumerable<Model.UserProfile> getAllUsers()
-        {
-            using (var context = new DatabaseContext ()) {
-
-                context.Database.EnsureCreated();
-
-                var officers = (IEnumerable<Model.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Model.UserProfile) x);
-                var admins = (IEnumerable<Model.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Model.UserProfile) x);
-
-                return officers.Concat(admins);
-            }
-        }
-
-        public static Model.AuthorizedAccountSet getAccountsOfUserId(long id)
-        {
-            using (var context = new DatabaseContext ()) {
-
-                context.Database.EnsureCreated();
-
-                var user = tryGetUserById(id);
-                long accountID = -1;
-                if (user is Model.FinancialOfficer)
-                {
-                    accountID = (user as Model.FinancialOfficer).AuthorizedAccountsID;
-                }
-                else if (user is Model.FinancialAdministrator)
-                {
-                    accountID = (user as Model.FinancialAdministrator).RootID;
-                }
-
-                if (accountID != -1)
-                {
-                    var account = from v in context.AuthorizedAccountSet where v.ID == accountID
-                    select v;
-
-                    if (account.Any())
-                    {
-                        return account.First();
-                    }
-                }
-                return null;
-            }
-        }
-
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

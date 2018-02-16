@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ChequeIN.Model;
+using ChequeIN.Models;
 
 
 namespace ChequeIN.Controllers
@@ -15,8 +15,8 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var account = Program.getAccountsOfUserId(301); //TODO replace this id
-            if (account == null)
+            bool exists = Database.Accounts.TryGetAccountsOfUserId(301, out AuthorizedAccountSet account); //TODO replace this id
+            if (!exists)
                 return StatusCode(404);
             return Ok(account);
         }

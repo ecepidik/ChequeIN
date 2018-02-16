@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
     public class Utils
     {

@@ -1,4 +1,4 @@
-using ChequeIN.Model;
+using ChequeIN.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

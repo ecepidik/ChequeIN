@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN;
-using ChequeIN.Model;
+using ChequeIN.Models;
 
 
 namespace ChequeIN.Controllers
@@ -17,15 +17,16 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IEnumerable<UserProfile> Get()
         {
-            return Program.getAllUsers();
+            return Database.Users.GetAllUsers();
         }
 
         // GET api/users/id
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var user = Program.tryGetUserById(id);
-            if (user == null) {
+            var exists = Database.Users.TryGetUserById(id, out UserProfile user);
+
+            if (!exists) {
                 return StatusCode(404);
             }
             return Ok(user);
