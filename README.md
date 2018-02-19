@@ -20,7 +20,7 @@
 * Node 8+
 
 ### Starting the backend
-* Run `dotnet start` in the `backend/ChequeIN` directory. The following environment environment variable needs to be set for it to work: `ASPNETCORE_ENVIRONMENT=Development`
+* Run `dotnet run` in the `backend/ChequeIN` directory. The following environment environment variable needs to be set for it to work: `ASPNETCORE_ENVIRONMENT=Development`
 
 *Note:* if you get an unhandled exception, delete `backend/ChequeIN/chequein_db.sqlite` and run the project again.
 
