@@ -1,3 +1,4 @@
+<!-- TODO: Make this whole menu look nicer -->
 <ul class="nav">
   <li class="nav-item">
     <a class="nav-link" href="/">Home</a>
@@ -6,6 +7,7 @@
     <a class="nav-link" href="/cheque-req/new">New Cheque Req</a>
   </li>
 
+  {{ (user$ | async).name }}
   <button class="btn btn-primary" (click)="auth.logout()">Logout</button>
 </ul>
 
