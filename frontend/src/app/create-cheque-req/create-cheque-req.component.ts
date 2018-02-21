@@ -21,4 +21,8 @@ export class CreateChequeReqComponent implements OnInit {
   ngOnInit() {
     this.accounts$ = this.api.getAccounts();
   }
+
+  submitChequeReq() {
+    console.log("Submitted: ", this.chequeReq) // TODO: actually submit the cheque req
+  }
 }

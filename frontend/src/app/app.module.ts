@@ -23,6 +23,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 import 'rxjs/Rx';
+import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
@@ -41,7 +42,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HomeComponent,
     LoginComponent,
     CallbackComponent,
-    MenuComponent
+    MenuComponent,
+    ViewChequeReqsComponent
   ],
   imports: [
     AppRoutingModule,
