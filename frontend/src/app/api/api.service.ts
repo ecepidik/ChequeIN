@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ChequeReq } from './cheque-req';
 import { User } from './user';
+import { Account } from './account';
 
 @Injectable()
 export class ApiService {
