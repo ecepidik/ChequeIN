@@ -3,6 +3,7 @@ import { ChequeReq } from '../../app/api/cheque-req';
 import { print } from 'util';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
+import { Account } from '../api/account';
 
 /**
  * This components contains the Cheque Req creation form.
