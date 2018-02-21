@@ -24,6 +24,20 @@ import {
 } from '@angular/material';
 import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+
+// Config for currency mask on dollar input fields
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: true,
+  allowZero: true,
+  decimal: '.',
+  precision: 2,
+  prefix: '$',
+  suffix: '',
+  thousands: ','
+};
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
@@ -56,7 +70,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
-    NgbModule
+    NgbModule,
+    CurrencyMaskModule
   ],
   providers: [
     AuthService,
@@ -65,6 +80,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
+    },
+    {
+      provide: CURRENCY_MASK_CONFIG,
+      useValue: CustomCurrencyMaskConfig
     }
   ],
   bootstrap: [AppComponent]
