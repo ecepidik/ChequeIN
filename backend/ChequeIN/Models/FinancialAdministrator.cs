@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChequeIN.Model
-{
-    public abstract class UserProfile
-    {
-        private String email;
 
-        public long UserProfileID { get; set; }
+namespace ChequeIN.Models
+{
+    public class FinancialAdministrator : UserProfile
+    {
+        private String name;
 
         [Required]
-        [EmailAddress]
-        public String Email {
+        public String Name {
             get
             {
-                return this.email;
+                return this.name;
             }
             set
             {
-                this.email = value.Trim();
+                this.name = value.Trim();
             }
         }
+
+        [Required]
+        public long RootID { get; set; }
 
     }
 }

@@ -1,4 +1,4 @@
-using ChequeIN.Model;
+using ChequeIN.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ChequeIN.Tests
 {
-    public class ModelTests
+    public class MaillingAddressTests
     {
         [Theory]
         [InlineData("1645 rue des rigoles")]
@@ -60,7 +60,7 @@ namespace ChequeIN.Tests
                     Province = Enums.Province.QC
                 };
             }
-            
+
 
             var validationContext = new ValidationContext(address, serviceProvider: null, items: null);
             var validationResults = new List<ValidationResult>();
@@ -98,7 +98,7 @@ namespace ChequeIN.Tests
                     Province = Enums.Province.QC
                 };
             }
-            
+
 
             var validationContext = new ValidationContext(address, serviceProvider: null, items: null);
             var validationResults = new List<ValidationResult>();
@@ -182,7 +182,7 @@ namespace ChequeIN.Tests
                     Province = Enums.Province.QC
                 };
             }
-            
+
 
             var validationContext = new ValidationContext(address, serviceProvider: null, items: null);
             var validationResults = new List<ValidationResult>();

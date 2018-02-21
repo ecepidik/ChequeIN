@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChequeIN.Model
+namespace ChequeIN.Models
 {
     public class ChequeReq
     {
@@ -11,18 +11,23 @@ namespace ChequeIN.Model
         private String description;
         private LedgerAccount account;
 
+        [Key]
         public long ChequeReqID { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
         [Required]
+        [StrictlyPositive(ErrorMessage = "Must be greater than 0")]
         public float PreTax { get; set; }
 
         [Required]
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float GST { get; set; }
 
         [Required]
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float PST { get; set; }
 
+        [Positive(ErrorMessage = "Must be equal or greater than 0")]
         public float HST { get; set; }
 
         [DisplayName("Payee Name")]
@@ -73,7 +78,7 @@ namespace ChequeIN.Model
         // Could instead switch this to 2 separate associations.
         [DisplayName("Submitters")]
         [Required]
-        public ICollection<UserProfile> Submitters { get; set; }
+        public ICollection<FinancialOfficer> Submitters { get; set; }
 
         [DisplayName("Ledger Account")]
         [Required]
