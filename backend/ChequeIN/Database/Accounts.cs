@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ChequeIN.Models;
+using System.Collections.Generic;
 
 namespace ChequeIN.Database
 {
     public static class Accounts
     {
-        public static bool TryGetAccountsOfUserId(string id, out AuthorizedAccountSet account)
+        public static bool TryGetAccountsOfUserId(string id, out List<AuthorizedAccountSet> account)
         {
             using (var context = new DatabaseContext())
             {
@@ -40,12 +42,11 @@ namespace ChequeIN.Database
                               where v.ID == accountID
                               select v;
 
+                account = accounts.ToList();
                 if (accounts.Any())
                 {
-                    account = accounts.First();
                     return true;
                 }
-                account = null;
                 return false;
             }
         }
