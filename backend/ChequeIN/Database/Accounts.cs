@@ -23,7 +23,7 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                List<Models.Enums.AccountType> accountTypes;
+                List<Enums.AccountType> accountTypes;
 
                 if (user is UserProfile)
                 {
@@ -48,22 +48,17 @@ namespace ChequeIN.Database
             }
         }
 
-        private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<AuthorizedAccountSet> accounts, long accountID)
+        private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<Enums.AccountType> accountTypes)
         {
            
-            foreach (LedgerAccountGroup g in groups)
+            foreach (Enums.AccountType t in accountTypes)
             {
-                if (g.ID == accountID)
+                foreach(LedgerAccount a in ledgerAccounts)
                 {
-                    accounts.Add(g);
-                    foreach (AuthorizedAccountSet a in g.Children)
+                    if(a.Type == t)
                     {
                         accounts.Add(a);
-                        if(a.GetType() == typeof(LedgerAccountGroup)) {
-                            FindAllAuthorizedAccounts(groups, accounts, a.ID);
-                        }
                     }
-                    break;
                 }
 
             }
