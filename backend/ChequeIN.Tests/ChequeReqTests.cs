@@ -17,13 +17,14 @@ namespace ChequeIN.Tests
                 HST = 1,
                 PayeeName = "User",
                 Description = "Desc",
-                ApprovedBy = new FinancialOfficer(),
-                Questions = new List<ClarifyingQuestion>(),
+                ApprovedBy = "Kareem Halabi",
+                FreeFood = false,
+                OnlinePurchases = false,
+                ToBeMailed = true,
                 MailingAddress = new MailingAddress(),
                 SupportingDocuments = new List<SupportingDocument>(),
                 StatusHistory = new List<Status>(),
-                Submitters = new List<FinancialOfficer>(),
-                Account = new LedgerAccount() { ChequeReqs = new List<ChequeReq>() }
+                Submitter = new FinancialOfficer(),
             };
         }
 

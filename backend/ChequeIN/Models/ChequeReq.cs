@@ -9,6 +9,7 @@ namespace ChequeIN.Models
     {
         private String payeeName;
         private String description;
+        private String approvedBy;
 
         [Key]
         public int ChequeReqID { get; set; }
@@ -63,8 +64,18 @@ namespace ChequeIN.Models
             }
         }
 
-        [DisplayName("Financial Officer Approver")]
-        public long ApprovedBy { get; set; }
+        [DisplayName("Approver Name")]
+        public String ApprovedBy
+        {
+            get
+            {
+                return this.approvedBy;
+            }
+            set
+            {
+                this.approvedBy = value.Trim();
+            }
+        }
 
         [DisplayName("Mailing Address")]
         public MailingAddress MailingAddress { get; set; }
