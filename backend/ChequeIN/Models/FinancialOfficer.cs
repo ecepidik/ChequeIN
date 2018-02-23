@@ -9,10 +9,7 @@ namespace ChequeIN.Models
 {
     public class FinancialOfficer : UserProfile
     {
-
-        [DisplayName("Authorized Accounts")]
-        [Required]
-        public long AuthorizedAccounts { get; set; }
-
+        //This feels weird.
+        //Please help Alexis. He says he needs help.
     }
 }

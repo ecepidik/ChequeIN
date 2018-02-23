@@ -34,7 +34,7 @@ namespace ChequeIN.Models
         public Enums.StatusType SelectedStatus { get; set; }
 
         [DisplayName("Administrator Approver")]
-        public long AdminApprover { get; set; }
+        public String AdministratorApprover { get; set; }
 
     }
 }

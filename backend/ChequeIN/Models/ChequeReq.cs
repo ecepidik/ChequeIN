@@ -11,7 +11,9 @@ namespace ChequeIN.Models
         private String description;
 
         [Key]
-        public long ChequeReqID { get; set; }
+        public int ChequeReqID { get; set; }
+
+        public int LedgerAccountID { get; set; }
 
         [Required]
         public Boolean FreeFood { get; set; }
@@ -77,13 +79,9 @@ namespace ChequeIN.Models
         [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
 
-        [DisplayName("Financial Officer Submitter")]
+        [DisplayName("Submitter")]
         [Required]
-        public long FinancialOfficerSubmitter { get; set; }
-
-        [DisplayName("Ledger Account")]
-        [Required]
-        public long Account { get; set; }
+        public UserProfile Submitter { get; set; }
 
     }
 }

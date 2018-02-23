@@ -13,7 +13,6 @@ namespace ChequeIN
         public DbSet<Models.ChequeReq> ChequeReqs { get; set; }
 
         public DbSet<Models.LedgerAccount> LedgerAccounts { get; set; }
-        public DbSet<Models.LedgerAccountGroup> LedgerAccountGroups { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             // Specify the path of the database here
@@ -24,7 +23,6 @@ namespace ChequeIN
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Models.UserProfile>().ToTable("UserProfiles");
-            modelBuilder.Entity<Models.AuthorizedAccountSet>().ToTable("Accounts");
         }
     }
 }

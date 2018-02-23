@@ -7,9 +7,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChequeIN.Models
 {
-    public class LedgerAccount : AuthorizedAccountSet
+    public class LedgerAccount
     {
         private String name;
+
+        public LedgerAccount()
+        {
+            ChequeReqs = new List<ChequeReq>();
+        }
+
+        public int LedgerAccountID { get; set; }
+
+        [DisplayName("Account Type")]
+        [Required]
+        public Enums.AccountType Type { get; set; }
 
         [DisplayName("Account Name")]
         [Required]
@@ -30,7 +41,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Associated Cheque Reqs")]
         [Required]
-        public ICollection<long> ChequeReqs { get; set; }
+        public ICollection<ChequeReq> ChequeReqs { get; private set; }
 
     }
 }

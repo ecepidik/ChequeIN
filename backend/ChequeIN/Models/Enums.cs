@@ -35,5 +35,12 @@ namespace ChequeIN.Models
             PRINTED,
         };
 
+        public enum AccountType
+        {
+            GSTORE,
+            COPIEUS,
+            FROSTBITE,
+        };
+
     }
 }
