@@ -14,7 +14,14 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
-            // TODO: Clear the old database before each test run
+            
+            using (var context = new DatabaseContext ()) {
+                // Clear the old database before each test run
+                context.Database.EnsureDeleted ();
+                // Create the database if it does not exist
+                context.Database.EnsureCreated ();
+            }
+
             //for testing purposes
             var ledger = new Models.LedgerAccount();
             var ledgerAccountID = new Random().Next(1000);
