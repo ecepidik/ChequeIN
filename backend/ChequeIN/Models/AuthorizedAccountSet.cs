@@ -13,10 +13,6 @@ namespace ChequeIN.Models
 
         [Key]
         public long ID { get; set; }
-        
-        [DisplayName("Parent Group")]
-        // [Required]
-        public LedgerAccountGroup Parent { get; set; }
 
     }
 }

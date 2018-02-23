@@ -12,9 +12,7 @@ namespace ChequeIN.Models
 
         private String feedback;
 
-        [Key]
-        public long ChequeReqID { get; set; }
-
+        //Could use some validation to make sure the date isn't set to something crazy. 
         [DisplayName("Date of Status")]
         [Required]
         public DateTime StatusDate { get; set; }
@@ -36,7 +34,7 @@ namespace ChequeIN.Models
         public Enums.StatusType SelectedStatus { get; set; }
 
         [DisplayName("Administrator Approver")]
-        public FinancialAdministrator AdminApprover { get; set; }
+        public long AdminApprover { get; set; }
 
     }
 }

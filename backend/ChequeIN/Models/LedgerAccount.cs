@@ -30,7 +30,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Associated Cheque Reqs")]
         [Required]
-        public ICollection<ChequeReq> ChequeReqs { get; set; }
+        public ICollection<long> ChequeReqs { get; set; }
 
     }
 }

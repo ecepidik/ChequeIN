@@ -12,7 +12,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Authorized Accounts")]
         [Required]
-        public long AuthorizedAccountsID { get; set; }
+        public long AuthorizedAccounts { get; set; }
 
     }
 }

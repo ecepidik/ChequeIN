@@ -7,6 +7,8 @@ namespace ChequeIN.Models
 {
     public class Enums
     {
+        public enum UserType { Admin, Officer };
+
         public enum Province
         {
             NONE,
