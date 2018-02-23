@@ -8,7 +8,7 @@ namespace ChequeIN.Tests
 {
     public class ChequeReqTests
     {
-        private ChequeReq generateValidChequeReq() {
+        private ChequeReq GenerateValidChequeReq() {
             return new ChequeReq {
                 PreTax = 1,
                 ChequeReqID = 1,
@@ -22,8 +22,8 @@ namespace ChequeIN.Tests
                 OnlinePurchases = false,
                 ToBeMailed = true,
                 MailingAddress = new MailingAddress(),
-                SupportingDocuments = new List<SupportingDocument>(),
-                StatusHistory = new List<Status>(),
+                SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() },
+                StatusHistory = new List<Status>() { new Status() },
                 Submitter = new FinancialOfficer(),
             };
         }
@@ -33,7 +33,7 @@ namespace ChequeIN.Tests
         [InlineData(1.0)]
         [InlineData(10000)]
         public void ChequeReq_PretaxValid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.PreTax = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -48,7 +48,7 @@ namespace ChequeIN.Tests
         [InlineData(-1.0)]
         [InlineData(-10000)]
         public void ChequeReq_PretaxInvalid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.PreTax = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -64,7 +64,7 @@ namespace ChequeIN.Tests
         [InlineData(1.0)]
         [InlineData(10000)]
         public void ChequeReq_GSTValid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.GST = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -78,7 +78,7 @@ namespace ChequeIN.Tests
         [InlineData(-1.0)]
         [InlineData(-10000)]
         public void ChequeReq_GSTInvalid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.GST = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -94,7 +94,7 @@ namespace ChequeIN.Tests
         [InlineData(1.0)]
         [InlineData(10000)]
         public void ChequeReq_PSTValid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.PST = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -108,7 +108,7 @@ namespace ChequeIN.Tests
         [InlineData(-1.0)]
         [InlineData(-10000)]
         public void ChequeReq_PSTInvalid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.PST = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -124,7 +124,7 @@ namespace ChequeIN.Tests
         [InlineData(1.0)]
         [InlineData(10000)]
         public void ChequeReq_HSTValid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.HST = value;
 
             var validationContext = new ValidationContext(req, null, null);
@@ -138,7 +138,7 @@ namespace ChequeIN.Tests
         [InlineData(-1.0)]
         [InlineData(-10000)]
         public void ChequeReq_HSTInvalid(float value) {
-            ChequeReq req = generateValidChequeReq();
+            ChequeReq req = GenerateValidChequeReq();
             req.HST = value;
 
             var validationContext = new ValidationContext(req, null, null);
