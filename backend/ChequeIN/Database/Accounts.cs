@@ -8,7 +8,7 @@ namespace ChequeIN.Database
 {
     public static class Accounts
     {
-        public static bool TryGetAccountsOfUserId(string id, out List<AuthorizedAccountSet> accounts)
+        public static bool TryGetAccountsOfUserId(string id, out List<LedgerAccount> accounts)
         {
             using (var context = new DatabaseContext())
             {
@@ -23,15 +23,11 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                long accountID;
+                List<Models.Enums.AccountType> accountTypes;
 
-                if (user is FinancialOfficer)
+                if (user is UserProfile)
                 {
-                    accountID = (user as FinancialOfficer).AuthorizedAccounts;
-                }
-                else if (user is FinancialAdministrator)
-                {
-                    accountID = (user as FinancialAdministrator).RootAccount;
+                    accountTypes = user.AuthorizedAccountTypes.ToList();
                 }
                 else
                 {
@@ -39,12 +35,11 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                var groups = context.LedgerAccountGroups
-                                .Include(ledgerAccountGroup => ledgerAccountGroup.Children)
+                var ledgerAccounts = context.LedgerAccounts
                                 .ToList();
 
-                accounts = new List<AuthorizedAccountSet>();
-                FindAllAuthorizedAccounts(groups, accounts, accountID);
+                accounts = new List<LedgerAccount>();
+                FindAllAuthorizedAccounts(ledgerAccounts, accounts, accountTypes);
                 if (accounts.Any())
                 {
                     return true;
@@ -53,7 +48,7 @@ namespace ChequeIN.Database
             }
         }
 
-        private static void FindAllAuthorizedAccounts(List<LedgerAccountGroup> groups, List<AuthorizedAccountSet> accounts, long accountID)
+        private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<AuthorizedAccountSet> accounts, long accountID)
         {
            
             foreach (LedgerAccountGroup g in groups)

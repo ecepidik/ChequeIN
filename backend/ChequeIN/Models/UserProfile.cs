@@ -36,7 +36,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Authorized Account Types")]
         [Required]
-        [MinimumLengthAttribute(1, ErrorMessage = "An account must have at least one authorized account type.")]
+        [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account type.")]
         public ICollection<Enums.AccountType> AuthorizedAccountTypes { get; private set; }
 
     }
