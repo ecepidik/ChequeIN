@@ -13,7 +13,7 @@ namespace ChequeIN.Models
 
         public UserProfile()
         {
-            AuthorizedAccountTypes = new List<Enums.AccountType>();
+            AuthorizedAccountGroups = new List<AccountType>();
         }
 
         [Key]
@@ -34,10 +34,10 @@ namespace ChequeIN.Models
             }
         }
 
-        [DisplayName("Authorized Account Types")]
+        [DisplayName("Authorized Account Groups")]
         [Required]
-        [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account type.")]
-        public ICollection<Enums.AccountType> AuthorizedAccountTypes { get; private set; }
+        [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
+        public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
 
     }
 }

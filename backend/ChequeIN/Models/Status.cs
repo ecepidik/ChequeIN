@@ -12,6 +12,8 @@ namespace ChequeIN.Models
 
         private String feedback;
 
+        public int StatusID { get; set; }
+
         //Could use some validation to make sure the date isn't set to something crazy. 
         [DisplayName("Date of Status")]
         [Required]

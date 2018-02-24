@@ -18,9 +18,9 @@ namespace ChequeIN.Models
 
         public int LedgerAccountID { get; set; }
 
-        [DisplayName("Account Type")]
+        [DisplayName("Account Group")]
         [Required]
-        public Enums.AccountType Type { get; set; }
+        public AccountType Group { get; set; }
 
         [DisplayName("Account Name")]
         [Required]
