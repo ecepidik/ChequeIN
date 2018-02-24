@@ -92,9 +92,12 @@ namespace ChequeIN.Tests
 
             var crs = context.ChequeReqs
                         .ToList();
+            ledgerAccounts = context.LedgerAccounts
+                                .ToList();
 
             Assert.True(crs.Count == 1);
             Assert.True(crs.ElementAt(0).LedgerAccountID == ledgerAccounts.ElementAt(0).LedgerAccountID);
+            Assert.True(ledgerAccounts.ElementAt(0).ChequeReqs.ElementAt(0).ChequeReqID == crs.ElementAt(0).ChequeReqID);
         }
 
     }
