@@ -3,21 +3,26 @@
     <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel"
            [(ngModel)]="chequeReq.preTax" required #preTax="ngModel" name="preTax"/>
   </mat-form-field>
+  <br>
   <mat-form-field>
     <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST"/>
   </mat-form-field>
+  <br>
   <mat-form-field>
     <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST"/>
   </mat-form-field>
+  <br>
   <mat-form-field>
     <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST"/>
   </mat-form-field>
+  <br>
   <mat-form-field>
     <input matInput currencyMask readonly placeholder="Total"
            [value]="(chequeReq.preTax + chequeReq.GST + chequeReq.PST + chequeReq.HST) | currency"/>
   </mat-form-field>
+  <br>
   <mat-form-field>
-    <mat-select matInput [(value)]="chequeReq.account" required>
+    <mat-select matInput placeholder="Account" [(value)]="chequeReq.account" required>
       <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{ account.number }} - {{ account.name }}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -48,6 +53,7 @@
   </mat-form-field>
   <mat-divider></mat-divider>
   <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
+  <br>
   <mat-form-field *ngIf="chequeReq.mailCheque">
     <input matInput placeholder="Mailing Address" [(ngModel)]="chequeReq.mailingAddress" name="mailingAddress" #mailingAddress="ngModel" required>
     <mat-error *ngIf="mailingAddress.errors?.required">
