@@ -7,7 +7,7 @@ namespace ChequeIN.Database
 {
     public static class Seed
     {
-        public static void seedDatabase ()
+        public static void SeedDatabase ()
         {
 
             using (var context = new DatabaseContext ()) {
@@ -17,11 +17,11 @@ namespace ChequeIN.Database
                 context.Database.EnsureCreated ();
             }
             
-            DatabaseUtils.addToDatabase(generateLedgerAccount());
+            DatabaseUtils.AddToDatabase(GenerateLedgerAccount());
 
-            DatabaseUtils.addToDatabase(generateFinancialOfficer());
+            DatabaseUtils.AddToDatabase(GenerateFinancialOfficer());
 
-            DatabaseUtils.addToDatabase(generateFinancialAdministrator());
+            DatabaseUtils.AddToDatabase(GenerateFinancialAdministrator());
 
 
             // var chequeReq = new Models.ChequeReq();
@@ -44,33 +44,38 @@ namespace ChequeIN.Database
 
         }
 
-        private static LedgerAccount generateLedgerAccount()
+        private static LedgerAccount GenerateLedgerAccount()
         {
-            var ledger = new Models.LedgerAccount();
-            var ledgerAccountID = new Random().Next(1000);
-            ledger.LedgerAccountID = ledgerAccountID;
-            ledger.Name = "General Expenses";
-            ledger.Number = 6530;
-
+            var ledger = new Models.LedgerAccount()
+            {
+                Name = "General Expenses",
+                Number = 6530,
+                Group = new AccountType()
+                {
+                    Type = Enums.Group.COPIEUS
+                }
+            };
             return ledger;
         }
 
-        private static FinancialOfficer generateFinancialOfficer()
+        private static FinancialOfficer GenerateFinancialOfficer()
         {
-            var profile = new Models.FinancialOfficer();
-            profile.Email = "alex@hotmail.com";
-            profile.UserProfileID = "301"; // TODO: use the real test user ID
-            
+            var profile = new Models.FinancialOfficer()
+            {
+                Email = "alex@hotmail.com",
+                AuthenticationIdentifier = "301" // TODO: use the real test user ID
+            };   
             return profile;
         }
 
-        private static FinancialAdministrator generateFinancialAdministrator()
+        private static FinancialAdministrator GenerateFinancialAdministrator()
         {
-            var profile = new Models.FinancialAdministrator();
-            profile.Email = "mathieu@gmail.com";
-            profile.Name = "my name";
-            profile.UserProfileID = new Random().Next(1000).ToString();
-            
+            var profile = new Models.FinancialAdministrator()
+            {
+                Email = "mathieu@gmail.com",
+                Name = "my name",
+                AuthenticationIdentifier = new Random().Next(1000).ToString()
+            };
             return profile;
         }
         

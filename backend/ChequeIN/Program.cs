@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace ChequeIN
         public static void Main(string[] args)
         {
             
-            Database.Seed.seedDatabase();
+            Database.Seed.SeedDatabase();
 
             BuildWebHost(args).Run();
 

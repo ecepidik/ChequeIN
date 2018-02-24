@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChequeIN.Models
 {
@@ -13,8 +14,6 @@ namespace ChequeIN.Models
 
         [Key]
         public int ChequeReqID { get; set; }
-
-        public int? LedgerAccountID { get; set; }
 
         [Required]
         public Boolean FreeFood { get; set; }
@@ -90,9 +89,20 @@ namespace ChequeIN.Models
         [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
 
+        [ForeignKey("SubmittedChequeReqs")]
+        public int UserProfileID { get; set; }
+
         [DisplayName("Submitter")]
         [Required]
+        [InverseProperty("SubmittedChequeReqs")]
         public UserProfile Submitter { get; set; }
+
+        [ForeignKey("ChequeReqs")]
+        public int LedgerAccountID { get; set; }
+
+        [DisplayName("Associated Account")]
+        [InverseProperty("ChequeReqs")]
+        public LedgerAccount AssociatedAccount { get; set; }
 
     }
 }

@@ -19,7 +19,6 @@ namespace ChequeIN.Models
         [Required]
         public DateTime StatusDate { get; set; }
 
-        [Required]
         public String Feedback {
             get
             {

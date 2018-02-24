@@ -7,6 +7,8 @@ namespace ChequeIN
     /// </summary>
     public class DatabaseContext : DbContext
     {
+        public bool IsTest { get; set; }
+
         public DbSet<Models.FinancialOfficer> FinancialOfficers { get; set; }
         public DbSet<Models.FinancialAdministrator> FinancialAdministrators { get; set; }
 
@@ -17,7 +19,13 @@ namespace ChequeIN
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Specify the path of the database here
-            optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite");
+            if (!IsTest)
+            {
+                optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite"); 
+            } else
+            {
+                optionsBuilder.UseSqlite("Filename=./chequein_test_db.sqlite");
+            }
 
         }
 

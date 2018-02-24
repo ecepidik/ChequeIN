@@ -16,6 +16,7 @@ namespace ChequeIN.Models
             ChequeReqs = new List<ChequeReq>();
         }
 
+        [Key]
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Account Group")]

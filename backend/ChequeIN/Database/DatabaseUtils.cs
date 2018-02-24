@@ -7,7 +7,7 @@ namespace ChequeIN.Database
 {
     public static class DatabaseUtils
     {
-        public static void addToDatabase<T>(T obj)
+        public static void AddToDatabase<T>(T obj)
         {
 
             using (var context = new DatabaseContext ()) {

@@ -25,6 +25,7 @@ namespace ChequeIN.Tests
                 SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() },
                 StatusHistory = new List<Status>() { new Status() },
                 Submitter = new FinancialOfficer(),
+                AssociatedAccount = new LedgerAccount()
             };
         }
 
