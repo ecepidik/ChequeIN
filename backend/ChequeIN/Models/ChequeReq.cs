@@ -14,7 +14,7 @@ namespace ChequeIN.Models
         [Key]
         public int ChequeReqID { get; set; }
 
-        public int LedgerAccountID { get; set; }
+        public int? LedgerAccountID { get; set; }
 
         [Required]
         public Boolean FreeFood { get; set; }

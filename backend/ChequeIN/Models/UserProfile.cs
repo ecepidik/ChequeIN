@@ -19,7 +19,7 @@ namespace ChequeIN.Models
         [Key]
         public string UserProfileID { get; set; }
 
-        public int ChequeReqID { get; set; }
+        public int? ChequeReqID { get; set; }
 
         [Required]
         [EmailAddress]
