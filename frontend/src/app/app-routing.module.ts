@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
+import { ViewChequeReqComponent } from './view-cheque-req/view-cheque-req.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'cheque-req/new', component: CreateChequeReqComponent },
-      { path: 'cheque-req/view', component: ViewChequeReqsComponent }
+      { path: 'cheque-req/view', component: ViewChequeReqsComponent },
+      { path: 'cheque-req/:id', component: ViewChequeReqComponent }
     ]
   }
 ];

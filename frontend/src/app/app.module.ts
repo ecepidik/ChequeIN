@@ -26,6 +26,7 @@ import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { ViewChequeReqComponent } from './view-cheque-req/view-cheque-req.component';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -57,7 +58,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     LoginComponent,
     CallbackComponent,
     MenuComponent,
-    ViewChequeReqsComponent
+    ViewChequeReqsComponent,
+    ViewChequeReqComponent
   ],
   imports: [
     AppRoutingModule,
