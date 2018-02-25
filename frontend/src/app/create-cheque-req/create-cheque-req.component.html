@@ -1,4 +1,5 @@
-<form style="padding-left: 20px;" (ngSubmit)="submitChequeReq()">
+<form style="margin-top: 20px; padding-left: 20px;" (ngSubmit)="submitChequeReq()">
+   <!-- 1. Financial Details Section -->
   <mat-form-field>
     <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel"
            [(ngModel)]="chequeReq.preTax" required #preTax="ngModel" name="preTax"/>
@@ -21,6 +22,7 @@
       <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{ account.number }} - {{ account.name }}</mat-option>
     </mat-select>
   </mat-form-field>
+   <!-- 2. Description Section -->
   <div>
     <br>
     <mat-form-field>
