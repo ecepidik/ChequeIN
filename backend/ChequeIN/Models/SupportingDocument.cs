@@ -11,6 +11,8 @@ namespace ChequeIN.Models
     {
         private String description;
 
+        public int SupportingDocumentID { get; set; }
+
         [DisplayName("Document Description")]
         [Required]
         public String Description {
@@ -25,7 +27,6 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Document ID")]
-        [Key]
         [Required]
         public long FileIdentifier { get; set; }
 

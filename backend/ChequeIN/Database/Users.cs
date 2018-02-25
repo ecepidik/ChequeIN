@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChequeIN.Models;
@@ -28,11 +28,11 @@ namespace ChequeIN.Database
 
                 context.Database.EnsureCreated();
                 var officers = from v in context.FinancialOfficers
-                               where v.UserProfileID == id
+                               where v.AuthenticationIdentifier == id
                                select v;
 
                 var admins = from v in context.FinancialAdministrators
-                             where v.UserProfileID == id
+                             where v.AuthenticationIdentifier == id
                              select v;
 
                 if (officers.Any())
