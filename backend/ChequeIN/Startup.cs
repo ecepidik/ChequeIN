@@ -30,7 +30,7 @@ namespace ChequeIN
             services.Configure<Configurations.Authentication>(Configuration.GetSection("Authentication"));
 
             if (!bool.TryParse(Configuration["Authentication:DisableAuthentication"], out bool disableAuth)) {
-                throw new Exception("Authentication:DisableAuthentication is not set.");
+                disableAuth = false;
             }
 
             // Allow anonymous if the disable authentication setting is set
