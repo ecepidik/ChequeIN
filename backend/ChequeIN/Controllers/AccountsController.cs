@@ -24,7 +24,7 @@ namespace ChequeIN.Controllers
         [Authorize]
         public IActionResult Get()
         {
-            var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication);
+            var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
             if (user == null) // TODO: This shouldn't have to be handled by individual api calls
                 return StatusCode(404);
             bool exists = Database.Accounts.TryGetAccountsOfUserId(user.AuthenticationIdentifier, out List<LedgerAccount> accounts); //TODO replace this id

@@ -50,13 +50,13 @@ namespace ChequeIN.Database
             }
         }
 
-        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false)
+        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
         {
             string id;
             // Give the default user id if auth is disabled and no user is authenticated
             if (disableAuth && !identity.Identities.First().Claims.Any())
             {
-                id = "auth0|5a84eafef5c8213cb27c27e2";
+                id = developmentUserId;
             }
             else
             {
