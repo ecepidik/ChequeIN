@@ -34,10 +34,9 @@
       </mat-error>
     </mat-form-field>
   </div>
-
-  <mat-divider></mat-divider>
   <!-- 3. CheckBox Section -->
   <!-- 3.1 Online Purchase Question Section -->
+  <mat-divider></mat-divider>
   <div>
     <mat-checkbox [(ngModel)]="chequeReq.onlinePurchase" name="onlinePurchase">This cheque req is for an online purchase</mat-checkbox>
     <p style="font-size: small; font-style: italic;" *ngIf="chequeReq.onlinePurchase">
@@ -45,6 +44,7 @@
       amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
     </p>
   </div>
+   <!-- 3.2 FreeFood Question Section -->
   <mat-checkbox [(ngModel)]="chequeReq.freeFood" name="freeFood">This cheque req includes food items that were distributed for free and not part of any paid event. (Ex: public forums,
     food for meetings)</mat-checkbox>
 
@@ -73,7 +73,8 @@
       You need to enter a payable addressee
     </mat-error>
   </mat-form-field>
-  <mat-divider></mat-divider>
+  <br>
+  <!-- 3.3 Mail Request Section -->
   <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
   <br>
   <br>
@@ -85,8 +86,22 @@
     <mat-error *ngIf="mailingAddress.errors?.required">
       You need to enter a mailing address
     </mat-error>
-    </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+  <br>
   </div>
+  <!-- 4. Approuved By Field Section -->
+  <div>
+    <mat-form-field>
+      <textarea matInput placeholder="Approved By (First and Last Name)" [(ngModel)]="chequeReq.approver" #description="ngModel" name="approver" matTextareaAutosize
+        matAutosizeMinRows="1" matAutosizeMaxRows="5" required></textarea>
+      <mat-error *ngIf="approver.errors?.required">
+        You need fill that section !
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <br>
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+ 
 </form>
