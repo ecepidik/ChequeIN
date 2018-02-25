@@ -53,7 +53,7 @@ namespace ChequeIN.Database
                 Group = new AccountType()
                 {
                     Type = Enums.Group.COPIEUS
-                }
+                },
             };
             return ledger;
         }
@@ -62,9 +62,9 @@ namespace ChequeIN.Database
         {
             var profile = new Models.FinancialOfficer()
             {
-                Email = "alex@hotmail.com",
-                AuthenticationIdentifier = "301" // TODO: use the real test user ID
-            };   
+                Email = "user@test.com",
+                AuthenticationIdentifier = "auth0|5a84eafef5c8213cb27c27e2"
+            };
             return profile;
         }
 
