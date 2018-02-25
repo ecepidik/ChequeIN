@@ -50,9 +50,18 @@ namespace ChequeIN.Database
             }
         }
 
-        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity)
+        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false)
         {
-            var id = identity.Identities.First().Claims.ElementAt(1).Value;
+            string id;
+            // Give the default user id if auth is disabled and no user is authenticated
+            if (disableAuth && !identity.Identities.First().Claims.Any())
+            {
+                id = "auth0|5a84eafef5c8213cb27c27e2";
+            }
+            else
+            {
+                id = identity.Identities.First().Claims.ElementAt(1).Value;
+            }
             var exists = TryGetUserById(id, out UserProfile user);
             if (!exists)
             {
