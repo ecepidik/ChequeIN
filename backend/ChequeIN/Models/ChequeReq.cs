@@ -88,20 +88,20 @@ namespace ChequeIN.Models
         [Required]
         [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
-
-        [ForeignKey("SubmittedChequeReqs")]
+        
         public int UserProfileID { get; set; }
 
         [DisplayName("Submitter")]
         [Required]
         [InverseProperty("SubmittedChequeReqs")]
+        [ForeignKey("UserProfileID")]
         public UserProfile Submitter { get; set; }
 
-        [ForeignKey("ChequeReqs")]
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Associated Account")]
         [InverseProperty("ChequeReqs")]
+        [ForeignKey("LedgerAccountID")]
         public LedgerAccount AssociatedAccount { get; set; }
 
     }

@@ -94,10 +94,15 @@ namespace ChequeIN.Tests
                         .ToList();
             ledgerAccounts = context.LedgerAccounts
                                 .ToList();
+            officers = context.FinancialOfficers
+                                .ToList();
 
-            Assert.True(crs.Count == 1);
+            Assert.Equal(1, crs.Count);
             Assert.True(crs.ElementAt(0).LedgerAccountID == ledgerAccounts.ElementAt(0).LedgerAccountID);
             Assert.True(ledgerAccounts.ElementAt(0).ChequeReqs.ElementAt(0).ChequeReqID == crs.ElementAt(0).ChequeReqID);
+            Assert.Equal(crs.ElementAt(0).UserProfileID, officers.ElementAt(0).UserProfileID);
+            Assert.Equal(officers.ElementAt(0).SubmittedChequeReqs.ElementAt(0).ChequeReqID, crs.ElementAt(0).ChequeReqID);
+
         }
 
     }
