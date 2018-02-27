@@ -69,7 +69,7 @@ namespace ChequeIN.Models
         //"C#C#C#" or "C#C #C#" where C is an accepted character, and # is a digit. 
         [DisplayName("Postal Code")]
         [Required]
-        [RegularExpression(@"^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstv‌​xy]{1} ??\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvxy]{1}\d{1}$",
+        [RegularExpression(@"^(?!.*[DFIOQUdfioqu])([A-VXY]|[a-vxy])[0-9]([A-Z]|[a-z]) ?[0-9]([A-Z]|[a-z])[0-9]$",
             ErrorMessage = "Invalid Postal Code format.")]
         public String PostalCode
         {
