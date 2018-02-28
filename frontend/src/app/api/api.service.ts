@@ -35,4 +35,11 @@ export class ApiService {
   submitChequeReq(chequeReq: ChequeReq): Observable<void> {
     return Observable.of(); // TODO: Make an actual API call
   }
+
+  getChequeReqs(): Observable<ChequeReq[]> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/ChequeReqs`)
+    .map((res) => res.json())
+    .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+  }
 }
