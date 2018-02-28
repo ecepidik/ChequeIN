@@ -48,7 +48,6 @@ namespace ChequeIN.Database
                     MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
                     SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
                     StatusHistory = new List<Status>() { new Status() { } },
-                    Submitter = officers.ElementAt(0),
                     AssociatedAccount = ledgerAccounts.ElementAt(0)
                 };
 

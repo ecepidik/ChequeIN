@@ -35,11 +35,6 @@ namespace ChequeIN.Controllers
             }
             else
             {
-                //to avoid serializing circular references, set the submitter cheque req's list to null
-                foreach (ChequeReq c in cheques)
-                {
-                    c.Submitter.Clear();
-                }
                 return Ok(cheques);
             }
         }
@@ -47,7 +42,12 @@ namespace ChequeIN.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] ChequeReq cheque)
         {
-            return Ok(true);
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+            return Ok(errors);
         }
     }
 }

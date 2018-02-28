@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChequeIN.Models
 {
@@ -42,6 +43,7 @@ namespace ChequeIN.Models
         public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
 
         [DisplayName("Submitted Cheque Reqs")]
+        [ForeignKey("UserProfileID")]
         public ICollection<ChequeReq> SubmittedChequeReqs { get; private set; }
 
         public void Clear() {

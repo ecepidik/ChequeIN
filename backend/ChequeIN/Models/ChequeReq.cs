@@ -91,11 +91,6 @@ namespace ChequeIN.Models
         
         public int UserProfileID { get; set; }
 
-        [DisplayName("Submitter")]
-        [Required]
-        [InverseProperty("SubmittedChequeReqs")]
-        [ForeignKey("UserProfileID")]
-        public UserProfile Submitter { get; set; }
 
         public int LedgerAccountID { get; set; }
 
