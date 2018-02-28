@@ -31,8 +31,6 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                
-
                 if (user is FinancialAdministrator)
                 {
                     var userLoader = context.FinancialAdministrators.Include(u => u.SubmittedChequeReqs)

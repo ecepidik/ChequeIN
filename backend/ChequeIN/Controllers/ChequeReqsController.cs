@@ -23,14 +23,25 @@ namespace ChequeIN.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            // bool exists = Database.ChequeReqs.TryGetAllChequeReqs("3033", out List<ChequeReq> cheques);
-            // if (!exists) {
-            //     return Ok(Enumerable.Empty<ChequeReq>().ToList<ChequeReq>());
-            // }
-            // else {
-            //     return Ok(cheques);
-            // }
-            return Ok(Database.ChequeReqs.GetAllChequeReqs());
+            var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            if (user == null)
+            {
+                return StatusCode(403);
+            }
+            bool exists = Database.ChequeReqs.TryGetAllChequeReqs(user.AuthenticationIdentifier, out List<ChequeReq> cheques);
+            if (!exists)
+            {
+                return Ok(Enumerable.Empty<ChequeReq>().ToList<ChequeReq>());
+            }
+            else
+            {
+                //to avoid serializing circular references, set the submitter cheque req's list to null
+                foreach (ChequeReq c in cheques)
+                {
+                    c.Submitter.Clear();
+                }
+                return Ok(cheques);
+            }
         }
 
         [HttpPost]

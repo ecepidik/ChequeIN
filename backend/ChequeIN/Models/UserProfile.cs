@@ -44,5 +44,9 @@ namespace ChequeIN.Models
         [DisplayName("Submitted Cheque Reqs")]
         public ICollection<ChequeReq> SubmittedChequeReqs { get; private set; }
 
+        public void Clear() {
+            this.SubmittedChequeReqs = null;
+        }
+
     }
 }
