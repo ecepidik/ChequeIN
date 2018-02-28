@@ -9,7 +9,6 @@ namespace ChequeIN.Models
 {
     public class AccountType
     {
-
         [Key]
         public int AccountTypeID { get; set; }
 

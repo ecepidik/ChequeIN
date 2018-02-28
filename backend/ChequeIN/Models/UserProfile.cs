@@ -21,34 +21,21 @@ namespace ChequeIN.Models
         [Key]
         public int UserProfileID { get; set; }
 
-        
         public string AuthenticationIdentifier { get; set; }
 
-        
         [EmailAddress]
         public String Email {
-            get
-            {
-                return this.email;
-            }
-            set
-            {
-                this.email = value.Trim();
-            }
+            get { return this.email; }
+            set { this.email = value.Trim(); }
         }
 
         [DisplayName("Authorized Account Groups")]
-        
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
         public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
 
         [DisplayName("Submitted Cheque Reqs")]
         [ForeignKey("UserProfileID")]
         public ICollection<ChequeReq> SubmittedChequeReqs { get; private set; }
-
-        public void Clear() {
-            this.SubmittedChequeReqs = null;
-        }
 
     }
 }

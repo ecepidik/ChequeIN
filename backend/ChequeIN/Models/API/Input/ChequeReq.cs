@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChequeIN.Models
+namespace ChequeIN.Models.API.Input
 {
     public class ChequeReq
     {
@@ -17,6 +17,7 @@ namespace ChequeIN.Models
         public Boolean FreeFood { get; set; }
         public Boolean OnlinePurchases { get; set; }
         public Boolean ToBeMailed { get; set; }
+        public int LedgerAccountID { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
         [StrictlyPositive(ErrorMessage = "Must be greater than 0")]
@@ -34,22 +35,9 @@ namespace ChequeIN.Models
         [DisplayName("Mailing Address")]
         public MailingAddress MailingAddress { get; set; }
 
-        [DisplayName("Supporting Documents")]
-        //[MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
-        public ICollection<SupportingDocument> SupportingDocuments { get; set; }
-
-        [DisplayName("Status History")]
-        //[MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
-        public ICollection<Status> StatusHistory { get; set; }
-
-        public int UserProfileID { get; set; }
-
-        public int LedgerAccountID { get; set; }
-
-
         [DisplayName("Payee Name")]
         public String PayeeName {
-            get { return this.payeeName; }
+            get { return this.payeeName;}
             set { this.payeeName = value.Trim(); }
         }
 
@@ -59,9 +47,11 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Approver Name")]
-        public String ApprovedBy {
+        public String ApprovedBy
+        {
             get { return this.approvedBy; }
             set { this.approvedBy = value.Trim(); }
         }
+
     }
 }
