@@ -1,4 +1,4 @@
-export class ChequeReq2 {
+export class SubmittedChequeReq{
   public preTax: number = 0;
   public GST: number = 0;
   public PST: number = 0;

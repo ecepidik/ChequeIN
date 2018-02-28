@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { Account } from '../api/account';
-import { ChequeReq2 } from '../api/cheque-req2';
+import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 
 @Component({
   selector: 'app-view-cheque-reqs',
@@ -10,12 +10,12 @@ import { ChequeReq2 } from '../api/cheque-req2';
   styleUrls: ['./view-cheque-reqs.component.scss']
 })
 export class ViewChequeReqsComponent implements OnInit {
-  chequeReqs$: Observable<[ChequeReq2]>;
+  chequeReqs$: Observable<[SubmittedChequeReq]>;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.chequeReqs$ = this.api.getChequeReqs();
+    // this.chequeReqs$ = this.api.getChequeReqs();
   }
 
 }
