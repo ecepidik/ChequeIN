@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,11 +21,11 @@ namespace ChequeIN.Models
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Account Group")]
-        [Required]
+        
         public AccountType Group { get; set; }
 
         [DisplayName("Account Name")]
-        [Required]
+        
         public String Name {
             get
             {
@@ -38,7 +38,7 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Account Number")]
-        [Required]
+        
         public int Number { get; set; }
 
         [DisplayName("Associated Cheque Reqs")]

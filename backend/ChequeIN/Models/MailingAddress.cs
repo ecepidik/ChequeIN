@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace ChequeIN.Models
         //Line 1 must begin with a number, followed by a space, and then a collection of letters
         //(including accented letters) or numbers.
         [DisplayName("Address Line 1")]
-        [Required]
+        
         [RegularExpression(@"^\d+ +(\p{L}|\p{Pd}|\d| )+$", ErrorMessage = "Invalid Address Line 1 format.")]
         public String Line1
         {
@@ -51,7 +51,7 @@ namespace ChequeIN.Models
 
         //The City can be a collection of any letters, including accented letters, and can include dashes or spaces.
         //Numbers are not allowed. 
-        [Required]
+        
         [RegularExpression(@"^(\p{L}|\p{Pd}| )+$", ErrorMessage = "Invalid City format.")]
         public String City
         {
@@ -68,7 +68,7 @@ namespace ChequeIN.Models
         //Postal Codes can contain any of 'ABCEGHJKLMNPRSTVXY' in uppercase or lowercase. They must follow this format:
         //"C#C#C#" or "C#C #C#" where C is an accepted character, and # is a digit. 
         [DisplayName("Postal Code")]
-        [Required]
+        
         [RegularExpression(@"^(?!.*[DFIOQUdfioqu])([A-VXY]|[a-vxy])[0-9]([A-Z]|[a-z]) ?[0-9]([A-Z]|[a-z])[0-9]$",
             ErrorMessage = "Invalid Postal Code format.")]
         public String PostalCode

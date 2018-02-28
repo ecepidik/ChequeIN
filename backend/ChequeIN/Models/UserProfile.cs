@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,10 +21,10 @@ namespace ChequeIN.Models
         [Key]
         public int UserProfileID { get; set; }
 
-        [Required]
+        
         public string AuthenticationIdentifier { get; set; }
 
-        [Required]
+        
         [EmailAddress]
         public String Email {
             get
@@ -38,7 +38,7 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Authorized Account Groups")]
-        [Required]
+        
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
         public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
 

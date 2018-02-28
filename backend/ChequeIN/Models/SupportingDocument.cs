@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace ChequeIN.Models
         public int SupportingDocumentID { get; set; }
 
         [DisplayName("Document Description")]
-        [Required]
+        
         public String Description {
             get
             {
@@ -27,7 +27,7 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Document ID")]
-        [Required]
+        
         public long FileIdentifier { get; set; }
 
     }
