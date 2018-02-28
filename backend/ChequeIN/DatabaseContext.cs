@@ -21,7 +21,7 @@ namespace ChequeIN
             // Specify the path of the database here
             if (!IsTest)
             {
-                optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite"); 
+                optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite");
             } else
             {
                 optionsBuilder.UseSqlite("Filename=./chequein_test_db.sqlite");

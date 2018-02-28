@@ -81,8 +81,8 @@ namespace ChequeIN.Tests
                 MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
                 SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
                 StatusHistory = new List<Status>() { new Status() {  } },
-                Submitter = officers.ElementAt(0),
-                AssociatedAccount = ledgerAccounts.ElementAt(0)
+                LedgerAccountID = ledgerAccounts.ElementAt(0).LedgerAccountID,
+                UserProfileID = officers.ElementAt(0).UserProfileID
             };
 
             context.Add(c as ChequeReq);
@@ -94,10 +94,15 @@ namespace ChequeIN.Tests
                         .ToList();
             ledgerAccounts = context.LedgerAccounts
                                 .ToList();
+            officers = context.FinancialOfficers
+                                .ToList();
 
-            Assert.True(crs.Count == 1);
+            Assert.Equal(1, crs.Count);
             Assert.True(crs.ElementAt(0).LedgerAccountID == ledgerAccounts.ElementAt(0).LedgerAccountID);
             Assert.True(ledgerAccounts.ElementAt(0).ChequeReqs.ElementAt(0).ChequeReqID == crs.ElementAt(0).ChequeReqID);
+            Assert.Equal(crs.ElementAt(0).UserProfileID, officers.ElementAt(0).UserProfileID);
+            Assert.Equal(officers.ElementAt(0).SubmittedChequeReqs.ElementAt(0).ChequeReqID, crs.ElementAt(0).ChequeReqID);
+
         }
 
     }
