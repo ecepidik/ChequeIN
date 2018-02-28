@@ -1,11 +1,14 @@
-﻿using System.Linq;
+using System;
+using System.Linq;
 using ChequeIN.Models;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChequeIN.Database
 {
     public static class Accounts
     {
-        public static bool TryGetAccountsOfUserId(string id, out AuthorizedAccountSet account)
+        public static bool TryGetAccountsOfUserId(string id, out List<LedgerAccount> accounts)
         {
             using (var context = new DatabaseContext())
             {
@@ -16,38 +19,50 @@ namespace ChequeIN.Database
 
                 if (!userExists)
                 {
-                    account = null;
+                    accounts = null;
                     return false;
                 }
 
-                long accountID;
+                List<AccountType> accountTypes;
 
-                if (user is FinancialOfficer)
+                if (user is UserProfile)
                 {
-                    accountID = (user as FinancialOfficer).AuthorizedAccountsID;
-                }
-                else if (user is FinancialAdministrator)
-                {
-                    accountID = (user as FinancialAdministrator).RootID;
+                    accountTypes = user.AuthorizedAccountGroups.ToList();
                 }
                 else
                 {
-                    account = null;
+                    accounts = null;
                     return false;
                 }
 
-                var accounts = from v in context.AuthorizedAccountSet
-                              where v.ID == accountID
-                              select v;
+                var ledgerAccounts = context.LedgerAccounts
+                                .ToList();
 
+                accounts = new List<LedgerAccount>();
+                FindAllAuthorizedAccounts(ledgerAccounts, accounts, accountTypes);
                 if (accounts.Any())
                 {
-                    account = accounts.First();
                     return true;
                 }
-                account = null;
                 return false;
             }
+        }
+
+        private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<AccountType> accountTypes)
+        {
+           
+            foreach (AccountType t in accountTypes)
+            {
+                foreach(LedgerAccount a in ledgerAccounts)
+                {
+                    if(a.Group.Type == t.Type)
+                    {
+                        accounts.Add(a);
+                    }
+                }
+
+            }
+            return;
         }
     }
 }
