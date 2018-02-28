@@ -12,7 +12,7 @@ import { ChequeReq2 } from '../api/cheque-req2';
 export class ViewChequeReqsComponent implements OnInit {
   chequeReqs$: Observable<[ChequeReq2]>;
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.chequeReqs$ = this.api.getChequeReqs();

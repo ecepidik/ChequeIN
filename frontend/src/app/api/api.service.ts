@@ -38,39 +38,40 @@ export class ApiService {
     return Observable.of(); // TODO: Make an actual API call
   }
 
-  /** 
-   * Gets information about the submitted cheque reqs 
-   */
-   getChequeReqs(): Observable<Array<ChequeReq2>> {   //TODO: get multiple cheq reqs 
-    return Observable.of(
-      [
-        {
-          preTax: 15,
-          GST: 1,
-          PST: 1.33,
-          HST: 0.66,
-          description: 'ergrtgrt',
-          onlinePurchase: '',
-          approver: 'Jane Doe',
-          account: Account | undefined,
-          freeFood: false,
-          mailCheque: false,
-          mailingAddress: '123 Mountain Ave',
-        },
-        {
-          preTax: 0,
-          GST: 0,
-          PST: 0,
-          HST: 0,
-          description: 'ergrtgrt',
-          onlinePurchase: '',
-          approver: 'Jane Doe',
-          account: Account | undefined,
-          freeFood: false,
-          mailCheque: false,
-          mailingAddress: '123 Mountain Ave',
-        }
-      ]); // TODO: actually call the API 
-    }
 
-  }
+  // /** 
+  //  * Gets information about the submitted cheque reqs 
+  //  */
+  //  getChequeReqs(): Observable<Array<ChequeReq2>> {
+  //   return Observable.of(
+  //     [
+  //       {
+  //         preTax: 15,
+  //         GST: 1,
+  //         PST: 1.33,
+  //         HST: 0.66,
+  //         description: 'ergrtgrt',
+  //         onlinePurchase: '',
+  //         approver: 'Jane Doe',
+  //         account: Account | undefined,
+  //         freeFood: false,
+  //         mailCheque: false,
+  //         mailingAddress: '123 Mountain Ave',
+  //       },
+  //       {
+  //         preTax: 0,
+  //         GST: 0,
+  //         PST: 0,
+  //         HST: 0,
+  //         description: 'ergrtgrt',
+  //         onlinePurchase: '',
+  //         approver: 'Jane Doe',
+  //         account: Account | undefined,
+  //         freeFood: false,
+  //         mailCheque: false,
+  //         mailingAddress: '123 Mountain Ave',
+  //       }
+  //     ]); // TODO: actually call the API 
+  //   }
+
+}
