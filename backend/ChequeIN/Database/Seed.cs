@@ -7,26 +7,22 @@ namespace ChequeIN.Database
 {
     public static class Seed
     {
-        public static void SeedDatabase()
+        public static void SeedDatabase(DatabaseContext ctx)
         {
-
-            using (var ctx = new DatabaseContext()) {
-                if (!ctx.LedgerAccounts.Any())
-                {
-                    DatabaseUtils.AddToDatabase(GenerateLedgerAccount());
-                }
-
-                if (!ctx.FinancialOfficers.Any())
-                {
-                    DatabaseUtils.AddToDatabase(GenerateFinancialOfficer());
-                }
-
-                if (!ctx.FinancialAdministrators.Any())
-                {
-                    DatabaseUtils.AddToDatabase(GenerateFinancialAdministrator());
-                }
+            if (!ctx.LedgerAccounts.Any())
+            {
+                DatabaseUtils.AddToDatabase(ctx, GenerateLedgerAccount());
             }
 
+            if (!ctx.FinancialOfficers.Any())
+            {
+                DatabaseUtils.AddToDatabase(ctx, GenerateFinancialOfficer());
+            }
+
+            if (!ctx.FinancialAdministrators.Any())
+            {
+                DatabaseUtils.AddToDatabase(ctx, GenerateFinancialAdministrator());
+            }
 
 
             // var chequeReq = new Models.ChequeReq();

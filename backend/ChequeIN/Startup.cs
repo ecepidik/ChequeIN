@@ -26,6 +26,10 @@ namespace ChequeIN
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Get the environment
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            IHostingEnvironment env = serviceProvider.GetService<IHostingEnvironment>();
+
             services.AddOptions();
 
             services.Configure<Configurations.Authentication>(Configuration.GetSection("Authentication"));
@@ -56,6 +60,20 @@ namespace ChequeIN
                     .AllowAnyHeader();
             }));
 
+            // Setup the database context
+            services.AddDbContext<DatabaseContext>(options =>
+            {
+                if (env.IsDevelopment())
+                {
+                    options.UseSqlite(Configuration["Database:LocalDatabaseName"]);
+                }
+                else
+                {
+                    var connection = Environment.GetEnvironmentVariable("DB_CONNTECTION_STRING");
+                    options.UseSqlServer(connection);
+                }
+            });
+
             // Setting up Auth0 authentication
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
@@ -73,15 +91,26 @@ namespace ChequeIN
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            using (var dbctx = new DatabaseContext()) {
-                dbctx.Database.Migrate();
-                Database.Seed.SeedDatabase();
-            }
+            // Database options
+            var options = new DbContextOptionsBuilder<DatabaseContext>();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("AllowAllOrigins");
+                options.UseSqlite(Configuration["Database: LocalDatabaseName"]);
+            }
+            else
+            {
+                var connection = Environment.GetEnvironmentVariable("DB_CONNTECTION_STRING");
+                options.UseSqlServer(connection);
+            }
+
+            // Migrate the database and fill it with seed data
+            using (var ctx = new DatabaseContext(options.Options))
+            {
+                ctx.Database.Migrate();
+                Database.Seed.SeedDatabase(ctx);
             }
 
             app.UseAuthentication();

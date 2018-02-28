@@ -13,10 +13,12 @@ namespace ChequeIN.Controllers
     public class AccountsController : Controller
     {
         private Configurations.Authentication _authSettings;
+        private DatabaseContext _dbContext;
 
-        public AccountsController(IOptions<Configurations.Authentication> authSettings)
+        public AccountsController(IOptions<Configurations.Authentication> authSettings, DatabaseContext dbContext)
         {
             _authSettings = authSettings.Value;
+            _dbContext = dbContext;
         }
 
         // GET api/accounts
@@ -24,10 +26,10 @@ namespace ChequeIN.Controllers
         [Authorize]
         public IActionResult Get()
         {
-            var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
             if (user == null) // TODO: This shouldn't have to be handled by individual api calls
                 return StatusCode(404);
-            bool exists = Database.Accounts.TryGetAccountsOfUserId(user.AuthenticationIdentifier, out List<LedgerAccount> accounts); //TODO replace this id
+            bool exists = Database.Accounts.TryGetAccountsOfUserId(_dbContext, user.AuthenticationIdentifier, out List<LedgerAccount> accounts); //TODO replace this id
             if (!exists)
                 return Ok(accounts);
             return Ok(accounts);
