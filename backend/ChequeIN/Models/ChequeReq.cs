@@ -91,13 +91,7 @@ namespace ChequeIN.Models
         
         public int UserProfileID { get; set; }
 
-
         public int LedgerAccountID { get; set; }
-
-        [DisplayName("Associated Account")]
-        [InverseProperty("ChequeReqs")]
-        [ForeignKey("LedgerAccountID")]
-        public LedgerAccount AssociatedAccount { get; set; }
 
     }
 }
