@@ -75,6 +75,7 @@ namespace ChequeIN
         {
             using (var dbctx = new DatabaseContext()) {
                 dbctx.Database.Migrate();
+                Database.Seed.SeedDatabase();
             }
 
             if (env.IsDevelopment())

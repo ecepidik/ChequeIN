@@ -26,7 +26,6 @@ namespace ChequeIN.Database
             using (var context = new DatabaseContext())
             {
 
-                context.Database.EnsureCreated();
                 var officers = from v in context.FinancialOfficers
                                where v.AuthenticationIdentifier == id
                                select v;
