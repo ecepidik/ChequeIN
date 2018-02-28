@@ -98,7 +98,7 @@ namespace ChequeIN
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("AllowAllOrigins");
-                options.UseSqlite(Configuration["Database: LocalDatabaseName"]);
+                options.UseSqlite(Configuration["Database:LocalDatabaseName"]);
             }
             else
             {
