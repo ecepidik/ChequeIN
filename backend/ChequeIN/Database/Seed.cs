@@ -16,7 +16,7 @@ namespace ChequeIN.Database
                 // Create the database if it does not exist
                 context.Database.EnsureCreated ();
             }
-            
+
             DatabaseUtils.AddToDatabase(GenerateLedgerAccount());
 
             DatabaseUtils.AddToDatabase(GenerateFinancialOfficer());

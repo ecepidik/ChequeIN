@@ -15,7 +15,7 @@ namespace ChequeIN
         public static void Main(string[] args)
         {
             
-            Database.Seed.SeedDatabase();
+            //Database.Seed.SeedDatabase();
             
             BuildWebHost(args).Run();
 
