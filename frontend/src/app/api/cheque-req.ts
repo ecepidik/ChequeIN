@@ -8,7 +8,7 @@ export class ChequeReq {
   public payableAddressee: string = '';
   public approver: string = '';
   public account: Account | undefined;
-  public freeFood: boolean = false;
+  public freeFood: boolean;
   public mailCheque: boolean = false;
   public mailingAddress: string = '';
 }

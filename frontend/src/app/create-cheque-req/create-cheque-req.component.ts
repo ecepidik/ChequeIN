@@ -16,14 +16,16 @@ import { Account } from '../api/account';
 export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReq = new ChequeReq();
   accounts$: Observable<Account[]>;
+  submitted: boolean = false;
+
 
   constructor(private api: ApiService) {}
 
-  ngOnInit() {
-    this.accounts$ = this.api.getAccounts();
-  }
+  ngOnInit() { this.accounts$ = this.api.getAccounts();}
 
-  submitChequeReq() {
-    console.log("Submitted: ", this.chequeReq) // TODO: actually submit the cheque req
-  }
+  submitChequeReq() {     // TODO: actually submit the cheque req}
+    this.submitted = true;    
+  
+    if(this.submitted === true){console.log("Submitted: ", this.chequeReq);}
+ 
 }

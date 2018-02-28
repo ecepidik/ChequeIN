@@ -1,5 +1,5 @@
-<form style="margin-top: 20px; padding-left: 20px;" (ngSubmit)="submitChequeReq()">
-   <!-- 1. Financial Details Section -->
+<form style="padding-left: 20px;padding-top: 45px;" (ngSubmit)="submitChequeReq()">
+  <!-- 1. Financial Details Section -->
   <mat-form-field>
     <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel"
            [(ngModel)]="chequeReq.preTax" required #preTax="ngModel" name="preTax"/>
@@ -22,7 +22,8 @@
       <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{ account.number }} - {{ account.name }}</mat-option>
     </mat-select>
   </mat-form-field>
-   <!-- 2. Description Section -->
+
+  <!-- 2. Description Section -->
   <div>
     <br>
     <mat-form-field>
@@ -33,6 +34,10 @@
       </mat-error>
     </mat-form-field>
   </div>
+
+  <mat-divider></mat-divider>
+  <!-- 3. CheckBox Section -->
+  <!-- 3.1 Online Purchase Question Section -->
   <div>
     <mat-checkbox [(ngModel)]="chequeReq.onlinePurchase" name="onlinePurchase">This cheque req is for an online purchase</mat-checkbox>
     <p style="font-size: small; font-style: italic;" *ngIf="chequeReq.onlinePurchase">
@@ -42,6 +47,26 @@
   </div>
   <mat-checkbox [(ngModel)]="chequeReq.freeFood" name="freeFood">This cheque req includes food items that were distributed for free and not part of any paid event. (Ex: public forums,
     food for meetings)</mat-checkbox>
+
+  <!-- 3.2 FreeFood Question Section -->
+  <div>
+    <br>
+    Does this cheque req including food items that were distributed for free and not part of any paid event. (Ex: public forums,
+    food for meetings) ? 
+      <mat-radio-group [(ngModel)]="chequeReq.freeFood" name="freeFood" #freeFood="ngModel" required>
+        <mat-radio-button class="space-radio-button" [value]="true">Yes</mat-radio-button>
+        <mat-radio-button class="space-radio-button" [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+      
+      <div *ngIf="freeFood.errors?.required && submitted" class="alert alert-danger"> Please select either Yes or No to this question</div>
+
+      <div *ngIf="!freeFood.pristine && chequeReq.freeFood === true" class="alert alert-warning">
+             Note your account will be charged for the pre-tax amount plus half of all GST, QST and HST taxes incurred
+      </div>
+
+  </div>
+  
+  <!-- 3.3 Payable Address Section -->
   <mat-form-field>
     <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" name="payableAddressee" #payableAddressee="ngModel" required>
     <mat-error *ngIf="payableAddressee.errors?.required">
@@ -50,12 +75,18 @@
   </mat-form-field>
   <mat-divider></mat-divider>
   <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
-  <mat-form-field *ngIf="chequeReq.mailCheque">
+  <br>
+  <br>
+  <!-- 3.4 Mail Request Section -->
+  <div>
+    <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
+      <mat-form-field *ngIf="chequeReq.mailCheque">
     <input matInput placeholder="Mailing Address" [(ngModel)]="chequeReq.mailingAddress" name="mailingAddress" #mailingAddress="ngModel" required>
     <mat-error *ngIf="mailingAddress.errors?.required">
       You need to enter a mailing address
     </mat-error>
-  </mat-form-field>
-  <br>
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
 </form>
