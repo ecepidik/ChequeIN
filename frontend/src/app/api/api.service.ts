@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
-import { ChequeReq } from './cheque-req';
-import { User } from './user';
-import { Account } from './account';
+import {Injectable} from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../environments/environment';
+import {ChequeReq} from './cheque-req';
+import {User} from './user';
+import {Account} from './account';
+import {SubmittedChequeReq} from './submitted-cheque-req';
 
 @Injectable()
 export class ApiService {
-  constructor(private authHttp: AuthHttp) {}
+  constructor(private authHttp: AuthHttp) {
+  }
 
   /**
    * Gets information about the currently logged-in user.
    */
   getUser(): Observable<User> {
-    return Observable.of({ name: 'Jonh Doe' }); // TODO: actually call the API
+    return Observable.of({name: 'Jonh Doe'}); // TODO: actually call the API
   }
 
   /**

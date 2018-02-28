@@ -3,6 +3,8 @@ import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../api/api.service';
 import { ChequeReq } from '../api/cheque-req';
+import { Account } from '../api/account';
+import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 
 @Component({
   selector: 'app-view-cheque-reqs',
