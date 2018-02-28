@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ChequeIN.Models;
 
 namespace ChequeIN.Database
@@ -30,7 +31,20 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                cheques = user.SubmittedChequeReqs.ToList<ChequeReq>();
+                
+
+                if (user is FinancialAdministrator)
+                {
+                    var userLoader = context.FinancialAdministrators.Include(u => u.SubmittedChequeReqs)
+                                        .Single(u => u.UserProfileID == user.UserProfileID);
+                    cheques = userLoader.SubmittedChequeReqs.ToList();
+                }
+                else
+                {
+                    var userLoader = context.FinancialOfficers.Include(u => u.SubmittedChequeReqs)
+                                        .Single(u => u.UserProfileID == user.UserProfileID);
+                    cheques = userLoader.SubmittedChequeReqs.ToList();
+                }
                 return true;
             }
         }
