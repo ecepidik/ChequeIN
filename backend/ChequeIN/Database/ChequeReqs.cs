@@ -31,25 +31,13 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                if (user is FinancialAdministrator)
-                {
-                    var userLoader = context.FinancialAdministrators.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
-                }
-                else
-                {
-                    var userLoader = context.FinancialOfficers.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
-                }
-
-                //var accounts = context.LedgerAccounts.Include(x => x).Single(x => x.Group.UserProfileID == user.UserProfileID);
-
-                //foreach (ChequeReq c in cheques) {
-                //    c.
-                //}
-
+                cheques = context.ChequeReqs
+                                 .Where(x => x.UserProfileID == user.UserProfileID)
+                                 .Include(x => x.StatusHistory)
+                                 .Include(x => x.MailingAddress)
+                                 .Include(x => x.SupportingDocuments)
+                                 .ToList();
+                
                 return true;
             }
         }
