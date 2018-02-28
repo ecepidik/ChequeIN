@@ -55,5 +55,21 @@ Use the ApiService located in frontend/app/api.service.ts. Add your calls to it,
 ### How to enforce authentication in development
 Set `"DisableAuthentication": false` in `appsettings.Development.json`.
 
+## Database
+Now the database system uses migrations. Migrations is a way to version-control the schema of a database by keeping track of the changes (named migrations) applied to a database over time. This ensures that the database in production is always up to date because migrations are applied on deployment.
+### What's up me?
+### If you have a weird Exception when starting the service
+* Delete the `chequein_db.sqlite` file
+* Run the project again
+
+### If you made a change to the data models
+* Run `dotnet ef migrations add [MigrationName]` in the `backend/ChequeIn` folder. Replace `[MigrationName]` with a meaningful name for the changes you made. **No need to delete the database.**
+* A file will be created in the `backend/ChequeIn/Migrations` folder. You need to commit this file along with your domain model changes.
+* Run the project (this will update your `chequein_db.sqlite` to the new models)
+
+### If you want to change/add seeding data
+* Delete the `chequein_db.sqlite` file
+* Run the project (the database will be recreated with the seeding data into it)
+
 ## EditorConfig
 To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.
