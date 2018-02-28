@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -39,7 +39,6 @@ namespace ChequeIN.Models
         public float HST { get; set; }
 
         [DisplayName("Payee Name")]
-        
         public String PayeeName {
             get
             {
@@ -51,7 +50,6 @@ namespace ChequeIN.Models
             }
         }
 
-        
         public String Description {
             get
             {
@@ -81,12 +79,12 @@ namespace ChequeIN.Models
 
         [DisplayName("Supporting Documents")]
         
-        [MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
+        //[MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
         public ICollection<SupportingDocument> SupportingDocuments { get; set; }
 
         [DisplayName("Status History")]
         
-        [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
+        //[MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
         
         public int UserProfileID { get; set; }
