@@ -17,31 +17,28 @@ namespace ChequeIN.Controllers
             _authSettings = authSettings.Value;
         }
 
-        // GET api/ChequeReqs
+        //GET api/ChequeReqs
         [HttpGet]
         public IActionResult Get()
         {
             var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
-            if (user == null)
-            {
+            if (user == null) {
                 return StatusCode(403);
             }
             bool exists = Database.ChequeReqs.TryGetAllChequeReqs(user.AuthenticationIdentifier, out List<ChequeReq> cheques);
-            if (!exists)
-            {
+            if (!exists) {
                 return Ok(Enumerable.Empty<ChequeReq>().ToList<ChequeReq>());
             }
-            else
-            {
+            else {
                 var convert = cheques.Select(x => ChequeIN.Models.API.Output.ChequeReq.FromModel(x));
                 return Ok(convert);
             }
         }
 
-        [HttpPost]
+        //PUT api/ChequeReqs
+        [HttpPut]
         public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
-
             bool b = Database.ChequeReqs.TryGetChequeReq(cheque.ChequeReqID, out ChequeReq model);
             if (!b) {
               return StatusCode(500);
