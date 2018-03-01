@@ -42,12 +42,12 @@ namespace ChequeIN.Controllers
         public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
 
-            bool b = Database.ChequeReqs.TryGetChequeReq(1, out ChequeReq model);
+            bool b = Database.ChequeReqs.TryGetChequeReq(cheque.ChequeReqID, out ChequeReq model);
             if (!b) {
               return StatusCode(500);
             }
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, model.ChequeReqID, model.SupportingDocuments, model.StatusHistory);
-            return Ok();
+            return StatusCode(200);
         }
     }
 }
