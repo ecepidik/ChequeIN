@@ -10,40 +10,40 @@ namespace ChequeIN.Database
         public static void SeedDatabase ()
         {
             using (var context = new DatabaseContext ()) {
-                context.Database.EnsureDeleted ();
-                context.Database.EnsureCreated ();
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
             }
 
-            DatabaseUtils.AddToDatabase(GenerateLedgerAccount());
-            DatabaseUtils.AddToDatabase(GenerateFinancialOfficer());
-            DatabaseUtils.AddToDatabase(GenerateFinancialAdministrator());
+            var ledger = GenerateLedgerAccount();
+            var officer = GenerateFinancialOfficer();
+            var admin = GenerateFinancialAdministrator();
 
-            using (var context = new DatabaseContext() { IsTest = false })
-            {
-                var ledgerAccounts = context.LedgerAccounts.ToList();
-                var officers = context.FinancialOfficers.ToList();
+            DatabaseUtils.AddToDatabase(ledger);
+            DatabaseUtils.AddToDatabase(officer);
+            DatabaseUtils.AddToDatabase(admin);
+            DatabaseUtils.AddToDatabase(GenerateChequeReq(ledger.LedgerAccountID, officer.UserProfileID));
+        }
 
-                ChequeReq c = new ChequeReq() {
-                    PreTax = 1,
-                    ChequeReqID = 1,
-                    GST = 1,
-                    PST = 1,
-                    HST = 1,
-                    PayeeName = "User",
-                    Description = "Desc",
-                    ApprovedBy = "Kareem Halabi",
-                    FreeFood = false,
-                    OnlinePurchases = false,
-                    ToBeMailed = true,
-                    MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
-                    SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
-                    StatusHistory = new List<Status>() { new Status() { } },
-                    LedgerAccountID = ledgerAccounts.ElementAt(0).LedgerAccountID,
-                    UserProfileID = officers.ElementAt(0).UserProfileID
-                };
-                context.Add(c as ChequeReq);
-                context.SaveChanges();
-            }
+        private static ChequeReq GenerateChequeReq(int ledgerID, int userID) {
+            ChequeReq c = new ChequeReq() {
+                PreTax = 1,
+                ChequeReqID = 1,
+                GST = 1,
+                PST = 1,
+                HST = 1,
+                PayeeName = "User",
+                Description = "Desc",
+                ApprovedBy = "Kareem Halabi",
+                FreeFood = false,
+                OnlinePurchases = false,
+                ToBeMailed = true,
+                MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
+                SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
+                StatusHistory = new List<Status>() { new Status() { } },
+                LedgerAccountID = ledgerID,
+                UserProfileID = userID
+            };
+            return c;
         }
 
         private static LedgerAccount GenerateLedgerAccount() {
@@ -59,9 +59,10 @@ namespace ChequeIN.Database
         }
 
         private static FinancialOfficer GenerateFinancialOfficer() {
+
             var profile = new Models.FinancialOfficer() {
                 Email = "user@test.com",
-                AuthenticationIdentifier = "auth0|5a84eafef5c8213cb27c27e2"
+                AuthenticationIdentifier = "auth0|5a84eafef5c8213cb27c27e2",
             };
             return profile;
         }

@@ -11,26 +11,19 @@ namespace ChequeIN
 
         public DbSet<Models.FinancialOfficer> FinancialOfficers { get; set; }
         public DbSet<Models.FinancialAdministrator> FinancialAdministrators { get; set; }
-
         public DbSet<Models.ChequeReq> ChequeReqs { get; set; }
-
         public DbSet<Models.LedgerAccount> LedgerAccounts { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             // Specify the path of the database here
-            if (!IsTest)
-            {
+            if (!IsTest) {
                 optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite");
-            } else
-            {
+            } else {
                 optionsBuilder.UseSqlite("Filename=./chequein_test_db.sqlite");
             }
-
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Models.UserProfile>().ToTable("UserProfiles");
         }
     }

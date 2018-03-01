@@ -15,13 +15,8 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
-            
+
             Database.Seed.SeedDatabase();
-
-            using (var context = new DatabaseContext() { IsTest = false }) {
-                var test = context.FinancialOfficers.Include(officer => officer.SubmittedChequeReqs).ToList().ElementAt(0).SubmittedChequeReqs.ElementAt(0);
-            }
-
             BuildWebHost(args).Run();
 
         }
