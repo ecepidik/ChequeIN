@@ -31,11 +31,11 @@ namespace ChequeIN.Models
 
         [DisplayName("Authorized Account Groups")]
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
-        public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
+        public ICollection<AccountType> AuthorizedAccountGroups { get; set; }
 
         [DisplayName("Submitted Cheque Reqs")]
         [ForeignKey("UserProfileID")]
-        public ICollection<ChequeReq> SubmittedChequeReqs { get; private set; }
+        public ICollection<ChequeReq> SubmittedChequeReqs { get; set; }
 
     }
 }
