@@ -24,8 +24,5 @@ namespace ChequeIN.Models
             }
         }
 
-        [Required]
-        public long RootID { get; set; }
-
     }
 }

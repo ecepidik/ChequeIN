@@ -21,7 +21,9 @@ import {
   MatButton,
   MatDividerModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule
+
 } from '@angular/material';
 import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
@@ -72,6 +74,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
     NgbModule,
     CurrencyMaskModule
   ],

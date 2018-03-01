@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,26 @@ namespace ChequeIN
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddOptions();
+
+            services.Configure<Configurations.Authentication>(Configuration.GetSection("Authentication"));
+
+            if (!bool.TryParse(Configuration["Authentication:DisableAuthentication"], out bool disableAuth)) {
+                disableAuth = false;
+            }
+
+            // Allow anonymous if the disable authentication setting is set
+            if (disableAuth)
+            {
+                services.AddMvc(opts =>
+                {
+                    opts.Filters.Add(new AllowAnonymousFilter());
+                });
+            }
+            else
+            {
+                services.AddMvc();
+            }
 
             // For development purposes only. Allows the frontend to be served
             // from a different domain.

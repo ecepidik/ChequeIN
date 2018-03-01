@@ -52,5 +52,8 @@ public IEnumerable<string> Get()
 ### How to make an authenticated API call in the frontend
 Use the ApiService located in frontend/app/api.service.ts. Add your calls to it, just like the example call and then use the service from your component.
 
+### How to enforce authentication in development
+Set `"DisableAuthentication": false` in `appsettings.Development.json`.
+
 ## EditorConfig
 To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.

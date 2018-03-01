@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChequeIN.Models;
@@ -28,11 +28,11 @@ namespace ChequeIN.Database
 
                 context.Database.EnsureCreated();
                 var officers = from v in context.FinancialOfficers
-                               where v.UserProfileID == id
+                               where v.AuthenticationIdentifier == id
                                select v;
 
                 var admins = from v in context.FinancialAdministrators
-                             where v.UserProfileID == id
+                             where v.AuthenticationIdentifier == id
                              select v;
 
                 if (officers.Any())
@@ -50,9 +50,18 @@ namespace ChequeIN.Database
             }
         }
 
-        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity)
+        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
         {
-            var id = identity.Identities.First().Claims.ElementAt(1).Value;
+            string id;
+            // Give the default user id if auth is disabled and no user is authenticated
+            if (disableAuth && !identity.Identities.First().Claims.Any())
+            {
+                id = developmentUserId;
+            }
+            else
+            {
+                id = identity.Identities.First().Claims.ElementAt(1).Value;
+            }
             var exists = TryGetUserById(id, out UserProfile user);
             if (!exists)
             {
