@@ -1,8 +1,8 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let chequeReq of chequeReqs$ | async">
+  <mat-expansion-panel *ngFor="let chequeReq of chequeReqs">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{chequeReq.approvedBy}}
+        {{chequeReq.approvedBy}} {{chequeReq.approver}}
       </mat-panel-title>
       <mat-panel-description>
         {{chequeReq.description}}
