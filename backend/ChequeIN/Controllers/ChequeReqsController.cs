@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
 namespace ChequeIN.Controllers
@@ -35,19 +33,21 @@ namespace ChequeIN.Controllers
             }
             else
             {
-                return Ok(cheques);
+                var convert = cheques.Select(x => ChequeIN.Models.API.Output.ChequeReq.FromModel(x));
+                return Ok(convert);
             }
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] ChequeReq cheque)
+        public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
-            var errors = ModelState
-                .Where(x => x.Value.Errors.Count > 0)
-                .Select(x => new { x.Key, x.Value.Errors })
-                .ToArray();
 
-            return Ok(errors);
+            bool b = Database.ChequeReqs.TryGetChequeReq(1, out ChequeReq model);
+            if (!b) {
+              return StatusCode(500);
+            }
+            var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, model.ChequeReqID, model.SupportingDocuments, model.StatusHistory);
+            return Ok();
         }
     }
 }
