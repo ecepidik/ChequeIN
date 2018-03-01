@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChequeIN.Models.API.Input
 {
@@ -51,6 +50,28 @@ namespace ChequeIN.Models.API.Input
         {
             get { return this.approvedBy; }
             set { this.approvedBy = value.Trim(); }
+        }
+
+        public static ChequeIN.Models.ChequeReq ToModel (ChequeReq cheque, int userProfileID, ICollection<SupportingDocument> docs, ICollection<Status> status) {
+          ChequeIN.Models.ChequeReq c = new ChequeIN.Models.ChequeReq() {
+            UserProfileID = userProfileID,
+            SupportingDocuments = docs,
+            StatusHistory = status,
+            ChequeReqID = cheque.ChequeReqID,
+            FreeFood = cheque.FreeFood,
+            OnlinePurchases = cheque.OnlinePurchases,
+            ToBeMailed = cheque.ToBeMailed,
+            LedgerAccountID = cheque.LedgerAccountID,
+            PreTax = cheque.PreTax,
+            GST = cheque.GST,
+            PST = cheque.PST,
+            HST = cheque.HST,
+            MailingAddress = cheque.MailingAddress, //TODO
+            PayeeName = cheque.PayeeName,
+            Description = cheque.Description,
+            ApprovedBy = cheque.ApprovedBy
+          };
+          return c;
         }
 
     }
