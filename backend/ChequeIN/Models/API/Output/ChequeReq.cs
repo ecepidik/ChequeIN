@@ -69,7 +69,7 @@ namespace ChequeIN.Models.API.Output
               GST = model.GST,
               PST = model.PST,
               HST = model.HST,
-              MailingAddress = model.MailingAddress, //TODO
+              MailingAddress = model.MailingAddress, //TODO alias here
               StatusHistory = model.StatusHistory,
               PayeeName = model.PayeeName,
               Description = model.Description,

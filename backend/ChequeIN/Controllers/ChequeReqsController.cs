@@ -4,10 +4,12 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN.Models;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChequeIN.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class ChequeReqsController : Controller
     {
         private Configurations.Authentication _authSettings;

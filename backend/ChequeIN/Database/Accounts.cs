@@ -12,25 +12,21 @@ namespace ChequeIN.Database
         {
             using (var context = new DatabaseContext())
             {
-
                 context.Database.EnsureCreated();
 
                 bool userExists = Users.TryGetUserById(id, out UserProfile user);
 
-                if (!userExists)
-                {
+                if (!userExists) {
                     accounts = null;
                     return false;
                 }
 
                 List<AccountType> accountTypes;
 
-                if (user is UserProfile)
-                {
+                if (user is UserProfile) {
                     accountTypes = user.AuthorizedAccountGroups.ToList();
                 }
-                else
-                {
+                else {
                     accounts = null;
                     return false;
                 }
@@ -40,8 +36,7 @@ namespace ChequeIN.Database
 
                 accounts = new List<LedgerAccount>();
                 FindAllAuthorizedAccounts(ledgerAccounts, accounts, accountTypes);
-                if (accounts.Any())
-                {
+                if (accounts.Any()) {
                     return true;
                 }
                 return false;
@@ -50,13 +45,10 @@ namespace ChequeIN.Database
 
         private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<AccountType> accountTypes)
         {
-           
-            foreach (AccountType t in accountTypes)
-            {
-                foreach(LedgerAccount a in ledgerAccounts)
-                {
-                    if(a.Group.Type == t.Type)
-                    {
+
+            foreach (AccountType t in accountTypes) {
+                foreach(LedgerAccount a in ledgerAccounts) {
+                    if(a.Group.Type == t.Type) {
                         accounts.Add(a);
                     }
                 }

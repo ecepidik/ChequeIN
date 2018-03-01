@@ -8,8 +8,7 @@ namespace ChequeIN.Database
 {
     public static class ChequeReqs
     {
-        public static IEnumerable<ChequeReq> GetAllChequeReqs()
-        {
+        public static IEnumerable<ChequeReq> GetAllChequeReqs() {
             using (var context = new DatabaseContext())
             {
                 context.Database.EnsureCreated();
@@ -68,6 +67,5 @@ namespace ChequeIN.Database
               context.SaveChanges();
             }
       }
-
-    }
+   }
 }
