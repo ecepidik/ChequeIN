@@ -70,6 +70,7 @@ namespace ChequeIN.Models.API.Output
               PST = model.PST,
               HST = model.HST,
               MailingAddress = model.MailingAddress, //TODO
+              StatusHistory = model.StatusHistory,
               PayeeName = model.PayeeName,
               Description = model.Description,
               ApprovedBy = model.ApprovedBy
