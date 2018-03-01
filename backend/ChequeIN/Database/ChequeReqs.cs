@@ -28,13 +28,19 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                cheques = context.ChequeReqs
-                                 .Where(x => x.UserProfileID == user.UserProfileID)
-                                 .Include(x => x.StatusHistory)
-                                 .Include(x => x.MailingAddress)
-                                 .Include(x => x.SupportingDocuments)
-                                 .ToList();
-                return true;
+                try {
+                  cheques = context.ChequeReqs
+                                   .Where(x => x.UserProfileID == user.UserProfileID)
+                                   .Include(x => x.StatusHistory)
+                                   .Include(x => x.MailingAddress)
+                                   .Include(x => x.SupportingDocuments)
+                                   .ToList();
+                  return true;
+                }
+                catch (Exception e) {
+                   cheques = null;
+                   return false;
+                }
             }
         }
 
@@ -42,21 +48,37 @@ namespace ChequeIN.Database
             using (var context = new DatabaseContext())
             {
               context.Database.EnsureCreated();
-
-              cheque = context.ChequeReqs
+              try {
+                cheque = context.ChequeReqs
                                .Where(x => x.ChequeReqID == id)
                                .Include(x => x.StatusHistory)
                                .Include(x => x.MailingAddress)
                                .Include(x => x.SupportingDocuments)
                                .Single();
-
-              if (cheque == null)
-                return false;
-              else
                 return true;
+              }
+              catch (Exception e) {
+                 cheque = null;
+                 return false;
+              }
 
             }
+      }
+
+      public static bool TryUpdateChequeReq(ChequeReq cheque) {
+        using (var context = new DatabaseContext())
+        {
+          context.Database.EnsureCreated();
+
+          var exist = TryGetChequeReq(cheque.ChequeReqID, out ChequeReq old);
+          if (!exist)
+            return false;
+
+          context.ChequeReqs.Attach(cheque);
+          context.SaveChanges();
+          return true;
         }
+      }
 
       public static void StoreChequeReq(ChequeReq cheque) {
             using (var context = new DatabaseContext())
