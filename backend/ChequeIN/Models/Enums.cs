@@ -40,6 +40,8 @@ namespace ChequeIN.Models
             GSTORE,
             COPIEUS,
             FROSTBITE,
+            SERVICES,
+            RANDOM,
         };
     }
 }

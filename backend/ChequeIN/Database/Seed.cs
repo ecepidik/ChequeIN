@@ -14,14 +14,17 @@ namespace ChequeIN.Database
                 context.Database.EnsureCreated();
             }
 
-            var ledger = GenerateLedgerAccount();
-            var officer = GenerateFinancialOfficer();
+            GenerateLedgerAccounts();
+            GenerateFinancialOfficer();
             var admin = GenerateFinancialAdministrator();
-
-            DatabaseUtils.AddToDatabase(ledger);
-            DatabaseUtils.AddToDatabase(officer);
+            
             DatabaseUtils.AddToDatabase(admin);
-            DatabaseUtils.AddToDatabase(GenerateChequeReq(ledger.LedgerAccountID, officer.UserProfileID));
+            using(var context = new DatabaseContext())
+            {
+                DatabaseUtils.AddToDatabase(GenerateChequeReq(context.LedgerAccounts.ToList().ElementAt(0).LedgerAccountID, context.FinancialOfficers.ToList().ElementAt(0).UserProfileID));
+            }
+            
+
         }
 
         private static ChequeReq GenerateChequeReq(int ledgerID, int userID) {
@@ -46,25 +49,178 @@ namespace ChequeIN.Database
             return c;
         }
 
-        private static LedgerAccount GenerateLedgerAccount() {
-            var ledger = new Models.LedgerAccount() {
-                Name = "General Expenses",
-                Number = 6530,
-                Group = new AccountType()
+        private static void GenerateLedgerAccounts() {
+            using (var context = new DatabaseContext())
+            {
+                var accounts = new List<LedgerAccount>
                 {
-                    Type = Enums.Group.COPIEUS
-                },
-            };
-            return ledger;
+                    new LedgerAccount()
+                    {
+                        Name = "Common Room Exp",
+                        Number = 5190,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Lockers Exp",
+                        Number = 5520,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "VP Services Exp",
+                        Number = 5585,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "General Store Exp",
+                        Number = 5750,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "General Store Supplies Exp",
+                        Number = 5751,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "General Store Paraphernalia Exp",
+                        Number = 5752,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "General Store Food Exp",
+                        Number = 5753,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "General Store Wages Exp",
+                        Number = 5755,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Lease Exp",
+                        Number = 5210,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Supplies Exp",
+                        Number = 5211,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Wages Exp",
+                        Number = 5212,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Service Exp",
+                        Number = 5213,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Other Exp",
+                        Number = 5215,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Copi Eus Telecom Exp",
+                        Number = 5216,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Frostbite Exp",
+                        Number = 5410,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Frostbite Salaries Exp",
+                        Number = 5411,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Frostbite Ice Cream Exp",
+                        Number = 5412,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Frostbite Supplies Exp",
+                        Number = 5413,
+                    },
+                    new LedgerAccount()
+                    {
+                        Name = "Frostbite Rennovations Exp",
+                        Number = 5414,
+                    },
+
+                    //FAKE ACCOUNT
+                    new LedgerAccount()
+                    {
+                        Name = "Random Exp",
+                        Number = 5666,
+                    }
+                };
+
+                //This was an attempt at getting the foreign key to not be null when LedgerAccounts held an AccountType object instead of just the enum.
+                //Now that it's an enum, it looks a bit dumb, but I'm not changing it.
+
+                accounts.ElementAt(0).Group = Enums.Group.SERVICES;
+                accounts.ElementAt(1).Group = Enums.Group.SERVICES;
+                accounts.ElementAt(2).Group = Enums.Group.SERVICES;
+                accounts.ElementAt(3).Group = Enums.Group.GSTORE;
+                accounts.ElementAt(4).Group = Enums.Group.GSTORE;
+                accounts.ElementAt(5).Group = Enums.Group.GSTORE;
+                accounts.ElementAt(6).Group = Enums.Group.GSTORE;
+                accounts.ElementAt(7).Group = Enums.Group.GSTORE;
+                accounts.ElementAt(8).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(9).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(10).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(11).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(12).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(13).Group = Enums.Group.COPIEUS;
+                accounts.ElementAt(14).Group = Enums.Group.FROSTBITE;
+                accounts.ElementAt(15).Group = Enums.Group.FROSTBITE;
+                accounts.ElementAt(16).Group = Enums.Group.FROSTBITE;
+                accounts.ElementAt(17).Group = Enums.Group.FROSTBITE;
+                accounts.ElementAt(18).Group = Enums.Group.FROSTBITE;
+                accounts.ElementAt(19).Group = Enums.Group.RANDOM;
+
+                foreach (LedgerAccount l in accounts)
+                {
+                    context.LedgerAccounts.Add(l);
+                }
+
+                context.SaveChanges();
+            }
         }
 
-        private static FinancialOfficer GenerateFinancialOfficer() {
+        private static void GenerateFinancialOfficer() {
+            using(var context = new DatabaseContext())
+            {
+                var profile = new FinancialOfficer()
+                {
+                    Email = "user@test.com",
+                    AuthenticationIdentifier = "auth0|5a84eafef5c8213cb27c27e2",
+                };
 
-            var profile = new Models.FinancialOfficer() {
-                Email = "user@test.com",
-                AuthenticationIdentifier = "auth0|5a84eafef5c8213cb27c27e2",
-            };
-            return profile;
+                profile.AuthorizedAccountGroups.Add(new AccountType()
+                {
+                    Type = Enums.Group.SERVICES
+                });
+                profile.AuthorizedAccountGroups.Add(new AccountType()
+                {
+                    Type = Enums.Group.COPIEUS
+                });
+                profile.AuthorizedAccountGroups.Add(new AccountType()
+                {
+                    Type = Enums.Group.GSTORE
+                });
+                profile.AuthorizedAccountGroups.Add(new AccountType()
+                {
+                    Type = Enums.Group.FROSTBITE
+                });
+
+                context.FinancialOfficers.Add(profile);
+                context.SaveChanges();
+            }
+            
         }
 
         private static FinancialAdministrator GenerateFinancialAdministrator() {

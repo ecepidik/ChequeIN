@@ -24,10 +24,7 @@ namespace ChequeIN.Tests
                 {
                     Name = "General Expenses",
                     Number = 6530,
-                    Group = new AccountType()
-                    {
-                        Type = Enums.Group.COPIEUS
-                    }
+                    Group = Enums.Group.COPIEUS
                 };
 
                 var officer = new Models.FinancialOfficer()

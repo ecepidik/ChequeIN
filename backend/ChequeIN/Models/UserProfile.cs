@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +31,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Authorized Account Groups")]
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
+        [ForeignKey("UserProfileID")]
         public ICollection<AccountType> AuthorizedAccountGroups { get; set; }
 
         [DisplayName("Submitted Cheque Reqs")]

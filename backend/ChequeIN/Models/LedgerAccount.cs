@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +26,7 @@ namespace ChequeIN.Models
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Account Group")]
-        public AccountType Group { get; set; }
+        public Enums.Group Group { get; set; }
 
         [DisplayName("Account Name")]
         public String Name {
