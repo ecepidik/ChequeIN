@@ -37,7 +37,7 @@ namespace ChequeIN.Database
                                    .ToList();
                   return true;
                 }
-                catch (Exception e) {
+                catch (Exception) {
                    cheques = null;
                    return false;
                 }
@@ -57,7 +57,7 @@ namespace ChequeIN.Database
                                .Single();
                 return true;
               }
-              catch (Exception e) {
+              catch (Exception) {
                  cheque = null;
                  return false;
               }
