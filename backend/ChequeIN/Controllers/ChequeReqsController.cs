@@ -57,6 +57,20 @@ namespace ChequeIN.Controllers
         [HttpPut]
         public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
+            var status = new List<Status>{
+                new Status {
+                    SelectedStatus = Enums.StatusType.SUBMITTED,
+                    StatusDate = DateTime.UtcNow,
+                }
+            };
+
+            var fakeSupporingDocs = new List<SupportingDocument> {
+                new SupportingDocument {
+                    FileIdentifier = 0,
+                    Description = ""
+                }
+            };
+
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, new Random().Next(1000), null, null);
             Database.ChequeReqs.StoreChequeReq(convert);
             return StatusCode(200);

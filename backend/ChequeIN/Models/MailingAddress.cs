@@ -11,6 +11,7 @@ namespace ChequeIN.Models
         private String city;
         private String postalCode;
 
+        [Key]
         public int MailingAddressID { get; set; }
 
         [Range(1, 13)] //When it isn't explicitly set, it takes the default value (0 or NONE in enum form), so this acts as "Required"

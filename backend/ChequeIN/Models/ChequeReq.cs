@@ -55,7 +55,6 @@ namespace ChequeIN.Models
 
         public int LedgerAccountID { get; set; }
 
-
         [DisplayName("Payee Name")]
         [Required]
         public String PayeeName {

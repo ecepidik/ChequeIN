@@ -11,6 +11,7 @@ namespace ChequeIN.Models
     {
         private String description;
 
+        [Key]
         public int SupportingDocumentID { get; set; }
 
         [DisplayName("Document Description")]
