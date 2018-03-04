@@ -7,11 +7,9 @@ namespace ChequeIN.Database
 {
     public static class Users
     {
-        public static IEnumerable<UserProfile> GetAllUsers()
-        {
+        public static IEnumerable<UserProfile> GetAllUsers() {
             using (var context = new DatabaseContext())
             {
-
                 context.Database.EnsureCreated();
 
                 var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
@@ -21,11 +19,9 @@ namespace ChequeIN.Database
             }
         }
 
-        public static bool TryGetUserById(string id, out UserProfile user)
-        {
+        public static bool TryGetUserById(string id, out UserProfile user) {
             using (var context = new DatabaseContext())
             {
-
                 context.Database.EnsureCreated();
                 var officers = from v in context.FinancialOfficers
                                where v.AuthenticationIdentifier == id
@@ -35,13 +31,11 @@ namespace ChequeIN.Database
                              where v.AuthenticationIdentifier == id
                              select v;
 
-                if (officers.Any())
-                {
+                if (officers.Any()) {
                     user = officers.First();
                     return true;
                 }
-                if (admins.Any())
-                {
+                if (admins.Any()) {
                     user = admins.First();
                     return true;
                 }
@@ -50,21 +44,17 @@ namespace ChequeIN.Database
             }
         }
 
-        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
-        {
+        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "") {
             string id;
             // Give the default user id if auth is disabled and no user is authenticated
-            if (disableAuth && !identity.Identities.First().Claims.Any())
-            {
+            if (disableAuth && !identity.Identities.First().Claims.Any()) {
                 id = developmentUserId;
             }
-            else
-            {
+            else {
                 id = identity.Identities.First().Claims.ElementAt(1).Value;
             }
             var exists = TryGetUserById(id, out UserProfile user);
-            if (!exists)
-            {
+            if (!exists) {
                 // TODO: Handle when a user is authenticated, but not in the DB
                 return null;
             }

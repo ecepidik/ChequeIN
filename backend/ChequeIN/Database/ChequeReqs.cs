@@ -8,12 +8,10 @@ namespace ChequeIN.Database
 {
     public static class ChequeReqs
     {
-        public static IEnumerable<ChequeReq> GetAllChequeReqs()
-        {
+        public static IEnumerable<ChequeReq> GetAllChequeReqs() {
             using (var context = new DatabaseContext())
             {
                 context.Database.EnsureCreated();
-
                 return (IEnumerable<ChequeReq>)context.ChequeReqs.ToList();
             }
         }
@@ -23,7 +21,6 @@ namespace ChequeIN.Database
             using (var context = new DatabaseContext())
             {
                 context.Database.EnsureCreated();
-
                 bool userExists = Users.TryGetUserById(id, out UserProfile user);
 
                 if (!userExists) {
@@ -31,27 +28,66 @@ namespace ChequeIN.Database
                     return false;
                 }
 
-                if (user is FinancialAdministrator)
-                {
-                    var userLoader = context.FinancialAdministrators.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
+                try {
+                  cheques = context.ChequeReqs
+                                   .Where(x => x.UserProfileID == user.UserProfileID)
+                                   .Include(x => x.StatusHistory)
+                                   .Include(x => x.MailingAddress)
+                                   .Include(x => x.SupportingDocuments)
+                                   .ToList();
+                  return true;
                 }
-                else
-                {
-                    var userLoader = context.FinancialOfficers.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
+                catch (Exception) {
+                   cheques = null;
+                   return false;
                 }
+            }
+        }
 
-                //var accounts = context.LedgerAccounts.Include(x => x).Single(x => x.Group.UserProfileID == user.UserProfileID);
+        public static bool TryGetChequeReq(int id, out ChequeReq cheque) {
+            using (var context = new DatabaseContext())
+            {
+              context.Database.EnsureCreated();
+              try {
+                cheque = context.ChequeReqs
+                               .Where(x => x.ChequeReqID == id)
+                               .Include(x => x.StatusHistory)
+                               .Include(x => x.MailingAddress)
+                               .Include(x => x.SupportingDocuments)
+                               .Single();
+                return true;
+              }
+              catch (Exception) {
+                 cheque = null;
+                 return false;
+              }
 
-                //foreach (ChequeReq c in cheques) {
-                //    c.
-                //}
+            }
+        }
 
+        public static bool TryUpdateChequeReq(ChequeReq cheque) {
+            using (var context = new DatabaseContext())
+            {
+                context.Database.EnsureCreated();
+
+                var exist = TryGetChequeReq(cheque.ChequeReqID, out ChequeReq old);
+                if (!exist)
+                return false;
+
+                context.ChequeReqs.Attach(cheque);
+                context.SaveChanges();
                 return true;
             }
         }
-    }
+
+        public static void StoreChequeReq(ChequeReq cheque) {
+            using (var context = new DatabaseContext())
+            {
+                context.Database.EnsureCreated();
+
+                context.Add(cheque as ChequeReq);
+                context.SaveChanges();
+            }
+        }
+   }
 }
