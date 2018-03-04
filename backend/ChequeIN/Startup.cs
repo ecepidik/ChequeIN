@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ChequeIN.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace ChequeIN
 {
@@ -44,11 +40,15 @@ namespace ChequeIN
                 services.AddMvc(opts =>
                 {
                     opts.Filters.Add(new AllowAnonymousFilter());
+                    opts.Filters.Add(new ValidateModelStateFilter());
                 });
             }
             else
             {
-                services.AddMvc();
+                services.AddMvc(opts =>
+                {
+                    opts.Filters.Add(new ValidateModelStateFilter());
+                });
             }
 
             // For development purposes only. Allows the frontend to be served
@@ -110,7 +110,11 @@ namespace ChequeIN
             using (var ctx = new DatabaseContext(options.Options))
             {
                 ctx.Database.Migrate();
-                Database.Seed.SeedDatabase(ctx);
+                if (Configuration["DesignTime"] != "true")
+                {
+                    Database.Seed.SeedDatabase(ctx);
+                }
+
             }
 
             app.UseAuthentication();

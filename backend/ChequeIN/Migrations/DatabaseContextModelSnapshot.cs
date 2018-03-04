@@ -26,16 +26,11 @@ namespace ChequeIN.Migrations
                     b.Property<int>("AccountTypeID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("LedgerAccountID");
-
                     b.Property<int>("Type");
 
-                    b.Property<int?>("UserProfileID");
+                    b.Property<int>("UserProfileID");
 
                     b.HasKey("AccountTypeID");
-
-                    b.HasIndex("LedgerAccountID")
-                        .IsUnique();
 
                     b.HasIndex("UserProfileID");
 
@@ -90,6 +85,8 @@ namespace ChequeIN.Migrations
                 {
                     b.Property<int>("LedgerAccountID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Group");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -210,19 +207,15 @@ namespace ChequeIN.Migrations
 
             modelBuilder.Entity("ChequeIN.Models.AccountType", b =>
                 {
-                    b.HasOne("ChequeIN.Models.LedgerAccount")
-                        .WithOne("Group")
-                        .HasForeignKey("ChequeIN.Models.AccountType", "LedgerAccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ChequeIN.Models.UserProfile")
                         .WithMany("AuthorizedAccountGroups")
-                        .HasForeignKey("UserProfileID");
+                        .HasForeignKey("UserProfileID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ChequeIN.Models.ChequeReq", b =>
                 {
-                    b.HasOne("ChequeIN.Models.LedgerAccount", "AssociatedAccount")
+                    b.HasOne("ChequeIN.Models.LedgerAccount")
                         .WithMany("ChequeReqs")
                         .HasForeignKey("LedgerAccountID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -231,7 +224,7 @@ namespace ChequeIN.Migrations
                         .WithMany()
                         .HasForeignKey("MailingAddressID");
 
-                    b.HasOne("ChequeIN.Models.UserProfile", "Submitter")
+                    b.HasOne("ChequeIN.Models.UserProfile")
                         .WithMany("SubmittedChequeReqs")
                         .HasForeignKey("UserProfileID")
                         .OnDelete(DeleteBehavior.Cascade);

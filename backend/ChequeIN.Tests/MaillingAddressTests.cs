@@ -198,6 +198,7 @@ namespace ChequeIN.Tests
         [InlineData("J1M2H2")]
         [InlineData("J1M 2H2")]
         [InlineData("    H2X2E5   ")]
+        [InlineData("T5K1W1")]
         public void MailingAddress_PostalCodeTestValid(string postalCode)
         {
             MailingAddress address = new MailingAddress()

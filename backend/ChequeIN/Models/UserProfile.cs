@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChequeIN.Models
 {
@@ -23,26 +24,22 @@ namespace ChequeIN.Models
         [Required]
         public string AuthenticationIdentifier { get; set; }
 
-        [Required]
         [EmailAddress]
+        [Required]
         public String Email {
-            get
-            {
-                return this.email;
-            }
-            set
-            {
-                this.email = value.Trim();
-            }
+            get { return this.email; }
+            set { this.email = value.Trim(); }
         }
 
         [DisplayName("Authorized Account Groups")]
         [Required]
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
-        public ICollection<AccountType> AuthorizedAccountGroups { get; private set; }
+        [ForeignKey("UserProfileID")]
+        public ICollection<AccountType> AuthorizedAccountGroups { get; set; }
 
         [DisplayName("Submitted Cheque Reqs")]
-        public ICollection<ChequeReq> SubmittedChequeReqs { get; private set; }
+        [ForeignKey("UserProfileID")]
+        public ICollection<ChequeReq> SubmittedChequeReqs { get; set; }
 
     }
 }

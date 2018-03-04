@@ -14,6 +14,7 @@ namespace ChequeIN.Migrations
                 {
                     LedgerAccountID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Group = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Number = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -61,25 +62,18 @@ namespace ChequeIN.Migrations
                 {
                     AccountTypeID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    LedgerAccountID = table.Column<int>(type: "INTEGER", nullable: false),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserProfileID = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserProfileID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AccountType", x => x.AccountTypeID);
                     table.ForeignKey(
-                        name: "FK_AccountType_LedgerAccounts_LedgerAccountID",
-                        column: x => x.LedgerAccountID,
-                        principalTable: "LedgerAccounts",
-                        principalColumn: "LedgerAccountID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_AccountType_UserProfiles_UserProfileID",
                         column: x => x.UserProfileID,
                         principalTable: "UserProfiles",
                         principalColumn: "UserProfileID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,12 +162,6 @@ namespace ChequeIN.Migrations
                         principalColumn: "ChequeReqID",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccountType_LedgerAccountID",
-                table: "AccountType",
-                column: "LedgerAccountID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccountType_UserProfileID",

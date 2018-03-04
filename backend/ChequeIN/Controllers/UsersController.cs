@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChequeIN;
 using ChequeIN.Models;
@@ -15,18 +14,18 @@ namespace ChequeIN.Controllers
     public class UsersController : Controller
     {
         private DatabaseContext _dbContext;
+        private Configurations.Authentication _authSettings;
 
-        public UsersController(DatabaseContext dbContext)
-        {
+        public UsersController(DatabaseContext dbContext, IOptions<Configurations.Authentication> authSettings){
+            _authSettings = authSettings.Value;
             _dbContext = dbContext;
         }
 
-        // GET api/users
+        // GET /api/users
         [HttpGet]
         [Authorize]
-        public IEnumerable<UserProfile> Get()
-        {
-            return Database.Users.GetAllUsers(_dbContext);
+        public IEnumerable<UserProfile> Get() {
+                return Database.Users.GetAllUsers(_dbContext);
         }
 
         // GET api/users/id

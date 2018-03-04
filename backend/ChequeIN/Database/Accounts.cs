@@ -45,17 +45,12 @@ namespace ChequeIN.Database
 
         private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<AccountType> accountTypes)
         {
-           
-            foreach (AccountType t in accountTypes)
-            {
-                foreach(LedgerAccount a in ledgerAccounts)
-                {
-                    if(a.Group.Type == t.Type)
-                    {
+            foreach (AccountType t in accountTypes) {
+                foreach(LedgerAccount a in ledgerAccounts) {
+                    if(a.Group == t.Type) {
                         accounts.Add(a);
                     }
                 }
-
             }
             return;
         }

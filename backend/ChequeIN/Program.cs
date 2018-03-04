@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -14,12 +15,26 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            WebHost.CreateDefaultBuilder()
+              .UseStartup<Startup>()
+              .Build()
+              .Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+        // Only used by EF Tooling
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder()
+              .ConfigureAppConfiguration((ctx, cfg) =>
+              {
+                  cfg.SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("appsettings.json", true)
+                  .AddEnvironmentVariables();
+              })
+              .ConfigureLogging((ctx, logging) => { })
+              .UseStartup<Startup>()
+              .UseSetting("DesignTime", "true")
+              .Build();
+        }
     }
 }

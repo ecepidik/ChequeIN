@@ -29,6 +29,5 @@ namespace ChequeIN.Database
             // Save changes to the database
             context.SaveChanges();
         }
-                
     }
 }

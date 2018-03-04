@@ -9,8 +9,6 @@ namespace ChequeIN.Database
     {
         public static IEnumerable<UserProfile> GetAllUsers(DatabaseContext context)
         {
-            context.Database.EnsureCreated();
-
             var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
             var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Models.UserProfile)x);
 
@@ -46,12 +44,10 @@ namespace ChequeIN.Database
         {
             string id;
             // Give the default user id if auth is disabled and no user is authenticated
-            if (disableAuth && !identity.Identities.First().Claims.Any())
-            {
+            if (disableAuth && !identity.Identities.First().Claims.Any()) {
                 id = developmentUserId;
             }
-            else
-            {
+            else {
                 id = identity.Identities.First().Claims.ElementAt(1).Value;
             }
             var exists = TryGetUserById(context, id, out UserProfile user);
