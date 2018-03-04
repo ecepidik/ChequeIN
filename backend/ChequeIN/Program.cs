@@ -22,6 +22,7 @@ namespace ChequeIN
         }
 
         // Only used by EF Tooling
+        // Thank you: https://wildermuth.com/2017/07/06/Program-cs-in-ASP-NET-Core-2-0
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder()
