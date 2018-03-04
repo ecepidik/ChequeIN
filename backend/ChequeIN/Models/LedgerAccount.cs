@@ -16,6 +16,7 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Account Number")]
+        [Required]
         public int Number { get; set; }
 
         [DisplayName("Associated Cheque Reqs")]
@@ -26,9 +27,11 @@ namespace ChequeIN.Models
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Account Group")]
+        [Required]
         public Enums.Group Group { get; set; }
 
         [DisplayName("Account Name")]
+        [Required]
         public String Name {
             get { return this.name; }
             set { this.name = value.Trim(); }

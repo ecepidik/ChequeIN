@@ -14,11 +14,18 @@ namespace ChequeIN.Models
 
         [Key]
         public int ChequeReqID { get; set; }
+
+        [Required]
         public Boolean FreeFood { get; set; }
+
+        [Required]
         public Boolean OnlinePurchases { get; set; }
+
+        [Required]
         public Boolean ToBeMailed { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
+        [Required]
         [StrictlyPositive(ErrorMessage = "Must be greater than 0")]
         public float PreTax { get; set; }
 
@@ -35,11 +42,13 @@ namespace ChequeIN.Models
         public MailingAddress MailingAddress { get; set; }
 
         [DisplayName("Supporting Documents")]
-        //[MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
+        [Required]
+        [MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
         public ICollection<SupportingDocument> SupportingDocuments { get; set; }
 
         [DisplayName("Status History")]
-        //[MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
+        [Required]
+        [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
 
         public int UserProfileID { get; set; }
@@ -48,11 +57,13 @@ namespace ChequeIN.Models
 
 
         [DisplayName("Payee Name")]
+        [Required]
         public String PayeeName {
             get { return this.payeeName; }
             set { this.payeeName = value.Trim(); }
         }
 
+        [Required]
         public String Description {
             get { return this.description; }
             set { this.description = value.Trim(); }

@@ -14,12 +14,14 @@ namespace ChequeIN.Models
         public int SupportingDocumentID { get; set; }
 
         [DisplayName("Document Description")]
+        [Required]
         public String Description {
             get { return this.description; }
             set { this.description = value.Trim(); }
         }
 
         [DisplayName("Document ID")]
+        [Required]
         public long FileIdentifier { get; set; }
 
     }

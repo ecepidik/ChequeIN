@@ -21,15 +21,18 @@ namespace ChequeIN.Models
         [Key]
         public int UserProfileID { get; set; }
 
+        [Required]
         public string AuthenticationIdentifier { get; set; }
 
         [EmailAddress]
+        [Required]
         public String Email {
             get { return this.email; }
             set { this.email = value.Trim(); }
         }
 
         [DisplayName("Authorized Account Groups")]
+        [Required]
         [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
         [ForeignKey("UserProfileID")]
         public ICollection<AccountType> AuthorizedAccountGroups { get; set; }

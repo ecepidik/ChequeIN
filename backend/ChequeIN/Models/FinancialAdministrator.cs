@@ -12,6 +12,7 @@ namespace ChequeIN.Models
     {
         private String name;
 
+        [Required]
         public String Name {
             get { return this.name; }
             set { this.name = value.Trim(); }
