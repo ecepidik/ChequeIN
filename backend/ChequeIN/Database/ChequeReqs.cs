@@ -63,31 +63,31 @@ namespace ChequeIN.Database
               }
 
             }
-      }
-
-      public static bool TryUpdateChequeReq(ChequeReq cheque) {
-        using (var context = new DatabaseContext())
-        {
-          context.Database.EnsureCreated();
-
-          var exist = TryGetChequeReq(cheque.ChequeReqID, out ChequeReq old);
-          if (!exist)
-            return false;
-
-          context.ChequeReqs.Attach(cheque);
-          context.SaveChanges();
-          return true;
         }
-      }
 
-      public static void StoreChequeReq(ChequeReq cheque) {
+        public static bool TryUpdateChequeReq(ChequeReq cheque) {
             using (var context = new DatabaseContext())
             {
-              context.Database.EnsureCreated();
+                context.Database.EnsureCreated();
 
-              context.Add(cheque as ChequeReq);
-              context.SaveChanges();
+                var exist = TryGetChequeReq(cheque.ChequeReqID, out ChequeReq old);
+                if (!exist)
+                return false;
+
+                context.ChequeReqs.Attach(cheque);
+                context.SaveChanges();
+                return true;
             }
-      }
+        }
+
+        public static void StoreChequeReq(ChequeReq cheque) {
+            using (var context = new DatabaseContext())
+            {
+                context.Database.EnsureCreated();
+
+                context.Add(cheque as ChequeReq);
+                context.SaveChanges();
+            }
+        }
    }
 }

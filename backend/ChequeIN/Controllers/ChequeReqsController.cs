@@ -43,12 +43,12 @@ namespace ChequeIN.Controllers
         {
             bool b = Database.ChequeReqs.TryGetChequeReq(cheque.ChequeReqID, out ChequeReq model);
             if (!b) {
-              return StatusCode(400);
+                return StatusCode(400);
             }
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, model.ChequeReqID, model.SupportingDocuments, model.StatusHistory);
             b = Database.ChequeReqs.TryUpdateChequeReq(convert);
             if (!b) {
-              return StatusCode(400);
+                return StatusCode(400);
             }
             return StatusCode(200);
         }
