@@ -38,10 +38,12 @@ namespace ChequeIN.Controllers.ChequeReqs
                 return NotFound("The specified checkreq does not exist");
             }
 
+            status.StatusDate = DateTime.UtcNow;
+
             cheque.StatusHistory.Add(status);
             Database.ChequeReqs.UpdateChequeReq(_dbContext, cheque);
 
-            return Ok(cheque.StatusHistory);
+            return Ok(status);
         }
 
     }
