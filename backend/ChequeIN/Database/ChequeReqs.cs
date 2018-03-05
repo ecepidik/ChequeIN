@@ -52,6 +52,9 @@ namespace ChequeIN.Database
             }
         }
 
+        public static void UpdateChequeReq(DatabaseContext context, ChequeReq cheque)
+        {
+            context.Update(cheque as ChequeReq);
             context.SaveChanges();
         }
 
