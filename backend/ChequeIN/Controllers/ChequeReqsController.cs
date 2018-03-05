@@ -13,21 +13,23 @@ namespace ChequeIN.Controllers
     public class ChequeReqsController : Controller
     {
         private Configurations.Authentication _authSettings;
+        private DatabaseContext _dbContext;
 
-        public ChequeReqsController(IOptions<Configurations.Authentication> authSettings)
+        public ChequeReqsController(DatabaseContext dbContext, IOptions<Configurations.Authentication> authSettings)
         {
             _authSettings = authSettings.Value;
+            _dbContext = dbContext;
         }
 
         //GET api/ChequeReqs
         [HttpGet]
         public IActionResult Get()
         {
-            var user = Database.Users.GetCurrentUser(User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
             if (user == null) {
                 return StatusCode(403);
             }
-            bool exists = Database.ChequeReqs.TryGetAllChequeReqs(user.AuthenticationIdentifier, out List<ChequeReq> cheques);
+            bool exists = Database.ChequeReqs.TryGetAllChequeReqs(_dbContext, user.AuthenticationIdentifier, out List<ChequeReq> cheques);
             if (!exists) {
                 return Ok(Enumerable.Empty<ChequeReq>().ToList<ChequeReq>());
             }
@@ -41,12 +43,12 @@ namespace ChequeIN.Controllers
         [HttpPost]
         public IActionResult Update([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
-            bool b = Database.ChequeReqs.TryGetChequeReq(cheque.ChequeReqID, out ChequeReq model);
+            bool b = Database.ChequeReqs.TryGetChequeReq(_dbContext, cheque.ChequeReqID, out ChequeReq model);
             if (!b) {
                 return StatusCode(400);
             }
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, model.ChequeReqID, model.SupportingDocuments, model.StatusHistory);
-            b = Database.ChequeReqs.TryUpdateChequeReq(convert);
+            b = Database.ChequeReqs.TryUpdateChequeReq(_dbContext, convert);
             if (!b) {
                 return StatusCode(400);
             }
@@ -72,7 +74,7 @@ namespace ChequeIN.Controllers
             };
 
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, new Random().Next(1000), null, null);
-            Database.ChequeReqs.StoreChequeReq(convert);
+            Database.ChequeReqs.StoreChequeReq(_dbContext, convert);
             return StatusCode(200);
         }
     }

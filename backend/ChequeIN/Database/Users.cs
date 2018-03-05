@@ -7,44 +7,41 @@ namespace ChequeIN.Database
 {
     public static class Users
     {
-        public static IEnumerable<UserProfile> GetAllUsers() {
-            using (var context = new DatabaseContext())
-            {
-                context.Database.EnsureCreated();
+        public static IEnumerable<UserProfile> GetAllUsers(DatabaseContext context)
+        {
+            var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
+            var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Models.UserProfile)x);
 
-                var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
-                var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Models.UserProfile)x);
-
-                return officers.Concat(admins);
-            }
+            return officers.Concat(admins);
         }
 
-        public static bool TryGetUserById(string id, out UserProfile user) {
-            using (var context = new DatabaseContext())
+        public static bool TryGetUserById(DatabaseContext context, string id, out UserProfile user)
+        {
+
+            var officers = from v in context.FinancialOfficers
+                           where v.AuthenticationIdentifier == id
+                           select v;
+
+            var admins = from v in context.FinancialAdministrators
+                         where v.AuthenticationIdentifier == id
+                         select v;
+
+            if (officers.Any())
             {
-                context.Database.EnsureCreated();
-                var officers = from v in context.FinancialOfficers
-                               where v.AuthenticationIdentifier == id
-                               select v;
-
-                var admins = from v in context.FinancialAdministrators
-                             where v.AuthenticationIdentifier == id
-                             select v;
-
-                if (officers.Any()) {
-                    user = officers.First();
-                    return true;
-                }
-                if (admins.Any()) {
-                    user = admins.First();
-                    return true;
-                }
-                user = null;
+                user = officers.First();
                 return true;
             }
+            if (admins.Any())
+            {
+                user = admins.First();
+                return true;
+            }
+            user = null;
+            return true;
         }
 
-        public static UserProfile GetCurrentUser(System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "") {
+        public static UserProfile GetCurrentUser(DatabaseContext context, System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
+        {
             string id;
             // Give the default user id if auth is disabled and no user is authenticated
             if (disableAuth && !identity.Identities.First().Claims.Any()) {
@@ -53,8 +50,9 @@ namespace ChequeIN.Database
             else {
                 id = identity.Identities.First().Claims.ElementAt(1).Value;
             }
-            var exists = TryGetUserById(id, out UserProfile user);
-            if (!exists) {
+            var exists = TryGetUserById(context, id, out UserProfile user);
+            if (!exists)
+            {
                 // TODO: Handle when a user is authenticated, but not in the DB
                 return null;
             }
