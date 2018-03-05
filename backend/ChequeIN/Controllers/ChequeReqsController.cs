@@ -39,24 +39,7 @@ namespace ChequeIN.Controllers
             }
         }
 
-        //Post api/ChequeReqs
-        [HttpPost]
-        public IActionResult Update([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
-        {
-            bool b = Database.ChequeReqs.TryGetChequeReq(_dbContext, cheque.ChequeReqID, out ChequeReq model);
-            if (!b) {
-                return StatusCode(400);
-            }
-            var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, model.ChequeReqID, model.SupportingDocuments, model.StatusHistory);
-            b = Database.ChequeReqs.TryUpdateChequeReq(_dbContext, convert);
-            if (!b) {
-                return StatusCode(400);
-            }
-            return StatusCode(200);
-        }
-
         //Put api/ChequeReqs
-        [HttpPut]
         public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
             var status = new List<Status>{
