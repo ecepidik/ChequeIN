@@ -65,7 +65,7 @@ namespace ChequeIN
             {
                 if (env.IsDevelopment())
                 {
-                    options.UseSqlite(Configuration["Database:LocalDatabaseName"]);
+                    options.UseSqlite(Configuration.GetConnectionString("LocalDatabase"));
                 }
                 else
                 {
@@ -98,7 +98,7 @@ namespace ChequeIN
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("AllowAllOrigins");
-                options.UseSqlite(Configuration["Database:LocalDatabaseName"]);
+                options.UseSqlite(Configuration.GetConnectionString("LocalDatabase"));
             }
             else
             {
@@ -110,6 +110,7 @@ namespace ChequeIN
             using (var ctx = new DatabaseContext(options.Options))
             {
                 ctx.Database.Migrate();
+                // Do not fill it if it entity framework running it in design mode
                 if (Configuration["DesignTime"] != "true")
                 {
                     Database.Seed.SeedDatabase(ctx);

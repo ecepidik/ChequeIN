@@ -18,11 +18,6 @@ namespace ChequeIN
             
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Filename=./chequein_db.sqlite");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<Models.UserProfile>().ToTable("UserProfiles");
         }
