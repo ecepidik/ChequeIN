@@ -36,7 +36,7 @@ namespace ChequeIN.Controllers
             var exists = Database.Users.TryGetUserById(_dbContext, id, out UserProfile user);
 
             if (!exists) {
-                return StatusCode(404);
+                return NotFound();
             }
             return Ok(user);
         }

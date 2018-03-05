@@ -28,7 +28,7 @@ namespace ChequeIN.Controllers
         {
             var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
             if (user == null) // TODO: This shouldn't have to be handled by individual api calls
-                return StatusCode(404);
+                return NotFound();
             bool exists = Database.Accounts.TryGetAccountsOfUserId(_dbContext, user.AuthenticationIdentifier, out List<LedgerAccount> accounts); //TODO replace this id
             if (!exists)
                 return Ok(accounts);
