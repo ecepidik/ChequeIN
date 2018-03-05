@@ -43,6 +43,13 @@ namespace ChequeIN.Database
             return false;
         }
 
+        public static bool TryGetAccountByNumber(DatabaseContext context, int number, out LedgerAccount account)
+        {
+            account = context.LedgerAccounts.Where(a => a.Number == number).FirstOrDefault();
+
+            return account != null;
+        }
+
         private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<AccountType> accountTypes)
         {
             foreach (AccountType t in accountTypes) {

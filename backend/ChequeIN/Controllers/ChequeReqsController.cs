@@ -73,7 +73,9 @@ namespace ChequeIN.Controllers
                 }
             };
 
-            var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, new Random().Next(1000), null, null);
+            var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+
+            var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, user.UserProfileID, fakeSupporingDocs, status);
             Database.ChequeReqs.StoreChequeReq(_dbContext, convert);
             return StatusCode(200);
         }
