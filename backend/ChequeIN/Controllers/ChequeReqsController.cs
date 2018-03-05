@@ -27,7 +27,7 @@ namespace ChequeIN.Controllers
         {
             var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
             if (user == null) {
-                return StatusCode(403);
+                return Forbid();
             }
             bool exists = Database.ChequeReqs.TryGetAllChequeReqs(_dbContext, user.AuthenticationIdentifier, out List<ChequeReq> cheques);
             if (!exists) {
@@ -40,6 +40,7 @@ namespace ChequeIN.Controllers
         }
 
         //Put api/ChequeReqs
+        [HttpPost]
         public IActionResult Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
         {
             var status = new List<Status>{
@@ -60,7 +61,8 @@ namespace ChequeIN.Controllers
 
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, user.UserProfileID, fakeSupporingDocs, status);
             Database.ChequeReqs.StoreChequeReq(_dbContext, convert);
-            return StatusCode(200);
+
+            return Ok(convert);
         }
     }
 }
