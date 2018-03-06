@@ -23,7 +23,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Document ID")]
         [Required]
-        public long FileIdentifier { get; set; }
+        public string FileIdentifier { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@ using System;
 namespace ChequeIN.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20180304234203_InitialCreate")]
+    [Migration("20180305235442_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,7 +154,8 @@ namespace ChequeIN.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<long>("FileIdentifier");
+                    b.Property<string>("FileIdentifier")
+                        .IsRequired();
 
                     b.HasKey("SupportingDocumentID");
 

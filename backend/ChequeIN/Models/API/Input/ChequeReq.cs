@@ -52,6 +52,11 @@ namespace ChequeIN.Models.API.Input
             set { this.approvedBy = value.Trim(); }
         }
 
+        [DisplayName("Supporting Documents")]
+        [Required]
+        [MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
+        public ICollection<DocumentUpload> UploadedDocuments { get; set; }
+
         public static ChequeIN.Models.ChequeReq ToModel (ChequeReq cheque, int userProfileID, ICollection<SupportingDocument> docs, ICollection<Status> status) {
           ChequeIN.Models.ChequeReq c = new ChequeIN.Models.ChequeReq() {
             UserProfileID = userProfileID,
