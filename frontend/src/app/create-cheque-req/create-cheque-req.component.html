@@ -1,20 +1,22 @@
 <form style="padding-left: 20px;" (ngSubmit)="submitChequeReq()">
   <mat-form-field>
-    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel"
-           [(ngModel)]="chequeReq.preTax" required #preTax="ngModel" name="preTax"/>
+    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel" min="0.01" [formControl]="minPreTaxControl"
+           [(ngModel)]="chequeReq.preTax" required name="preTax" (blur)="hasNaNCheck(chequeReq.preTax)"/>
+    <mat-error>
+      You must enter a Pre-tax amount of at least $0.01
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST"/>
+    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST"/>
+    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST"/>
+    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput currencyMask readonly placeholder="Total"
-           [value]="(chequeReq.preTax + chequeReq.GST + chequeReq.PST + chequeReq.HST) | currency"/>
+    <input matInput currencyMask readonly placeholder="Total" [value]="updateTotal()|currency"/>
   </mat-form-field>
   <mat-form-field>
     <mat-select matInput [(value)]="chequeReq.account" required>

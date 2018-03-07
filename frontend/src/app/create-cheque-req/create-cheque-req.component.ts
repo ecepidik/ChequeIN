@@ -4,6 +4,7 @@ import { print } from 'util';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { Account } from '../api/account';
+import {FormControl, Validators} from '@angular/forms';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -16,19 +17,20 @@ import { Account } from '../api/account';
 export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReq = new ChequeReq();
   accounts$: Observable<Account[]>;
+  minPreTaxControl: FormControl;
 
   constructor(private api: ApiService) {
   }
 
   ngOnInit() {
     this.accounts$ = this.api.getAccounts();
+    this.minPreTaxControl = new FormControl('', Validators.min(0.01));
   }
 
   submitChequeReq() {
     this.api.submitChequeReq(this.chequeReq).then(console.log, console.error);
   }
 
-  disabled: boolean = false;
 
   selectMultipleEvent(files: FileList | File): void {
 
@@ -52,6 +54,27 @@ export class CreateChequeReqComponent implements OnInit {
 
   isFile(files: FileList | File): boolean {
     return files instanceof File;
+  }
+
+  hasNaNCheck(){
+    if(isNaN(this.chequeReq.preTax)) {
+      this.chequeReq.preTax = 0;
+      return true;
+    } else if(isNaN(this.chequeReq.GST)) {
+      this.chequeReq.GST = 0;
+      return true;
+    } else if(isNaN(this.chequeReq.PST)) {
+      this.chequeReq.PST = 0;
+      return true;
+    } else if(isNaN(this.chequeReq.HST)) {
+      this.chequeReq.HST = 0;
+      return true;
+    }
+  }
+
+  updateTotal() {
+    let total = this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
+    return isNaN(total) ? 0 : total;
   }
 
 }
