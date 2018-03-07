@@ -14,12 +14,12 @@ import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 export class ViewChequeReqsComponent implements OnInit {
   chequeReqs$: Observable<ChequeReq[]>;
   chequeReqs: Array<ChequeReq>=[];
-  
+
 
   constructor(public auth: AuthService, private api: ApiService) { }
 
   ngOnInit() {
-    
+
     this.chequeReqs$ = this.api.getChequeReqs();
     this.chequeReqs.push({
       "preTax": 0,
@@ -35,10 +35,5 @@ export class ViewChequeReqsComponent implements OnInit {
       mailCheque: false,
       mailingAddress: ''
     });
-    this.chequeReqs$.subscribe((ChequeReqs) => {
-      this.chequeReqs.push(ChequeReqs[0]);
-      console.log(ChequeReqs);
-    })
-    console.log(this.chequeReqs);
   }
 }
