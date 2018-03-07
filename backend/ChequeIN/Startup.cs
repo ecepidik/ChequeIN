@@ -1,4 +1,7 @@
 ﻿using System;
+using Amazon;
+using Amazon.Runtime.CredentialManagement;
+using Amazon.S3;
 using ChequeIN.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -86,6 +89,18 @@ namespace ChequeIN
                 options.Authority = domain;
                 options.Audience = Configuration["Auth0:ApiIdentifier"];
             });
+
+            // Setting up the AWS SDK
+            var profile = new CredentialProfile("local-test-profile", new CredentialProfileOptions
+            {
+                AccessKey = Configuration["AWS:AccessKey"],
+                SecretKey = Configuration["AWS:SecretKey"],
+            });
+            profile.Region = RegionEndpoint.USWest1;
+            var sharedFile = new SharedCredentialsFile();
+            sharedFile.RegisterProfile(profile);
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

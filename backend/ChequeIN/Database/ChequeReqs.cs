@@ -52,15 +52,10 @@ namespace ChequeIN.Database
             }
         }
 
-        public static bool TryUpdateChequeReq(DatabaseContext context, ChequeReq cheque) {
-            
-            var exist = TryGetChequeReq(context, cheque.ChequeReqID, out ChequeReq old);
-            if (!exist)
-            return false;
-
-            context.ChequeReqs.Attach(cheque);
+        public static void UpdateChequeReq(DatabaseContext context, ChequeReq cheque)
+        {
+            context.Update(cheque as ChequeReq);
             context.SaveChanges();
-            return true;
         }
 
         public static void StoreChequeReq(DatabaseContext context, ChequeReq cheque) {

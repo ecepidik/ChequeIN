@@ -153,7 +153,8 @@ namespace ChequeIN.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<long>("FileIdentifier");
+                    b.Property<string>("FileIdentifier")
+                        .IsRequired();
 
                     b.HasKey("SupportingDocumentID");
 

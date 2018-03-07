@@ -49,7 +49,7 @@ namespace ChequeIN.Database
                 OnlinePurchases = false,
                 ToBeMailed = true,
                 MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
-                SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
+                SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank", FileIdentifier = "none" } },
                 StatusHistory = new List<Status>() { new Status() { } },
                 LedgerAccountID = ledgerID,
                 UserProfileID = userID

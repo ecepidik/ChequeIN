@@ -12,7 +12,7 @@ namespace ChequeIN.Tests
     {
         private DatabaseContext createContext() {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-            optionsBuilder.UseSqlite("Data Source=chequein_test_db.sqlit");
+            optionsBuilder.UseSqlite("Data Source=chequein_test.db.sqlite");
             return new DatabaseContext(optionsBuilder.Options);
         }
         
@@ -77,7 +77,7 @@ namespace ChequeIN.Tests
                     OnlinePurchases = false,
                     ToBeMailed = true,
                     MailingAddress = new MailingAddress() { Line1 = "1645 rue des rigoles", City = "Sherb", PostalCode = "J1M2H2" },
-                    SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank" } },
+                    SupportingDocuments = new List<SupportingDocument>() { new SupportingDocument() { Description = "blank", FileIdentifier = "123" } },
                     StatusHistory = new List<Status>() { new Status() { } },
                     LedgerAccountID = ledgerAccounts.ElementAt(0).LedgerAccountID,
                     UserProfileID = officers.ElementAt(0).UserProfileID

@@ -150,7 +150,7 @@ namespace ChequeIN.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ChequeReqID = table.Column<int>(type: "INTEGER", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    FileIdentifier = table.Column<long>(type: "INTEGER", nullable: false)
+                    FileIdentifier = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
