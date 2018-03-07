@@ -8,50 +8,59 @@ namespace ChequeIN.Database
 {
     public static class ChequeReqs
     {
-        public static IEnumerable<ChequeReq> GetAllChequeReqs()
-        {
-            using (var context = new DatabaseContext())
-            {
-                context.Database.EnsureCreated();
+        public static IEnumerable<ChequeReq> GetAllChequeReqs(DatabaseContext context) {
+            return (IEnumerable<ChequeReq>)context.ChequeReqs.ToList();
+        }
 
-                return (IEnumerable<ChequeReq>)context.ChequeReqs.ToList();
+        public static bool TryGetAllChequeReqs(DatabaseContext context, string id, out List<ChequeReq> cheques)
+        {
+            bool userExists = Users.TryGetUserById(context, id, out UserProfile user);
+
+            if (!userExists) {
+                cheques = null;
+                return false;
+            }
+
+            try {
+              cheques = context.ChequeReqs
+                               .Where(x => x.UserProfileID == user.UserProfileID)
+                               .Include(x => x.StatusHistory)
+                               .Include(x => x.MailingAddress)
+                               .Include(x => x.SupportingDocuments)
+                               .ToList();
+              return true;
+            }
+            catch (Exception) {
+               cheques = null;
+               return false;
             }
         }
 
-        public static bool TryGetAllChequeReqs(string id, out List<ChequeReq> cheques)
-        {
-            using (var context = new DatabaseContext())
-            {
-                context.Database.EnsureCreated();
-
-                bool userExists = Users.TryGetUserById(id, out UserProfile user);
-
-                if (!userExists) {
-                    cheques = null;
-                    return false;
-                }
-
-                if (user is FinancialAdministrator)
-                {
-                    var userLoader = context.FinancialAdministrators.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
-                }
-                else
-                {
-                    var userLoader = context.FinancialOfficers.Include(u => u.SubmittedChequeReqs)
-                                        .Single(u => u.UserProfileID == user.UserProfileID);
-                    cheques = userLoader.SubmittedChequeReqs.ToList();
-                }
-
-                //var accounts = context.LedgerAccounts.Include(x => x).Single(x => x.Group.UserProfileID == user.UserProfileID);
-
-                //foreach (ChequeReq c in cheques) {
-                //    c.
-                //}
-
+        public static bool TryGetChequeReq(DatabaseContext context, int id, out ChequeReq cheque) {
+            try {
+                cheque = context.ChequeReqs
+                               .Where(x => x.ChequeReqID == id)
+                               .Include(x => x.StatusHistory)
+                               .Include(x => x.MailingAddress)
+                               .Include(x => x.SupportingDocuments)
+                               .Single();
                 return true;
             }
+            catch (Exception) {
+                cheque = null;
+                return false;
+            }
         }
-    }
+
+        public static void UpdateChequeReq(DatabaseContext context, ChequeReq cheque)
+        {
+            context.Update(cheque as ChequeReq);
+            context.SaveChanges();
+        }
+
+        public static void StoreChequeReq(DatabaseContext context, ChequeReq cheque) {
+            context.Add(cheque as ChequeReq);
+            context.SaveChanges();
+        }
+   }
 }
