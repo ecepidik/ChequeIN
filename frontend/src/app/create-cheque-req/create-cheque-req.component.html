@@ -1,24 +1,25 @@
-<form style="padding-left: 20px;" (ngSubmit)="submitChequeReq()">
+<form style="padding-left: 20px;padding-top: 45px;" (ngSubmit)="submitChequeReq()" #CreateChq="ngForm">
+  <!-- 1. Financial Details Section -->
   <mat-form-field>
-    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel"
-           [(ngModel)]="chequeReq.preTax" required #preTax="ngModel" name="preTax"/>
+    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel" [(ngModel)]="chequeReq.preTax"
+      required #preTax="ngModel" name="preTax" />
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST"/>
+    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST" />
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST"/>
+    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST" />
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST"/>
+    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST" />
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask readonly placeholder="Total"
-           [value]="(chequeReq.preTax + chequeReq.GST + chequeReq.PST + chequeReq.HST) | currency"/>
+    <input matInput currencyMask readonly placeholder="Total" [value]="(chequeReq.preTax + chequeReq.GST + chequeReq.PST + chequeReq.HST) | currency"
+    />
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -26,16 +27,21 @@
       <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{ account.number }} - {{ account.name }}</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <!-- 2. Description Section -->
   <div>
     <br>
     <mat-form-field>
-      <textarea matInput placeholder="Description" [(ngModel)]="chequeReq.description" #description="ngModel" name="description" matTextareaAutosize
-        matAutosizeMinRows="2" matAutosizeMaxRows="5" required></textarea>
+      <textarea matInput placeholder="Description" [(ngModel)]="chequeReq.description" #description="ngModel" name="description"
+        matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" required></textarea>
       <mat-error *ngIf="description.errors?.required">
         You need to enter a description
       </mat-error>
     </mat-form-field>
   </div>
+  <!-- 3. CheckBox Section -->
+  <!-- 3.1 Online Purchase Question Section -->
+  <mat-divider></mat-divider>
   <div>
     <mat-checkbox [(ngModel)]="chequeReq.onlinePurchase" name="onlinePurchase">This cheque req is for an online purchase</mat-checkbox>
     <p style="font-size: small; font-style: italic;" *ngIf="chequeReq.onlinePurchase">
@@ -43,23 +49,60 @@
       amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
     </p>
   </div>
-  <mat-checkbox [(ngModel)]="chequeReq.freeFood" name="freeFood">This cheque req includes food items that were distributed for free and not part of any paid event. (Ex: public forums,
-    food for meetings)</mat-checkbox>
+
+  <!-- 3.2 FreeFood Question Section -->
+  <div>
+    <br> Does this cheque req including food items that were distributed for free and not part of any paid event. (Ex: public
+    forums, food for meetings) ?
+    <mat-radio-group [(ngModel)]="chequeReq.freeFood" name="freeFood" #freeFood="ngModel" required>
+      <mat-radio-button class="space-radio-button" [value]="true">Yes</mat-radio-button>
+      <mat-radio-button class="space-radio-button" [value]="false">No</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-error *ngIf="(!freeFood.pristine || submitted) && freeFood.errors?.required">Please select either Yes or No to this question</mat-error>
+
+    <div *ngIf="!freeFood.pristine && chequeReq.freeFood === true" class="alert alert-warning">
+      Note your account will be charged for the pre-tax amount plus half of all GST, QST and HST taxes incurred
+    </div>
+
+  </div>
+
+  <!-- 3.3 Payable Addressee Section -->
   <mat-form-field>
-    <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" name="payableAddressee" #payableAddressee="ngModel" required>
+    <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" name="payableAddressee" #payableAddressee="ngModel"
+      required>
     <mat-error *ngIf="payableAddressee.errors?.required">
       You need to enter a payable addressee
     </mat-error>
   </mat-form-field>
-  <mat-divider></mat-divider>
-  <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
+
   <br>
-  <mat-form-field *ngIf="chequeReq.mailCheque">
-    <input matInput placeholder="Mailing Address" [(ngModel)]="chequeReq.mailingAddress" name="mailingAddress" #mailingAddress="ngModel" required>
-    <mat-error *ngIf="mailingAddress.errors?.required">
-      You need to enter a mailing address
-    </mat-error>
-  </mat-form-field>
+  <!-- 3.4 Mail Request Section -->
+  <div>
+    <mat-divider></mat-divider>
+    <mat-checkbox [(ngModel)]="chequeReq.mailCheque" name="mailCheque">I would like this cheque to be mailed</mat-checkbox>
+    <br>
+    <mat-form-field *ngIf="chequeReq.mailCheque">
+      <input matInput placeholder="Mailing Address" [(ngModel)]="chequeReq.mailingAddress" name="mailingAddress" #mailingAddress="ngModel"
+        required>
+      <mat-error *ngIf="mailingAddress.errors?.required">
+        You need to enter a mailing address
+      </mat-error>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <br>
+  </div>
+  <!-- 4. Approuved By Field Section -->
+  <div>
+    <mat-form-field>
+      <textarea matInput placeholder="Approved By (First and Last Name)" [(ngModel)]="chequeReq.approver" #approver="ngModel" name="approver"
+        matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" required></textarea>
+      <mat-error *ngIf="approver.errors?.required">
+        You need fill that section !
+      </mat-error>
+    </mat-form-field>
+  </div>
+
   <br>
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>
