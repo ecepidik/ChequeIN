@@ -15,20 +15,27 @@ namespace ChequeIN
     {
         public static void Main(string[] args)
         {
-            
-            Database.Seed.SeedDatabase();
-
-            using (var context = new DatabaseContext() { IsTest = false }) {
-                var test = context.FinancialOfficers.Include(officer => officer.SubmittedChequeReqs).ToList().ElementAt(0).SubmittedChequeReqs.ElementAt(0);
-            }
-
-            BuildWebHost(args).Run();
-
+            WebHost.CreateDefaultBuilder()
+              .UseStartup<Startup>()
+              .Build()
+              .Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+        // Only used by EF Tooling
+        // Thank you: https://wildermuth.com/2017/07/06/Program-cs-in-ASP-NET-Core-2-0
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder()
+              .ConfigureAppConfiguration((ctx, cfg) =>
+              {
+                  cfg.SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("appsettings.json", true)
+                  .AddEnvironmentVariables();
+              })
+              .ConfigureLogging((ctx, logging) => { })
+              .UseStartup<Startup>()
+              .UseSetting("DesignTime", "true")
+              .Build();
+        }
     }
 }

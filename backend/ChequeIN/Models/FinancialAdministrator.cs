@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +14,8 @@ namespace ChequeIN.Models
 
         [Required]
         public String Name {
-            get
-            {
-                return this.name;
-            }
-            set
-            {
-                this.name = value.Trim();
-            }
+            get { return this.name; }
+            set { this.name = value.Trim(); }
         }
 
     }

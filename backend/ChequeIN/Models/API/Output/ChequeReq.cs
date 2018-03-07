@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChequeIN.Models
+namespace ChequeIN.Models.API.Output
 {
     public class ChequeReq
     {
@@ -14,18 +13,11 @@ namespace ChequeIN.Models
 
         [Key]
         public int ChequeReqID { get; set; }
-
-        [Required]
         public Boolean FreeFood { get; set; }
-
-        [Required]
         public Boolean OnlinePurchases { get; set; }
-
-        [Required]
         public Boolean ToBeMailed { get; set; }
 
         [DisplayName("Pre-Tax Cost")]
-        [Required]
         [StrictlyPositive(ErrorMessage = "Must be greater than 0")]
         public float PreTax { get; set; }
 
@@ -41,14 +33,8 @@ namespace ChequeIN.Models
         [DisplayName("Mailing Address")]
         public MailingAddress MailingAddress { get; set; }
 
-        [DisplayName("Supporting Documents")]
-        [Required]
-        [MinimumLength(1, ErrorMessage = "There must be at least one supporting document.")]
-        public ICollection<SupportingDocument> SupportingDocuments { get; set; }
-
         [DisplayName("Status History")]
-        [Required]
-        [MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
+        //[MinimumLength(1, ErrorMessage = "There must be at least one status in a ChequeReq's history.")]
         public ICollection<Status> StatusHistory { get; set; }
 
         public int UserProfileID { get; set; }
@@ -56,13 +42,11 @@ namespace ChequeIN.Models
         public int LedgerAccountID { get; set; }
 
         [DisplayName("Payee Name")]
-        [Required]
         public String PayeeName {
             get { return this.payeeName; }
             set { this.payeeName = value.Trim(); }
         }
 
-        [Required]
         public String Description {
             get { return this.description; }
             set { this.description = value.Trim(); }
@@ -72,6 +56,26 @@ namespace ChequeIN.Models
         public String ApprovedBy {
             get { return this.approvedBy; }
             set { this.approvedBy = value.Trim(); }
+        }
+
+        public static ChequeReq FromModel (ChequeIN.Models.ChequeReq model) {
+            ChequeReq c = new ChequeReq() {
+              ChequeReqID = model.ChequeReqID,
+              FreeFood = model.FreeFood,
+              OnlinePurchases = model.OnlinePurchases,
+              ToBeMailed = model.ToBeMailed,
+              LedgerAccountID = model.LedgerAccountID,
+              PreTax = model.PreTax,
+              GST = model.GST,
+              PST = model.PST,
+              HST = model.HST,
+              MailingAddress = model.MailingAddress, //TODO alias here
+              StatusHistory = model.StatusHistory,
+              PayeeName = model.PayeeName,
+              Description = model.Description,
+              ApprovedBy = model.ApprovedBy
+            };
+            return c;
         }
     }
 }
