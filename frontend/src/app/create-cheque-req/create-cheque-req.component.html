@@ -49,21 +49,21 @@
   <div>
     <br>
     Does this cheque req including food items that were distributed for free and not part of any paid event. (Ex: public forums,
-    food for meetings) ? 
+    food for meetings) ?
       <mat-radio-group [(ngModel)]="chequeReq.freeFood" name="freeFood" #freeFood="ngModel" required>
         <mat-radio-button class="space-radio-button" [value]="true">Yes</mat-radio-button>
         <mat-radio-button class="space-radio-button" [value]="false">No</mat-radio-button>
       </mat-radio-group>
-      
-      <mat-error *ngIf="freeFood.errors?.required && submitted" > Please select either Yes or No to this question</mat-error>
+
+      <mat-error *ngIf="(!freeFood.pristine || submitted) && freeFood.errors?.required">Please select either Yes or No to this question</mat-error>
 
       <div *ngIf="!freeFood.pristine && chequeReq.freeFood === true" class="alert alert-warning">
              Note your account will be charged for the pre-tax amount plus half of all GST, QST and HST taxes incurred
       </div>
 
   </div>
-  
-  <!-- 3.3 Payable Address Section -->
+
+  <!-- 3.3 Payable Addressee Section -->
   <mat-form-field>
     <input matInput placeholder="Payable Addressee" [(ngModel)]="chequeReq.payableAddressee" name="payableAddressee" #payableAddressee="ngModel" required>
     <mat-error *ngIf="payableAddressee.errors?.required">
@@ -95,6 +95,5 @@
   </div>
 
   <br>
-  <button mat-raised-button color="primary" type="submit" [disabled]="!CreateChq.form.valid">Submit</button>
- 
+  <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>
