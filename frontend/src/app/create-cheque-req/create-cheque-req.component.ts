@@ -17,13 +17,41 @@ export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReq = new ChequeReq();
   accounts$: Observable<Account[]>;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) {
+  }
 
   ngOnInit() {
     this.accounts$ = this.api.getAccounts();
   }
 
   submitChequeReq() {
-    console.log("Submitted: ", this.chequeReq) // TODO: actually submit the cheque req
+    this.api.submitChequeReq(this.chequeReq).then(console.log, console.error);
   }
+
+  disabled: boolean = false;
+
+  selectMultipleEvent(files: FileList | File): void {
+
+    if (files instanceof File) {
+      this.chequeReq.fileDescriptions[files.name] = "";
+    } else {
+      for(let i: number = 0; i < files.length; i++) {
+        this.chequeReq.fileDescriptions[files[i].name] = "";
+      }
+    }
+
+  }
+
+  uploadMultipleEvent(files: FileList | File): void {
+  }
+
+  cancelMultipleEvent(): void {
+    this.chequeReq.fileDescriptions = {};
+    console.log(this.chequeReq.fileDescriptions);
+  }
+
+  isFile(files: FileList | File): boolean {
+    return files instanceof File;
+  }
+
 }

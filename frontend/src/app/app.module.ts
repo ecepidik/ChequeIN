@@ -18,15 +18,20 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
+  MatIconModule,
   MatButton,
   MatDividerModule,
   MatSelectModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatIcon
 } from '@angular/material';
 import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { CovalentLayoutModule } from '@covalent/core';
+import { CovalentStepsModule } from '@covalent/core';
+import { CovalentFileModule } from '@covalent/core';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -70,10 +75,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatDividerModule,
     MatCheckboxModule,
     MatInputModule,
+    MatIconModule,
     MatSelectModule,
     MatExpansionModule,
     NgbModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    CovalentLayoutModule,
+    CovalentStepsModule,
+    CovalentFileModule
   ],
   providers: [
     AuthService,

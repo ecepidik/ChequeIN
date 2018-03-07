@@ -11,4 +11,6 @@ export class ChequeReq {
   public freeFood: boolean = false;
   public mailCheque: boolean = false;
   public mailingAddress: string = '';
+  public files: FileList | File;
+  public fileDescriptions: {[key: string]: string} = {};
 }

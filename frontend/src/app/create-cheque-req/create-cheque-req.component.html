@@ -38,6 +38,41 @@
       amount, cardholder name and last 4 digits of the card. Uploading an invoice or order confirmation alone is not sufficient.
     </p>
   </div>
+
+  <p>Please upload supporting documents:</p>
+  <td-file-upload #fileMultipleUpload name="documents" [(ngModel)]="chequeReq.files" (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)" (cancel)="cancelMultipleEvent()"
+                  accept="image/*,.pdf" defaultColor="accent" activeColor="warn" cancelColor="primary" multiple [disabled]="disabled">
+    <mat-icon>file_upload</mat-icon>
+    <span>
+    {{ fileMultipleUpload.value?.name || fileMultipleUpload.value?.length }} <span *ngIf="fileMultipleUpload.value?.length">files selected</span>
+  </span>
+    <ng-template td-file-input-label>
+      <mat-icon>attach_file</mat-icon>
+      <span>
+      Choose documents
+    </span>
+    </ng-template>
+  </td-file-upload>
+
+  <div *ngIf="chequeReq.files">
+    <p>Optionally provide descriptions for each document:</p>
+    <ol *ngIf="isFile(chequeReq.files)">
+      <li>
+        <mat-form-field>
+          <input matInput name="fileDescriptions" placeholder="Description for: {{chequeReq.files.name}}"  [(ngModel)]="chequeReq.fileDescriptions[chequeReq.files.name]"/>
+        </mat-form-field>
+      </li>
+    </ol>
+    <ol>
+      <li *ngFor="let file of chequeReq.files">
+        <mat-form-field>
+          <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
+        </mat-form-field>
+      </li>
+    </ol>
+  </div>
+
+  <br>
   <mat-checkbox [(ngModel)]="chequeReq.freeFood" name="freeFood">This cheque req includes food items that were distributed for free and not part of any paid event. (Ex: public forums,
     food for meetings)</mat-checkbox>
   <mat-form-field>
