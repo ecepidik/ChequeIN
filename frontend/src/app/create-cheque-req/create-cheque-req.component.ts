@@ -17,10 +17,10 @@ import {FormControl, Validators} from '@angular/forms';
 export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReq = new ChequeReq();
   accounts$: Observable<Account[]>;
+  submitted: boolean = false;
   minPreTaxControl: FormControl;
 
-  constructor(private api: ApiService) {
-  }
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
     this.accounts$ = this.api.getAccounts();
@@ -28,9 +28,9 @@ export class CreateChequeReqComponent implements OnInit {
   }
 
   submitChequeReq() {
+    this.submitted = true;
     this.api.submitChequeReq(this.chequeReq).then(console.log, console.error);
   }
-
 
   selectMultipleEvent(files: FileList | File): void {
 

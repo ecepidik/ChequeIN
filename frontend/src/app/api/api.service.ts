@@ -83,6 +83,13 @@ export class ApiService {
       .map((res) => res.json()).toPromise();
   }
 
+  getChequeReqs(): Observable<ChequeReq[]> {
+    return this.authHttp
+      .get(`${environment.apiUrl}/ChequeReqs`)
+      .map((res) => res.json())
+      .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+  }
+
 }
 
 function getBase64(file) {
