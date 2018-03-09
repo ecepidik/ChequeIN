@@ -40,8 +40,15 @@ export class ApiService {
 
   getChequeReqs(): Observable<ChequeReq[]> {
     return this.authHttp
-    .get(`${environment.apiUrl}/ChequeReqs`)
+    .get(`${environment.apiUrl}/ChequeReqs/`)
     .map((res) => res.json())
     .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+  }
+
+  getChequeReqDetails(chequeReqId): Observable<ChequeReq> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
+    .map((res) => res.json())
+    .map((cheques) => (cheques ? cheques : null));
   }
 }
