@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
-import {Observable} from 'rxjs/Observable';
+import { Headers, RequestOptions, Response } from '@angular/http'; //Not sure if it is include in the AuthHttp
+import {Observable} from 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {ChequeReq} from './cheque-req';
 import {User} from './user';
@@ -9,6 +10,9 @@ import {SubmittedChequeReq} from './submitted-cheque-req';
 
 @Injectable()
 export class ApiService {
+
+  private chequeReqUrl = 'http://localhost:5000/api/chequereqs';
+
   constructor(private authHttp: AuthHttp) {
   }
 
@@ -34,8 +38,26 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  submitChequeReq(chequeReq: ChequeReq): Observable<void> {
-    return Observable.of(); // TODO: Make an actual API call
+  submitChequeReq(chequeReq: ChequeReq){
+    let body = JSON.stringify({ chequeReq });            
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    //let options = new RequestOptions({ headers: headers });
+
+    return this.authHttp.post(this.chequeReqUrl, body)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || {};
+  }
+  
+  private handleError(error: Response) {
+      console.error(error);
+      return Observable.throw(error.json().error || 'Server Error');
+  }
+
+  
   }
 
 
