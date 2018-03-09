@@ -60,5 +60,10 @@ export class ApiService {
   
   }
 
-
+  getChequeReqs(): Observable<ChequeReq[]> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/ChequeReqs`)
+    .map((res) => res.json())
+    .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+  }
 }

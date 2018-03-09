@@ -27,5 +27,4 @@ export class CreateChequeReqComponent implements OnInit {
     this.api.submitChequeReq(this.chequeReq);
     console.log("Submitted: ", this.chequeReq);
   }
- 
 }
