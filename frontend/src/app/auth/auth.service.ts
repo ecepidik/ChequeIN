@@ -8,7 +8,7 @@ export class AuthService implements CanActivate {
     clientID: 'jVyq6jeftIbooUK9NYW9CUQ7VzLFCpOQ',
     domain: 'chequein-dev.auth0.com',
     responseType: 'token id_token',
-    redirectUri: '/callback',
+    redirectUri: document.location + 'callback',
     audience: 'https://quickstarts/api',
     scope: 'openid all'
   });
