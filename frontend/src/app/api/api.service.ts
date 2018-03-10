@@ -38,28 +38,51 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  submitChequeReq(chequeReq: ChequeReq){
-    let body = JSON.stringify({ chequeReq });            
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    //let options = new RequestOptions({ headers: headers });
 
-    return this.authHttp.post(this.chequeReqUrl, body)
-        .map(this.extractData)
-        .catch(this.handleError);
-  }
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || {};
-  }
+  submitChequeReq(chequeReq: ChequeReq){
+
+    //Change the name of variable to match the back end
+    const form = {
+      onlinePurchases : chequeReq.onlinePurchase,
+      toBeMailed : chequeReq.mailCheque,
+      preTax : chequeReq.preTax,
+      gst : chequeReq.GST,
+      pst : chequeReq.PST,
+      hst : chequeReq.HST,
+      UploadedDocuments: [
+        {
+          "Description": "Report.pdf",
+          "Base64Content": "hxhhGDB5576hhtT66D"
+        }
+      ],
+      freeFood : chequeReq.freeFood,
+      mailingAddress : {
+        province : 1,
+        line1 : "1645 rue des rigoles",
+        line2 : "",
+        city : "Sherb",
+        postalCode : "J1M2H2"
+        },
+      description : chequeReq.description,
+      approvedBy : chequeReq.approver,
+      ledgerAccountID: 1,
+      payeeName: "User"
+    };
   
+    let body = JSON.stringify(form);
+    console.log(body);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.authHttp
+    .post(this.chequeReqUrl, body)
+    .map((res) => res.json())
+    .catch(this.handleError);
+  }
   private handleError(error: Response) {
       console.error(error);
       return Observable.throw(error.json().error || 'Server Error');
   }
-
-  
-  }
-
   getChequeReqs(): Observable<ChequeReq[]> {
     return this.authHttp
     .get(`${environment.apiUrl}/ChequeReqs`)

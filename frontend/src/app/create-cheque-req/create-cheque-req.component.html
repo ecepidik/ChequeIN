@@ -104,5 +104,5 @@
   </div>
 
   <br>
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!CreateChq.form.valid">Submit</button>
 </form>
