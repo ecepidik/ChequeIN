@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'cheque-req/new', component: CreateChequeReqComponent },
       { path: 'cheque-req/view', component: ViewChequeReqsComponent },
-      { path: 'cheque-req/:chequeReqId', component: ChequeReqDetailsComponent }
+      { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent }
     ]
   }
 ];

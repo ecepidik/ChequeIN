@@ -25,7 +25,6 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-
     console.log("Submitted: ", this.chequeReq); // TODO: actually submit the cheque req
   }
 }

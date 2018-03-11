@@ -15,15 +15,36 @@ export class ChequeReqDetailsComponent implements OnInit {
 
   constructor(public auth: AuthService, private api: ApiService, private router: Router) { }
 
+  response$: Observable<Object>;
+  chequeStatusHist: Object;
+
+  feedback: String;
+  selectedStatus: String
+  administratorApprover: String
+  
+  chequeReqId;
+
   ngOnInit(){
-    console.log("HERE")
     let currentUrl = this.router.url;
-    let chequeReqId = (currentUrl.split('/'))[2];
-    console.log(chequeReqId);
+    this.chequeReqId = (currentUrl.split('/'))[3];
 
-    this.api.getChequeReqDetails(chequeReqId).subscribe(
-      (chequeReqDetails$ : Object) =>
-        console.log(chequeReqDetails$))
 
+    this.api.getChequeReqDetails(this.chequeReqId).subscribe(
+      (chequeStatusHist$ : Object) =>
+        { this.chequeStatusHist = chequeStatusHist$,
+          console.log(this.chequeStatusHist)
+      });
+  }
+
+  submitStatusUpdate() {
+    var status = {
+      feedback: this.feedback, 
+      selectedStatus: this.selectedStatus, 
+      administratorApprover: this.administratorApprover
+    };
+
+    this.api.postStatusUpdate(status, this.chequeReqId).subscribe (
+      (res: Object ) =>
+      console.log(res));
   }
 }

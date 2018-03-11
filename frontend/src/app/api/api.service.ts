@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Type} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
@@ -6,11 +6,20 @@ import {ChequeReq} from './cheque-req';
 import {User} from './user';
 import {Account} from './account';
 import {SubmittedChequeReq} from './submitted-cheque-req';
+import { Http, RequestOptions, HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ApiService {
-  constructor(private authHttp: AuthHttp) {
+  constructor(private authHttp: AuthHttp, private http: HttpClient) {
   }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  "application/json"
+    })
+  };
 
   /**
    * Gets information about the currently logged-in user.
@@ -38,17 +47,25 @@ export class ApiService {
     return Observable.of(); // TODO: Make an actual API call
   }
 
-  getChequeReqs(): Observable<ChequeReq[]> {
+  getChequeReqs(): Observable<Object[]> {
     return this.authHttp
     .get(`${environment.apiUrl}/ChequeReqs/`)
     .map((res) => res.json())
     .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
   }
 
-  getChequeReqDetails(chequeReqId): Observable<ChequeReq> {
-    return this.authHttp
+  getChequeReqDetails(chequeReqId): Observable<Object> {
+    return this.http
     .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
-    .map((res) => res.json())
-    .map((cheques) => (cheques ? cheques : null));
+    .map((cheques) => (cheques ? cheques : null))
+    .do(() => {
+      console.log('request finished');
+  });
+  }
+
+  postStatusUpdate(status, id): Observable<Object> {
+    return this.http
+    .post(`${environment.apiUrl}/chequereqs/`+ id + '/status', JSON.stringify(status), this.httpOptions)
+    .map((res: Response) => res)
   }
 }
