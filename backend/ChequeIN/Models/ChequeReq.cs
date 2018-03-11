@@ -68,6 +68,7 @@ namespace ChequeIN.Models
             set { this.description = value.Trim(); }
         }
 
+        [Required]
         [DisplayName("Approver Name")]
         public String ApprovedBy {
             get { return this.approvedBy; }
