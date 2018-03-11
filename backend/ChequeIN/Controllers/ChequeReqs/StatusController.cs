@@ -24,7 +24,7 @@ namespace ChequeIN.Controllers.ChequeReqs
         {
             if(!Database.ChequeReqs.TryGetChequeReq(_dbContext, chequeId, out ChequeReq cheque))
             {
-                return NotFound("The specified checkreq does not exist");
+                return NotFound("The specified chequeReq does not exist");
             }
 
             return Ok(cheque.StatusHistory);
@@ -35,7 +35,7 @@ namespace ChequeIN.Controllers.ChequeReqs
         {
             if (!Database.ChequeReqs.TryGetChequeReq(_dbContext, chequeId, out ChequeReq cheque))
             {
-                return NotFound("The specified checkreq does not exist");
+                return NotFound("The specified chequeReq does not exist");
             }
 
             status.StatusDate = DateTime.UtcNow;
