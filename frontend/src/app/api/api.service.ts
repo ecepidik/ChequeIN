@@ -42,7 +42,23 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  submitChequeReq(chequeReq: ChequeReqSubmission): Observable<void> {
+  async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
+    let uploadedDocuments = [];
+
+    if (chequeReq.files instanceof File) {
+      uploadedDocuments.push({
+        Description: chequeReq.fileDescriptions[chequeReq.files.name],
+        Base64Content: await getBase64(chequeReq.files)
+      });
+    } else {
+      for (let i: number = 0; i < chequeReq.files.length; i++) {
+        uploadedDocuments.push({
+          Description: chequeReq.fileDescriptions[chequeReq.files[i].name],
+          Base64Content: await getBase64(chequeReq.files[i])
+        });
+      }
+    }
+
     //Change the name of variable to match the back end
     const form = {
       onlinePurchases: chequeReq.onlinePurchase,
@@ -51,12 +67,7 @@ export class ApiService {
       gst: chequeReq.GST,
       pst: chequeReq.PST,
       hst: chequeReq.HST,
-      UploadedDocuments: [
-        {
-          Description: 'Report.pdf',
-          Base64Content: 'hxhhGDB5576hhtT66D'
-        }
-      ],
+      UploadedDocuments: uploadedDocuments,
       freeFood: chequeReq.freeFood,
       mailingAddress: {
         province: 1,
@@ -74,7 +85,8 @@ export class ApiService {
     return this.authHttp
       .post(this.chequeReqUrl, form)
       .map((res) => res.json())
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .toPromise();
   }
 
   private handleError(error) {

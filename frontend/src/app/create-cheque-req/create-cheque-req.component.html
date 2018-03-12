@@ -142,4 +142,19 @@
 
   <br>
   <button mat-raised-button color="primary" type="submit" [disabled]="!CreateChq.form.valid">Submit</button>
+
+  <div *ngIf="submitted">
+    <ng-container *ngIf="this.submissionResult$ | async as result; else else2">
+      <ng-container *ngIf="result == 'success'">
+        Success !
+      </ng-container>
+      <ng-container *ngIf="result == 'error'">
+        Error from server
+      </ng-container>
+    </ng-container>
+    <ng-template #else2>
+      Loading...
+      <mat-progress-spinner></mat-progress-spinner>
+    </ng-template>
+  </div>
 </form>

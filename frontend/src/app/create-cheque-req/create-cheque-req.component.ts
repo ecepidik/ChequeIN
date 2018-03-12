@@ -19,6 +19,7 @@ export class CreateChequeReqComponent implements OnInit {
   accounts$: Observable<Account[]>;
   submitted: boolean = false;
   minPreTaxControl: FormControl;
+  submissionResult$: Observable<string>;
 
   constructor(private api: ApiService) {}
 
@@ -29,7 +30,11 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-    this.api.submitChequeReq(this.chequeReq);
+    this.submissionResult$ = Observable.fromPromise(
+      this.api.submitChequeReq(this.chequeReq)
+    )
+      .map(() => 'success')
+      .catch(() => Observable.of('error'));
   }
 
   selectMultipleEvent(files: FileList | File): void {
