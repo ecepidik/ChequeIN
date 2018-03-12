@@ -68,6 +68,7 @@ namespace ChequeIN.Models
             set { this.description = value.Trim(); }
         }
 
+        [Required]
         [DisplayName("Approver Name")]
         [StringNotEmpty(ErrorMessage = "Cannot be empty")]
         public String ApprovedBy {

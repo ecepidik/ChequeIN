@@ -173,5 +173,35 @@ namespace ChequeIN.Tests
             var isValid = Validator.TryValidateObject(req, validationContext, validationResults, true);
             Assert.False(isValid);
         }
+
+        [Theory]
+        [InlineData("Alexis Giguère-Joannette")]
+        [InlineData("Courtney Wright")]
+        [InlineData("Courtney Alexandra Elizabeth Renatta Mary Yolanda Caroline Shelly Ellen Hellen Rose Meredith Wright")]
+        [InlineData("Jim O'malley")]
+        public void ChequeReq_ApprovedByValid(String value)
+        {
+            ChequeReq req = GenerateValidChequeReq();
+            req.ApprovedBy = value;
+
+            var validationContext = new ValidationContext(req, null, null);
+            var validationResults = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(req, validationContext, validationResults, true);
+            Assert.True(isValid);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void ChequeReq_ApprovedByInvalid(String value)
+        {
+            ChequeReq req = GenerateValidChequeReq();
+            req.ApprovedBy = value;
+
+            var validationContext = new ValidationContext(req, null, null);
+            var validationResults = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(req, validationContext, validationResults, true);
+            Assert.False(isValid);
+        }
     }
 }
