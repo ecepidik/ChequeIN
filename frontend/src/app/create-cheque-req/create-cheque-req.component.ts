@@ -29,7 +29,7 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-    this.api.submitChequeReq(this.chequeReq).then(() => {}, console.error);
+    this.api.submitChequeReq(this.chequeReq);
   }
 
   selectMultipleEvent(files: FileList | File): void {
