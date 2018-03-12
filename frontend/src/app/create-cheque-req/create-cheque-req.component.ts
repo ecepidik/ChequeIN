@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChequeReq } from '../../app/api/cheque-req';
+import { ChequeReqSubmission } from '../../app/api/cheque-req-submission';
 import { print } from 'util';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
@@ -15,7 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./create-cheque-req.component.scss']
 })
 export class CreateChequeReqComponent implements OnInit {
-  chequeReq: ChequeReq = new ChequeReq();
+  chequeReq: ChequeReqSubmission = new ChequeReqSubmission();
   accounts$: Observable<Account[]>;
   submitted: boolean = false;
   minPreTaxControl: FormControl;

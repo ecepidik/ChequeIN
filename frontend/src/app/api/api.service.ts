@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { ChequeReq } from './cheque-req';
+import { ChequeReqSubmission } from './cheque-req-submission';
 import { User } from './user';
 import { Account } from './account';
 import { SubmittedChequeReq } from './submitted-cheque-req';
@@ -33,7 +33,7 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  async submitChequeReq(chequeReq: ChequeReq): Promise<void> {
+  async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
     let uploadedDocuments = [];
 
     if (chequeReq.files instanceof File) {
@@ -78,7 +78,7 @@ export class ApiService {
       .toPromise();
   }
 
-  getChequeReqs(): Observable<ChequeReq[]> {
+  getChequeReqs(): Observable<SubmittedChequeReq[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/ChequeReqs`)
       .map((res) => res.json())

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../api/api.service';
-import { ChequeReq } from '../api/cheque-req';
 import { Account } from '../api/account';
 import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 
@@ -12,8 +11,8 @@ import { SubmittedChequeReq } from '../api/submitted-cheque-req';
   styleUrls: ['./view-cheque-reqs.component.scss']
 })
 export class ViewChequeReqsComponent implements OnInit {
-  chequeReqs$: Observable<ChequeReq[]>;
-  chequeReqs: Array<ChequeReq> = [];
+  chequeReqs$: Observable<SubmittedChequeReq[]>;
+  chequeReqs: SubmittedChequeReq[] = [];
 
   constructor(public auth: AuthService, private api: ApiService) {}
 
