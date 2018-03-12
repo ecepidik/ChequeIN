@@ -11,26 +11,15 @@ import { SubmittedChequeReq } from '../api/submitted-cheque-req';
   styleUrls: ['./view-cheque-reqs.component.scss']
 })
 export class ViewChequeReqsComponent implements OnInit {
-  chequeReqs$: Observable<SubmittedChequeReq[]>;
-  chequeReqs: SubmittedChequeReq[] = [];
+  //chequeReqs$: Observable<SubmittedChequeReq[]>;
+  chequeReqs: SubmittedChequeReq[];
 
   constructor(public auth: AuthService, private api: ApiService) {}
 
   ngOnInit() {
-    this.chequeReqs$ = this.api.getChequeReqs();
-    this.chequeReqs.push({
-      preTax: 0,
-      GST: 0,
-      PST: 0,
-      HST: 0,
-      description: 'cat food',
-      onlinePurchase: false,
-      payableAddressee: '',
-      approver: 'VP Ca$$H',
-      account: undefined,
-      freeFood: false,
-      mailCheque: false,
-      mailingAddress: ''
+    //this.chequeReqs$ = this.api.getChequeReqs();
+    this.api.getChequeReqs().subscribe((chequeReqs$: SubmittedChequeReq[]) => {
+      this.chequeReqs = chequeReqs$;
     });
   }
 }

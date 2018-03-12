@@ -7,7 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
-
+import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
 const routes: Routes = [
   {
     // Used for the authentication process
@@ -25,7 +25,8 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'cheque-req/new', component: CreateChequeReqComponent },
-      { path: 'cheque-req/view', component: ViewChequeReqsComponent }
+      { path: 'cheque-req/view', component: ViewChequeReqsComponent },
+      { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent }
     ]
   }
 ];
