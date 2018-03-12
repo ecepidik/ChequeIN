@@ -33,7 +33,6 @@ export class CreateChequeReqComponent implements OnInit {
   }
 
   selectMultipleEvent(files: FileList | File): void {
-
     if (files instanceof File) {
       this.chequeReq.fileDescriptions[files.name] = "";
     } else {
@@ -41,7 +40,6 @@ export class CreateChequeReqComponent implements OnInit {
         this.chequeReq.fileDescriptions[files[i].name] = "";
       }
     }
-
   }
 
   uploadMultipleEvent(files: FileList | File): void {
@@ -76,5 +74,4 @@ export class CreateChequeReqComponent implements OnInit {
     let total = this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
     return isNaN(total) ? 0 : total;
   }
-
 }

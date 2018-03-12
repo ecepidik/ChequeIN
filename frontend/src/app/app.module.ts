@@ -11,6 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { MenuComponent } from './menu/menu.component';
 import { Http, RequestOptions, HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { ApiService } from './api/api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +32,7 @@ import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
 import { CovalentLayoutModule } from '@covalent/core';
 import { CovalentStepsModule } from '@covalent/core';
 import { CovalentFileModule } from '@covalent/core';
@@ -65,13 +67,15 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     LoginComponent,
     CallbackComponent,
     MenuComponent,
-    ViewChequeReqsComponent
+    ViewChequeReqsComponent,
+    ChequeReqDetailsComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    HttpClientModule,
     FormsModule,
     MatButtonModule,
     MatDividerModule,

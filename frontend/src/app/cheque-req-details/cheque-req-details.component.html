@@ -1,0 +1,54 @@
+<div>
+    <form style="padding-left: 20px;padding-top: 45px;" (ngSubmit)="submitStatusUpdate()">
+        <div>
+            <mat-form-field>
+                    <mat-select placeholder="Status" [(value)]="selectedStatus" required>
+                            <mat-option value="0"> 0</mat-option>
+                            <mat-option value="1"> 1</mat-option>
+                            <mat-option value="2"> 2</mat-option>
+                          </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <textarea matInput placeholder="Feedback" [(ngModel)]="feedback" #feedbackComp="ngModel" name="feedbackComp" matTextareaAutosize
+                    matAutosizeMinRows="2" matAutosizeMaxRows="5" required></textarea>
+                <mat-error *ngIf="feedbackComp.errors?.required">
+                    You need to enter feedback
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <input matInput placeholder="Approver" [(ngModel)]="administratorApprover" #approver="ngModel" name="Approver" required/>
+                <mat-error *ngIf="approver.errors?.required">
+                    You need to enter approver
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<div style="padding-left: 20px;padding-top: 45px;">
+    <br>
+    <h4>STATUS UPDATE HISTORY</h4>
+    <mat-accordion> 
+        <mat-expansion-panel *ngFor="let item of chequeStatusHist">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b>Status Update Date: </b>&nbsp;{{item.statusDate}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{item.selectedStatus}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+                <b>Feedback </b>{{item.feedback}}&nbsp;&nbsp;&nbsp;&nbsp;
+            <p>
+                <b>Administrator: </b> {{item.administratorApprover}}
+            </p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
