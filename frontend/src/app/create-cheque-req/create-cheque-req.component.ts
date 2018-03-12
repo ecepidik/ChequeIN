@@ -4,7 +4,7 @@ import { print } from 'util';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { Account } from '../api/account';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -33,19 +33,16 @@ export class CreateChequeReqComponent implements OnInit {
   }
 
   selectMultipleEvent(files: FileList | File): void {
-
     if (files instanceof File) {
-      this.chequeReq.fileDescriptions[files.name] = "";
+      this.chequeReq.fileDescriptions[files.name] = '';
     } else {
-      for(let i: number = 0; i < files.length; i++) {
-        this.chequeReq.fileDescriptions[files[i].name] = "";
+      for (let i: number = 0; i < files.length; i++) {
+        this.chequeReq.fileDescriptions[files[i].name] = '';
       }
     }
-
   }
 
-  uploadMultipleEvent(files: FileList | File): void {
-  }
+  uploadMultipleEvent(files: FileList | File): void {}
 
   cancelMultipleEvent(): void {
     this.chequeReq.fileDescriptions = {};
@@ -56,25 +53,28 @@ export class CreateChequeReqComponent implements OnInit {
     return files instanceof File;
   }
 
-  hasNaNCheck(){
-    if(isNaN(this.chequeReq.preTax)) {
+  hasNaNCheck() {
+    if (isNaN(this.chequeReq.preTax)) {
       this.chequeReq.preTax = 0;
       return true;
-    } else if(isNaN(this.chequeReq.GST)) {
+    } else if (isNaN(this.chequeReq.GST)) {
       this.chequeReq.GST = 0;
       return true;
-    } else if(isNaN(this.chequeReq.PST)) {
+    } else if (isNaN(this.chequeReq.PST)) {
       this.chequeReq.PST = 0;
       return true;
-    } else if(isNaN(this.chequeReq.HST)) {
+    } else if (isNaN(this.chequeReq.HST)) {
       this.chequeReq.HST = 0;
       return true;
     }
   }
 
   updateTotal() {
-    let total = this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
+    let total =
+      this.chequeReq.preTax +
+      this.chequeReq.GST +
+      this.chequeReq.PST +
+      this.chequeReq.HST;
     return isNaN(total) ? 0 : total;
   }
-
 }

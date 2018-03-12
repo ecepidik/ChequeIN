@@ -13,18 +13,16 @@ import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 })
 export class ViewChequeReqsComponent implements OnInit {
   chequeReqs$: Observable<ChequeReq[]>;
-  chequeReqs: Array<ChequeReq>=[];
+  chequeReqs: Array<ChequeReq> = [];
 
-
-  constructor(public auth: AuthService, private api: ApiService) { }
+  constructor(public auth: AuthService, private api: ApiService) {}
 
   ngOnInit() {
-
     this.chequeReqs$ = this.api.getChequeReqs();
     this.chequeReqs.push({
-      "preTax": 0,
-      "GST": 0,
-      "PST": 0,
+      preTax: 0,
+      GST: 0,
+      PST: 0,
       HST: 0,
       description: 'cat food',
       onlinePurchase: false,
