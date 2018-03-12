@@ -8,7 +8,8 @@ import {
   MatInputModule,
   MatSelectModule,
   MatRadioModule,
-  MatIconModule
+  MatIconModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ApiService } from '../api/api.service';
@@ -46,6 +47,7 @@ describe('CreateChequeReqComponent', () => {
           MatIconModule,
           MatRadioModule,
           MatInputModule,
+          MatProgressSpinnerModule,
           MatSelectModule,
           NoopAnimationsModule,
           CurrencyMaskModule
