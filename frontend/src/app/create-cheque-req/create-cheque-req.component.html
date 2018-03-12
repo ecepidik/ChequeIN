@@ -59,20 +59,22 @@
 
   <div *ngIf="chequeReq.files">
     <p>Optionally provide descriptions for each document:</p>
-    <ol *ngIf="isFile(chequeReq.files)">
+    <ol *ngIf="isFile(chequeReq.files); else elseBlock">
       <li>
         <mat-form-field>
           <input matInput name="fileDescriptions" placeholder="Description for: {{chequeReq.files.name}}"  [(ngModel)]="chequeReq.fileDescriptions[chequeReq.files.name]"/>
         </mat-form-field>
       </li>
     </ol>
-    <ol>
-      <li *ngFor="let file of chequeReq.files">
-        <mat-form-field>
-          <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
-        </mat-form-field>
-      </li>
-    </ol>
+    <ng-template #elseBlock>
+      <ol>
+        <li *ngFor="let file of chequeReq.files">
+          <mat-form-field>
+            <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
+          </mat-form-field>
+        </li>
+      </ol>
+    </ng-template>
   </div>
 
   <!-- 3. CheckBox Section -->
