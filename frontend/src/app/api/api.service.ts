@@ -34,14 +34,69 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  submitChequeReq(chequeReq: ChequeReq): Observable<void> {
-    return Observable.of(); // TODO: Make an actual API call
+  async submitChequeReq(chequeReq: ChequeReq): Promise<void> {
+
+    let uploadedDocuments = [];
+
+    if (chequeReq.files instanceof File) {
+
+      uploadedDocuments.push(
+        {
+          Description: chequeReq.fileDescriptions[chequeReq.files.name],
+          Base64Content: await getBase64(chequeReq.files)
+        });
+
+    } else {
+      for(let i: number = 0; i < chequeReq.files.length; i++) {
+        uploadedDocuments.push(
+          {
+            Description: chequeReq.fileDescriptions[chequeReq.files[i].name],
+            Base64Content: await getBase64(chequeReq.files[i])
+          });
+      }
+    }
+
+    let request = {
+      freeFood: chequeReq.freeFood,
+      onlinePurchases: chequeReq.onlinePurchase,
+      toBeMailed: chequeReq.mailCheque,
+      preTax: chequeReq.preTax,
+      gst: chequeReq.GST,
+      pst: chequeReq.PST,
+      hst: chequeReq.HST,
+      mailingAddress: {
+        province: 1,
+        line1: "3480 Rue University",
+        line2: "",
+        city: "Montreal",
+        postalCode: "H3A 0E9"
+      },
+      UploadedDocuments: uploadedDocuments,
+      ledgerAccountID: 1,
+      payeeName: chequeReq.payableAddressee,
+      description: chequeReq.description,
+      approvedBy: chequeReq.approver
+    };
+
+    return this.authHttp
+      .post(`${environment.apiUrl}/chequereqs` ,request)
+      .map((res) => res.json()).toPromise();
   }
 
   getChequeReqs(): Observable<ChequeReq[]> {
     return this.authHttp
-    .get(`${environment.apiUrl}/ChequeReqs`)
-    .map((res) => res.json())
-    .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+      .get(`${environment.apiUrl}/ChequeReqs`)
+      .map((res) => res.json())
+      .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
   }
+
+}
+
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 }
