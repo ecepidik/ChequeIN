@@ -53,6 +53,7 @@ namespace ChequeIN.Models.API.Output
         }
 
         [DisplayName("Approver Name")]
+        [StringNotEmpty(ErrorMessage = "Cannot be empty")]
         public String ApprovedBy {
             get { return this.approvedBy; }
             set { this.approvedBy = value.Trim(); }
