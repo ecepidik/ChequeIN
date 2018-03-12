@@ -1,10 +1,6 @@
 # ChequeIN
 
-<<<<<<< HEAD
-![alt text](chicken.png)
-=======
 ![ChequeIN logo](chicken.png)
->>>>>>> dev
 
 ## The 10 golden rules of the Chicken
 1. Do not talk about fight club
@@ -17,8 +13,6 @@
 8. Stay away from typescript
 9. Small people are the last ones to know it's raining
 10. Java is to JavaScript as ham is to hamster - Jeremy Keith
-<<<<<<< HEAD
-=======
 
 ## Running the project
 ### Requirements
@@ -79,4 +73,3 @@ Now the database system uses migrations. Migrations is a way to version-control 
 
 ## EditorConfig
 To avoid confusing our text editors with indentation, we have an editorconfig file ! See http://editorconfig.org for more details.
->>>>>>> dev
