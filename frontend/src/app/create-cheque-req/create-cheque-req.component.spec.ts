@@ -15,7 +15,7 @@ import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { CovalentFileModule, CovalentStepsModule, CovalentLayoutModule } from '@covalent/core';
+import { CovalentFileModule } from '@covalent/core';
 
 describe('CreateChequeReqComponent', () => {
   let component: CreateChequeReqComponent;
@@ -39,8 +39,6 @@ describe('CreateChequeReqComponent', () => {
           CommonModule,
           FormsModule,
           ReactiveFormsModule,
-          CovalentLayoutModule,
-          CovalentStepsModule,
           CovalentFileModule,
           MatButtonModule,
           MatCheckboxModule,
