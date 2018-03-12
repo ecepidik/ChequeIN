@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
 import { HomeComponent } from './home/home.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
 import { CallbackComponent } from './auth/callback/callback.component';
@@ -19,11 +19,13 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
+  MatIconModule,
   MatButton,
   MatDividerModule,
   MatRadioModule,
   MatSelectModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatIcon
 
 } from '@angular/material';
 import 'rxjs/Rx';
@@ -31,6 +33,9 @@ import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.com
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
+import { CovalentLayoutModule } from '@covalent/core';
+import { CovalentStepsModule } from '@covalent/core';
+import { CovalentFileModule } from '@covalent/core';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -77,10 +82,15 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatRadioModule,
     MatCheckboxModule,
     MatInputModule,
+    MatIconModule,
     MatSelectModule,
     MatExpansionModule,
     NgbModule,
-    CurrencyMaskModule
+    ReactiveFormsModule,
+    CurrencyMaskModule,
+    CovalentLayoutModule,
+    CovalentStepsModule,
+    CovalentFileModule
   ],
   providers: [
     AuthService,
