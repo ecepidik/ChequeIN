@@ -225,9 +225,9 @@ namespace ChequeIN.Database
 
         private static void GenerateFinancialAdministrator(DatabaseContext context) {
             var profile = new Models.FinancialAdministrator() {
-                Email = "mathieu@gmail.com",
-                Name = "my name",
-                AuthenticationIdentifier = new Random().Next(1000).ToString()
+                Email = "admin@test.com",
+                Name = "Mr. Admin",
+                AuthenticationIdentifier = "auth0|5aa5f80fa19e36443ed9b557"
             };
             context.FinancialAdministrators.Add(profile);
         }
