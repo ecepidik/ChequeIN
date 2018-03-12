@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="Controllers\ChequeReqs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.17.1" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="chequein.db.sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20180304234203_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20180304234203_InitialCreate.cs" />
+    <Compile Remove="Migrations\DatabaseContextModelSnapshot.cs" />
+  </ItemGroup>
+</Project>
