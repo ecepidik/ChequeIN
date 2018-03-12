@@ -2,7 +2,7 @@ import { Injectable, Type } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { ChequeReq } from './cheque-req';
+import { ChequeReqSubmission } from './cheque-req-submission';
 import { User } from './user';
 import { Account } from './account';
 import { SubmittedChequeReq } from './submitted-cheque-req';
@@ -12,6 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ApiService {
+  private chequeReqUrl = 'http://localhost:5000/api/chequereqs';
   constructor(private authHttp: AuthHttp, private http: HttpClient) {}
 
   httpOptions = {
@@ -33,8 +34,7 @@ export class ApiService {
   getAccounts(): Observable<Account[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/accounts`)
-      .map((res) => res.json())
-      .map((accounts) => (Array.isArray(accounts) ? accounts : [accounts]));
+      .map((res) => res.json());
   }
 
   /**
@@ -42,7 +42,7 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  async submitChequeReq(chequeReq: ChequeReq): Promise<void> {
+  async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
     let uploadedDocuments = [];
 
     if (chequeReq.files instanceof File) {
@@ -59,35 +59,42 @@ export class ApiService {
       }
     }
 
-    let request = {
-      freeFood: chequeReq.freeFood,
+    //Change the name of variable to match the back end
+    const form = {
       onlinePurchases: chequeReq.onlinePurchase,
       toBeMailed: chequeReq.mailCheque,
       preTax: chequeReq.preTax,
       gst: chequeReq.GST,
       pst: chequeReq.PST,
       hst: chequeReq.HST,
+      UploadedDocuments: uploadedDocuments,
+      freeFood: chequeReq.freeFood,
       mailingAddress: {
         province: 1,
-        line1: '3480 Rue University',
+        line1: '1645 rue des rigoles',
         line2: '',
-        city: 'Montreal',
-        postalCode: 'H3A 0E9'
+        city: 'Sherb',
+        postalCode: 'J1M2H2'
       },
-      UploadedDocuments: uploadedDocuments,
-      ledgerAccountID: 1,
-      payeeName: chequeReq.payableAddressee,
       description: chequeReq.description,
-      approvedBy: chequeReq.approver
+      approvedBy: chequeReq.approver,
+      ledgerAccountID: 1,
+      payeeName: chequeReq.payableAddressee
     };
 
     return this.authHttp
-      .post(`${environment.apiUrl}/chequereqs`, request)
+      .post(this.chequeReqUrl, form)
       .map((res) => res.json())
+      .catch(this.handleError)
       .toPromise();
   }
 
-  getChequeReqs(): Observable<Object[]> {
+  private handleError(error) {
+    console.error(error);
+    return Observable.throw(error || 'Server Error');
+  }
+
+  getChequeReqs(): Observable<SubmittedChequeReq[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/ChequeReqs/`)
       .map((res) => res.json())
@@ -95,22 +102,16 @@ export class ApiService {
   }
 
   getChequeReqDetails(chequeReqId): Observable<Object> {
-    return this.http
+    return this.authHttp
       .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
-      .map((cheques) => (cheques ? cheques : null))
-      .do(() => {
-        console.log('request finished');
-      });
+      .map((cheques) => cheques.json());
   }
 
   postStatusUpdate(status, id): Observable<Object> {
-    return this.http
-      .post(
-        `${environment.apiUrl}/chequereqs/` + id + '/status',
-        JSON.stringify(status),
-        this.httpOptions
-      )
-      .map((res: Response) => res);
+    return this.authHttp.post(
+      `${environment.apiUrl}/chequereqs/` + id + '/status',
+      status
+    );
   }
 }
 

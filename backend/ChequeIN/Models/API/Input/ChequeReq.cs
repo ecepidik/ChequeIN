@@ -46,6 +46,7 @@ namespace ChequeIN.Models.API.Input
         }
 
         [DisplayName("Approver Name")]
+        [StringNotEmpty(ErrorMessage = "Cannot be empty")]
         public String ApprovedBy
         {
             get { return this.approvedBy; }

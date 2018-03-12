@@ -21,7 +21,7 @@
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask readonly placeholder="Total" [value]="updateTotal()|currency"/>
+    <input style="text-align: right;" matInput readonly placeholder="Total" [value]="updateTotal()|currency" />
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -59,20 +59,22 @@
 
   <div *ngIf="chequeReq.files">
     <p>Optionally provide descriptions for each document:</p>
-    <ol *ngIf="isFile(chequeReq.files)">
+    <ol *ngIf="isFile(chequeReq.files); else elseBlock">
       <li>
         <mat-form-field>
           <input matInput name="fileDescriptions" placeholder="Description for: {{chequeReq.files.name}}"  [(ngModel)]="chequeReq.fileDescriptions[chequeReq.files.name]"/>
         </mat-form-field>
       </li>
     </ol>
-    <ol>
-      <li *ngFor="let file of chequeReq.files">
-        <mat-form-field>
-          <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
-        </mat-form-field>
-      </li>
-    </ol>
+    <ng-template #elseBlock>
+      <ol>
+        <li *ngFor="let file of chequeReq.files">
+          <mat-form-field>
+            <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
+          </mat-form-field>
+        </li>
+      </ol>
+    </ng-template>
   </div>
 
   <!-- 3. CheckBox Section -->
@@ -100,7 +102,6 @@
     <div *ngIf="!freeFood.pristine && chequeReq.freeFood === true" class="alert alert-warning">
       Note your account will be charged for the pre-tax amount plus half of all GST, QST and HST taxes incurred
     </div>
-
   </div>
 
   <!-- 3.3 Payable Addressee Section -->
@@ -111,8 +112,8 @@
       You need to enter a payable addressee
     </mat-error>
   </mat-form-field>
-
   <br>
+
   <!-- 3.4 Mail Request Section -->
   <div>
     <mat-divider></mat-divider>
@@ -140,5 +141,20 @@
   </div>
 
   <br>
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!CreateChq.form.valid">Submit</button>
+
+  <div *ngIf="submitted">
+    <ng-container *ngIf="this.submissionResult$ | async as result; else else2">
+      <ng-container *ngIf="result == 'success'">
+        Success !
+      </ng-container>
+      <ng-container *ngIf="result == 'error'">
+        Error from server
+      </ng-container>
+    </ng-container>
+    <ng-template #else2>
+      Loading...
+      <mat-progress-spinner></mat-progress-spinner>
+    </ng-template>
+  </div>
 </form>

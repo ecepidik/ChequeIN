@@ -25,8 +25,8 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatExpansionModule,
-  MatIcon
-
+  MatIcon,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
@@ -83,13 +83,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatCheckboxModule,
     MatInputModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatExpansionModule,
     NgbModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
-    CovalentLayoutModule,
-    CovalentStepsModule,
     CovalentFileModule
   ],
   providers: [
