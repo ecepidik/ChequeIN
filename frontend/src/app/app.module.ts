@@ -88,8 +88,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     NgbModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
-    CovalentLayoutModule,
-    CovalentStepsModule,
     CovalentFileModule
   ],
   providers: [

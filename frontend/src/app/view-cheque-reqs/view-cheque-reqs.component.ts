@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../api/api.service';
 import { Account } from '../api/account';
-
+import { SubmittedChequeReq } from '../api/submitted-cheque-req';
 
 @Component({
   selector: 'app-view-cheque-reqs',
@@ -11,19 +11,15 @@ import { Account } from '../api/account';
   styleUrls: ['./view-cheque-reqs.component.scss']
 })
 export class ViewChequeReqsComponent implements OnInit {
-  //chequeReqs$: Observable<Object>;
-  chequeReqs: Object[];
+  //chequeReqs$: Observable<SubmittedChequeReq[]>;
+  chequeReqs: SubmittedChequeReq[];
 
-
-  constructor(public auth: AuthService, private api: ApiService) { }
+  constructor(public auth: AuthService, private api: ApiService) {}
 
   ngOnInit() {
-
     //this.chequeReqs$ = this.api.getChequeReqs();
-    this.api.getChequeReqs() 
-      .subscribe(
-        (chequeReqs$: Object[])  => { this.chequeReqs = chequeReqs$
-        });
-
+    this.api.getChequeReqs().subscribe((chequeReqs$: SubmittedChequeReq[]) => {
+      this.chequeReqs = chequeReqs$;
+    });
   }
 }

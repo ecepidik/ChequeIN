@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChequeReq } from '../../app/api/cheque-req';
+import { ChequeReqSubmission } from '../../app/api/cheque-req-submission';
 import { print } from 'util';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { Account } from '../api/account';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -15,7 +15,7 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./create-cheque-req.component.scss']
 })
 export class CreateChequeReqComponent implements OnInit {
-  chequeReq: ChequeReq = new ChequeReq();
+  chequeReq: ChequeReqSubmission = new ChequeReqSubmission();
   accounts$: Observable<Account[]>;
   submitted: boolean = false;
   minPreTaxControl: FormControl;
@@ -29,49 +29,51 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-    this.api.submitChequeReq(this.chequeReq).then(console.log, console.error);
+    this.api.submitChequeReq(this.chequeReq).then(() => {}, console.error);
   }
 
   selectMultipleEvent(files: FileList | File): void {
     if (files instanceof File) {
-      this.chequeReq.fileDescriptions[files.name] = "";
+      this.chequeReq.fileDescriptions[files.name] = '';
     } else {
-      for(let i: number = 0; i < files.length; i++) {
-        this.chequeReq.fileDescriptions[files[i].name] = "";
+      for (let i: number = 0; i < files.length; i++) {
+        this.chequeReq.fileDescriptions[files[i].name] = '';
       }
     }
   }
 
-  uploadMultipleEvent(files: FileList | File): void {
-  }
+  uploadMultipleEvent(files: FileList | File): void {}
 
   cancelMultipleEvent(): void {
     this.chequeReq.fileDescriptions = {};
-    console.log(this.chequeReq.fileDescriptions);
   }
 
   isFile(files: FileList | File): boolean {
     return files instanceof File;
   }
 
-  hasNaNCheck(){
-    if(isNaN(this.chequeReq.preTax)) {
+  hasNaNCheck() {
+    if (isNaN(this.chequeReq.preTax)) {
       this.chequeReq.preTax = 0;
       return true;
-    } else if(isNaN(this.chequeReq.GST)) {
+    } else if (isNaN(this.chequeReq.GST)) {
       this.chequeReq.GST = 0;
       return true;
-    } else if(isNaN(this.chequeReq.PST)) {
+    } else if (isNaN(this.chequeReq.PST)) {
       this.chequeReq.PST = 0;
       return true;
-    } else if(isNaN(this.chequeReq.HST)) {
+    } else if (isNaN(this.chequeReq.HST)) {
       this.chequeReq.HST = 0;
       return true;
     }
   }
 
   updateTotal() {
-    let total = this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
+    let total =
+      this.chequeReq.preTax +
+      this.chequeReq.GST +
+      this.chequeReq.PST +
+      this.chequeReq.HST;
     return isNaN(total) ? 0 : total;
   }
 }
