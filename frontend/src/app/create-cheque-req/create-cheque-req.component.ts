@@ -29,7 +29,7 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-    this.api.submitChequeReq(this.chequeReq).then(console.log, console.error);
+    this.api.submitChequeReq(this.chequeReq).then(() => {}, console.error);
   }
 
   selectMultipleEvent(files: FileList | File): void {
@@ -46,7 +46,6 @@ export class CreateChequeReqComponent implements OnInit {
 
   cancelMultipleEvent(): void {
     this.chequeReq.fileDescriptions = {};
-    console.log(this.chequeReq.fileDescriptions);
   }
 
   isFile(files: FileList | File): boolean {
