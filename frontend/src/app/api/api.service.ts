@@ -24,8 +24,7 @@ export class ApiService {
   getAccounts(): Observable<Account[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/accounts`)
-      .map((res) => res.json())
-      .map((accounts) => (Array.isArray(accounts) ? accounts : [accounts]));
+      .map((res) => res.json());
   }
 
   /**
