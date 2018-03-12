@@ -21,19 +21,42 @@ namespace ChequeIN.Database
                 return false;
             }
 
-            try {
-              cheques = context.ChequeReqs
-                               .Where(x => x.UserProfileID == user.UserProfileID)
-                               .Include(x => x.StatusHistory)
-                               .Include(x => x.MailingAddress)
-                               .Include(x => x.SupportingDocuments)
-                               .ToList();
-              return true;
+            if (user is Models.FinancialAdministrator)
+            {
+                try
+                {
+                    cheques = context.ChequeReqs
+                                     .Include(x => x.StatusHistory)
+                                     .Include(x => x.MailingAddress)
+                                     .Include(x => x.SupportingDocuments)
+                                     .ToList();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    cheques = null;
+                    return false;
+                }
             }
-            catch (Exception) {
-               cheques = null;
-               return false;
+            else
+            {
+                try
+                {
+                    cheques = context.ChequeReqs
+                                     .Where(x => x.UserProfileID == user.UserProfileID)
+                                     .Include(x => x.StatusHistory)
+                                     .Include(x => x.MailingAddress)
+                                     .Include(x => x.SupportingDocuments)
+                                     .ToList();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    cheques = null;
+                    return false;
+                }
             }
+
         }
 
         public static bool TryGetChequeReq(DatabaseContext context, int id, out ChequeReq cheque) {

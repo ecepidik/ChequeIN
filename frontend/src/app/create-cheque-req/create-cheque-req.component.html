@@ -1,25 +1,27 @@
 <form style="padding-left: 20px;padding-top: 45px;" (ngSubmit)="submitChequeReq()" #CreateChq="ngForm">
   <!-- 1. Financial Details Section -->
   <mat-form-field>
-    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel" [(ngModel)]="chequeReq.preTax"
-      required #preTax="ngModel" name="preTax" />
+    <input matInput currencyMask [options]='{allowZero: false}' placeholder="Pre-tax Amount" type="tel" min="0.01" [formControl]="minPreTaxControl"
+           [(ngModel)]="chequeReq.preTax" required name="preTax" (blur)="hasNaNCheck(chequeReq.preTax)"/>
+    <mat-error>
+      You must enter a Pre-tax amount of at least $0.01
+    </mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST" />
+    <input matInput currencyMask placeholder="GST" type="tel" [(ngModel)]="chequeReq.GST" #GST="ngModel" name="GST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST" />
+    <input matInput currencyMask placeholder="PST" type="tel" [(ngModel)]="chequeReq.PST" #PST="ngModel" name="PST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST" />
+    <input matInput currencyMask placeholder="HST" type="tel" [(ngModel)]="chequeReq.HST" #HST="ngModel" name="HST" (blur)="hasNaNCheck()"/>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput currencyMask readonly placeholder="Total" [value]="(chequeReq.preTax + chequeReq.GST + chequeReq.PST + chequeReq.HST) | currency"
-    />
+    <input style="text-align: right;" matInput readonly placeholder="Total" [value]="updateTotal()|currency" />
   </mat-form-field>
   <br>
   <mat-form-field>
@@ -39,6 +41,42 @@
       </mat-error>
     </mat-form-field>
   </div>
+
+  <p>Please upload supporting documents:</p>
+  <td-file-upload #fileMultipleUpload name="documents" [(ngModel)]="chequeReq.files" (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)" (cancel)="cancelMultipleEvent()"
+                  accept="image/*,.pdf" defaultColor="accent" activeColor="warn" cancelColor="primary" multiple [disabled]="disabled">
+    <mat-icon>file_upload</mat-icon>
+    <span>
+    {{ fileMultipleUpload.value?.name || fileMultipleUpload.value?.length }} <span *ngIf="fileMultipleUpload.value?.length">files selected</span>
+  </span>
+    <ng-template td-file-input-label>
+      <mat-icon>attach_file</mat-icon>
+      <span>
+      Choose documents
+    </span>
+    </ng-template>
+  </td-file-upload>
+
+  <div *ngIf="chequeReq.files">
+    <p>Optionally provide descriptions for each document:</p>
+    <ol *ngIf="isFile(chequeReq.files); else elseBlock">
+      <li>
+        <mat-form-field>
+          <input matInput name="fileDescriptions" placeholder="Description for: {{chequeReq.files.name}}"  [(ngModel)]="chequeReq.fileDescriptions[chequeReq.files.name]"/>
+        </mat-form-field>
+      </li>
+    </ol>
+    <ng-template #elseBlock>
+      <ol>
+        <li *ngFor="let file of chequeReq.files">
+          <mat-form-field>
+            <input matInput name="fileDescriptions" placeholder="Description for: {{file.name}}" [(ngModel)]="chequeReq.fileDescriptions[file.name]"/>
+          </mat-form-field>
+        </li>
+      </ol>
+    </ng-template>
+  </div>
+
   <!-- 3. CheckBox Section -->
   <!-- 3.1 Online Purchase Question Section -->
   <mat-divider></mat-divider>
@@ -64,7 +102,6 @@
     <div *ngIf="!freeFood.pristine && chequeReq.freeFood === true" class="alert alert-warning">
       Note your account will be charged for the pre-tax amount plus half of all GST, QST and HST taxes incurred
     </div>
-
   </div>
 
   <!-- 3.3 Payable Addressee Section -->
@@ -75,8 +112,8 @@
       You need to enter a payable addressee
     </mat-error>
   </mat-form-field>
-
   <br>
+
   <!-- 3.4 Mail Request Section -->
   <div>
     <mat-divider></mat-divider>

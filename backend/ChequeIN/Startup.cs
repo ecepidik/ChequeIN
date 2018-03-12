@@ -72,8 +72,9 @@ namespace ChequeIN
                 }
                 else
                 {
-                    var connection = Environment.GetEnvironmentVariable("DB_CONNTECTION_STRING");
-                    options.UseSqlServer(connection);
+                    //var connection = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+                    var connection = "database=localdb;server=127.0.0.1;port=50638;user=azure;password=6#vWHD_$";
+                    options.UseMySQL(connection);
                 }
             });
 
@@ -117,14 +118,16 @@ namespace ChequeIN
             }
             else
             {
-                var connection = Environment.GetEnvironmentVariable("DB_CONNTECTION_STRING");
-                options.UseSqlServer(connection);
+                //var connection = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+                var connection = "database=localdb;server=127.0.0.1;port=50638;user=azure;password=6#vWHD_$";
+                options.UseMySQL(connection);
             }
 
             // Migrate the database and fill it with seed data
             using (var ctx = new DatabaseContext(options.Options))
             {
-                ctx.Database.Migrate();
+                ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
                 // Do not fill it if it entity framework running it in design mode
                 if (Configuration["DesignTime"] != "true")
                 {

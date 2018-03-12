@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChequeIN.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChequeIN.Database
 {
@@ -17,14 +18,15 @@ namespace ChequeIN.Database
 
         public static bool TryGetUserById(DatabaseContext context, string id, out UserProfile user)
         {
+            var officers = context.FinancialOfficers
+                                  .Where(f => f.AuthenticationIdentifier == id)
+                                  .Include("AuthorizedAccountGroups")
+                                  .ToList();
 
-            var officers = from v in context.FinancialOfficers
-                           where v.AuthenticationIdentifier == id
-                           select v;
-
-            var admins = from v in context.FinancialAdministrators
-                         where v.AuthenticationIdentifier == id
-                         select v;
+            var admins = context.FinancialAdministrators
+                                .Where(f => f.AuthenticationIdentifier == id)
+                                .Include("AuthorizedAccountGroups")
+                                .ToList();
 
             if (officers.Any())
             {

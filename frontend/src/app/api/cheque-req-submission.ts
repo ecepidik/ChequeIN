@@ -1,4 +1,7 @@
-export class ChequeReq {
+/**
+ * This class represents a cheque Req Submission. This is what we send to the server in a post request.
+ */
+export class ChequeReqSubmission {
   preTax: number = 0;
   GST: number = 0;
   PST: number = 0;
@@ -8,7 +11,9 @@ export class ChequeReq {
   payableAddressee: string = '';
   approver: string = '';
   account: Account | undefined;
-  freeFood: boolean;
+  freeFood: boolean = false;
   mailCheque: boolean = false;
   mailingAddress: string = '';
+  files: FileList | File;
+  fileDescriptions: {[key: string]: string} = {};
 }

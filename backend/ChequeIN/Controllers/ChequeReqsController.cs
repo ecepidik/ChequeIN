@@ -44,6 +44,22 @@ namespace ChequeIN.Controllers
             }
         }
 
+        // GET api/ChequeReqs/id
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            bool exists = Database.ChequeReqs.TryGetChequeReq(_dbContext, id, out ChequeReq cheque);
+            if (!exists)
+            {
+                return NotFound("The specified chequeReq does not exist");
+            }
+            else
+            {
+                var convert = ChequeIN.Models.API.Output.ChequeReq.FromModel(cheque);
+                return Ok(convert);
+            }
+        }
+
         //Put api/ChequeReqs
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ChequeIN.Models.API.Input.ChequeReq cheque)
