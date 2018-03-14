@@ -1,6 +1,7 @@
 import 'jest-preset-angular';
 import 'rxjs/Rx';
 
+/*** Mocks ***/
 Object.defineProperty(document.body.style, 'transform', {
   value: () => {
     return {
@@ -9,3 +10,5 @@ Object.defineProperty(document.body.style, 'transform', {
     };
   },
 });
+
+Object.defineProperty(window, 'CSS', {value: jest.fn()});
