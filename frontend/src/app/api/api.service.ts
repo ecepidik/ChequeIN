@@ -56,7 +56,7 @@ export class ApiService {
       }
     }
 
-    //Change the name of variable to match the back end
+    // Change the name of variable to match the back end
     const form = {
       onlinePurchases: chequeReq.onlinePurchase,
       toBeMailed: chequeReq.mailCheque,
@@ -87,7 +87,6 @@ export class ApiService {
   }
 
   private handleError(error) {
-    console.error(error);
     return Observable.throw(error || 'Server Error');
   }
 

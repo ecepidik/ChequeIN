@@ -27,6 +27,9 @@ export class AuthService implements CanActivate {
         this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
+
+        // This error message is needed because it would be very hard to debug otherwise.
+        // tslint:disable-next-line:no-console
         console.log(err);
       }
     });

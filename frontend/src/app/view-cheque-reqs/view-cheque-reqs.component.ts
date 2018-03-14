@@ -11,13 +11,13 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./view-cheque-reqs.component.scss'],
 })
 export class ViewChequeReqsComponent implements OnInit {
-  //chequeReqs$: Observable<SubmittedChequeReq[]>;
+  // chequeReqs$: Observable<SubmittedChequeReq[]>;
   public chequeReqs: SubmittedChequeReq[];
 
   constructor(public auth: AuthService, private api: ApiService) {}
 
   public ngOnInit() {
-    //this.chequeReqs$ = this.api.getChequeReqs();
+    // this.chequeReqs$ = this.api.getChequeReqs();
     this.api.getChequeReqs().subscribe((chequeReqs$: SubmittedChequeReq[]) => {
       this.chequeReqs = chequeReqs$;
     });

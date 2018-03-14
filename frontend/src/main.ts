@@ -8,6 +8,9 @@ if (environment.production) {
   enableProdMode();
 }
 
+// This console.log is in the default angular config
+// tslint:disable:no-console
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch(err => console.log(err));
+// tslint:enable:no-console

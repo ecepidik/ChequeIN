@@ -17,9 +17,9 @@ export class ChequeReqDetailsComponent implements OnInit {
   public response$: Observable<Object>;
   public chequeStatusHist: Object;
 
-  public feedback: String;
-  public selectedStatus: String;
-  public administratorApprover: String;
+  public feedback: string;
+  public selectedStatus: string;
+  public administratorApprover: string;
 
   public chequeReqId;
 
@@ -29,7 +29,6 @@ export class ChequeReqDetailsComponent implements OnInit {
 
     this.api.getChequeReqDetails(this.chequeReqId).subscribe((chequeStatusHist: Object) => {
       this.chequeStatusHist = chequeStatusHist;
-      console.log(this.chequeStatusHist);
     });
   }
 
