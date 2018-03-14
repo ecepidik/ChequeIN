@@ -14,6 +14,5 @@ matrix:
       before_install:
         - cd frontend
       script:
-        - export CHROME_BIN=chromium-browser
-        - xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
-        # - npm run build # Travis fails on this. Travis is wierd...
+        - npm test
+        - npm run build # Travis fails on this. Travis is wierd...
