@@ -1,41 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CovalentFileModule } from '@covalent/core';
+import { CovalentStepsModule } from '@covalent/core';
+import { CovalentLayoutModule } from '@covalent/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import {
+  CURRENCY_MASK_CONFIG,
+  CurrencyMaskConfig,
+} from 'ng2-currency-mask/src/currency-mask.config';
+import 'rxjs/Rx';
+import { ApiService } from './api/api.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth/auth.service';
+import { CallbackComponent } from './auth/callback/callback.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
 import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
 import { HomeComponent } from './home/home.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AuthService } from './auth/auth.service';
-import { LoginComponent } from './auth/login/login.component';
-import { CallbackComponent } from './auth/callback/callback.component';
 import { MenuComponent } from './menu/menu.component';
-import { Http, RequestOptions, HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { ApiService } from './api/api.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatInputModule,
-  MatIconModule,
-  MatButton,
-  MatDividerModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatExpansionModule,
-  MatIcon,
-  MatProgressSpinnerModule
-} from '@angular/material';
-import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
-import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
-import { CovalentLayoutModule } from '@covalent/core';
-import { CovalentStepsModule } from '@covalent/core';
-import { CovalentFileModule } from '@covalent/core';
+import { MaterialModule } from './material.module';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -45,16 +36,16 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   precision: 2,
   prefix: '$',
   suffix: '',
-  thousands: ','
+  thousands: ',',
 };
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
     new AuthConfig({
-      tokenGetter: () => localStorage.getItem('access_token')
+      tokenGetter: () => localStorage.getItem('access_token'),
     }),
     http,
-    options
+    options,
   );
 }
 
@@ -67,7 +58,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MenuComponent,
     ViewChequeReqsComponent,
-    ChequeReqDetailsComponent
+    ChequeReqDetailsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -76,19 +67,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     HttpClientModule,
     FormsModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatExpansionModule,
+    MaterialModule,
     NgbModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
-    CovalentFileModule
+    CovalentFileModule,
   ],
   providers: [
     AuthService,
@@ -96,13 +79,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
+      deps: [Http, RequestOptions],
     },
     {
       provide: CURRENCY_MASK_CONFIG,
-      useValue: CustomCurrencyMaskConfig
-    }
+      useValue: CustomCurrencyMaskConfig,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

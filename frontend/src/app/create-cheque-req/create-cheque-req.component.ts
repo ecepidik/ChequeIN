@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChequeReqSubmission } from '../../app/api/cheque-req-submission';
-import { print } from 'util';
-import { ApiService } from '../api/api.service';
-import { Observable } from 'rxjs/Observable';
-import { Account } from '../api/account';
 import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { print } from 'util';
+import { ChequeReqSubmission } from '../../app/api/cheque-req-submission';
+import { Account } from '../api/account';
+import { ApiService } from '../api/api.service';
 
 /**
  * This components contains the Cheque Req creation form.
@@ -12,32 +12,30 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-create-cheque-req',
   templateUrl: './create-cheque-req.component.html',
-  styleUrls: ['./create-cheque-req.component.scss']
+  styleUrls: ['./create-cheque-req.component.scss'],
 })
 export class CreateChequeReqComponent implements OnInit {
-  chequeReq: ChequeReqSubmission = new ChequeReqSubmission();
-  accounts$: Observable<Account[]>;
-  submitted: boolean = false;
-  minPreTaxControl: FormControl;
-  submissionResult$: Observable<string>;
+  public chequeReq: ChequeReqSubmission = new ChequeReqSubmission();
+  public accounts$: Observable<Account[]>;
+  public submitted: boolean = false;
+  public minPreTaxControl: FormControl;
+  public submissionResult$: Observable<string>;
 
   constructor(private api: ApiService) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.accounts$ = this.api.getAccounts();
     this.minPreTaxControl = new FormControl('', Validators.min(0.01));
   }
 
-  submitChequeReq() {
+  public submitChequeReq() {
     this.submitted = true;
-    this.submissionResult$ = Observable.fromPromise(
-      this.api.submitChequeReq(this.chequeReq)
-    )
+    this.submissionResult$ = Observable.fromPromise(this.api.submitChequeReq(this.chequeReq))
       .map(() => 'success')
       .catch(() => Observable.of('error'));
   }
 
-  selectMultipleEvent(files: FileList | File): void {
+  public selectMultipleEvent(files: FileList | File): void {
     if (files instanceof File) {
       this.chequeReq.fileDescriptions[files.name] = '';
     } else {
@@ -47,17 +45,17 @@ export class CreateChequeReqComponent implements OnInit {
     }
   }
 
-  uploadMultipleEvent(files: FileList | File): void {}
+  public uploadMultipleEvent(files: FileList | File): void {}
 
-  cancelMultipleEvent(): void {
+  public cancelMultipleEvent(): void {
     this.chequeReq.fileDescriptions = {};
   }
 
-  isFile(files: FileList | File): boolean {
+  public isFile(files: FileList | File): boolean {
     return files instanceof File;
   }
 
-  hasNaNCheck() {
+  public hasNaNCheck() {
     if (isNaN(this.chequeReq.preTax)) {
       this.chequeReq.preTax = 0;
       return true;
@@ -73,12 +71,9 @@ export class CreateChequeReqComponent implements OnInit {
     }
   }
 
-  updateTotal() {
-    let total =
-      this.chequeReq.preTax +
-      this.chequeReq.GST +
-      this.chequeReq.PST +
-      this.chequeReq.HST;
+  public updateTotal() {
+    const total =
+      this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
     return isNaN(total) ? 0 : total;
   }
 }

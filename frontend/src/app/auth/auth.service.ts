@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService implements CanActivate {
-  auth0 = new auth0.WebAuth({
+  public auth0 = new auth0.WebAuth({
     clientID: 'jVyq6jeftIbooUK9NYW9CUQ7VzLFCpOQ',
     domain: 'chequein-dev.auth0.com',
     responseType: 'token id_token',
     redirectUri: document.location.origin + '/callback',
     audience: 'https://quickstarts/api',
-    scope: 'openid all'
+    scope: 'openid all',
   });
 
   constructor(public router: Router) {}
@@ -27,6 +27,9 @@ export class AuthService implements CanActivate {
         this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
+
+        // This error message is needed because it would be very hard to debug otherwise.
+        // tslint:disable-next-line:no-console
         console.log(err);
       }
     });
@@ -34,9 +37,7 @@ export class AuthService implements CanActivate {
 
   private setSession(authResult): void {
     // Set the time that the Access Token will expire at
-    const expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
+    const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -61,7 +62,7 @@ export class AuthService implements CanActivate {
   /**
    * Tells the router is the user can access a route that's reserved to logged-in people
    */
-  canActivate() {
+  public canActivate() {
     if (this.isAuthenticated()) {
       return true;
     } else {

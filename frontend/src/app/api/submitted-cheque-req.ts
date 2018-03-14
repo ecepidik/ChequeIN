@@ -1,17 +1,19 @@
 /**
- * This class represents an already submitted cheque req. We get objects of this class from the server.
+ * This represents an already submitted cheque req. We get objects of this shape from the server.
+ *
+ * @todo: Update this to match the backend model
  */
-export class SubmittedChequeReq {
-  preTax: number = 0;
-  GST: number = 0;
-  PST: number = 0;
-  HST: number = 0;
-  description: string = '';
-  onlinePurchase: boolean = false;
-  payableAddressee: string = '';
-  approver: string = '';
-  account: Account | undefined;
-  freeFood: boolean = false;
-  public mailCheque: boolean = false;
-  public mailingAddress: string = '';
+export interface SubmittedChequeReq {
+  preTax: number;
+  GST: number;
+  PST: number;
+  HST: number;
+  description: string;
+  onlinePurchase: boolean;
+  payableAddressee: string;
+  approver: string;
+  account: Account;
+  freeFood: boolean;
+  mailCheque: boolean ;
+  mailingAddress: string;
 }
