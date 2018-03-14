@@ -1,22 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatDividerModule,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CovalentFileModule } from '@covalent/core';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../api/api.service';
 import { CreateChequeReqComponent } from './create-cheque-req.component';
+import { MaterialModule } from '../material.module';
 
 describe('CreateChequeReqComponent', () => {
   let component: CreateChequeReqComponent;
@@ -41,14 +32,7 @@ describe('CreateChequeReqComponent', () => {
           FormsModule,
           ReactiveFormsModule,
           CovalentFileModule,
-          MatButtonModule,
-          MatCheckboxModule,
-          MatDividerModule,
-          MatIconModule,
-          MatRadioModule,
-          MatInputModule,
-          MatProgressSpinnerModule,
-          MatSelectModule,
+          MaterialModule,
           NoopAnimationsModule,
           CurrencyMaskModule,
         ],

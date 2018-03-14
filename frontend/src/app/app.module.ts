@@ -2,19 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
-import {
-  MatButton,
-  MatButtonModule,
-  MatCheckboxModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIcon,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CovalentFileModule } from '@covalent/core';
@@ -39,6 +26,7 @@ import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
+import { MaterialModule } from './material.module';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -79,15 +67,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     HttpClientModule,
     FormsModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatExpansionModule,
+    MaterialModule,
     NgbModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
