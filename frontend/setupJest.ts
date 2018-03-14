@@ -11,4 +11,4 @@ Object.defineProperty(document.body.style, 'transform', {
   },
 });
 
-Object.defineProperty(window, 'CSS', {value: jest.fn()});
+Object.defineProperty(window, 'CSS', { value: jest.fn() });
