@@ -12,7 +12,6 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ApiService {
-  private chequeReqUrl = 'http://localhost:5000/api/chequereqs';
   constructor(private authHttp: AuthHttp, private http: HttpClient) {}
 
   httpOptions = {
@@ -83,7 +82,7 @@ export class ApiService {
     };
 
     return this.authHttp
-      .post(this.chequeReqUrl, form)
+      .post(`${environment.apiUrl}/chequereqs`, form)
       .map((res) => res.json())
       .catch(this.handleError)
       .toPromise();
