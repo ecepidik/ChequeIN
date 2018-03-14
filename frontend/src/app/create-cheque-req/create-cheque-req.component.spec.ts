@@ -1,22 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateChequeReqComponent } from './create-cheque-req.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCheckboxModule,
   MatDividerModule,
-  MatInputModule,
-  MatSelectModule,
-  MatRadioModule,
   MatIconModule,
+  MatInputModule,
   MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
 } from '@angular/material';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { ApiService } from '../api/api.service';
-import { Observable } from 'rxjs/Observable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
 import { CovalentFileModule } from '@covalent/core';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { Observable } from 'rxjs/Observable';
+import { ApiService } from '../api/api.service';
+import { CreateChequeReqComponent } from './create-cheque-req.component';
 
 describe('CreateChequeReqComponent', () => {
   let component: CreateChequeReqComponent;
@@ -24,7 +24,7 @@ describe('CreateChequeReqComponent', () => {
 
   beforeEach(
     async(() => {
-      let apiServiceMock: Partial<ApiService> = {
+      const apiServiceMock: Partial<ApiService> = {
         getAccounts: () => {
           return Observable.of([
             {

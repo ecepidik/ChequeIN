@@ -1,20 +1,20 @@
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { ChequeReqSubmission } from './cheque-req-submission';
-import { User } from './user';
 import { Account } from './account';
+import { ChequeReqSubmission } from './cheque-req-submission';
 import { SubmittedChequeReq } from './submitted-cheque-req';
-import { Http, RequestOptions, HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { User } from './user';
 
 @Injectable()
 export class ApiService {
   constructor(private authHttp: AuthHttp, private http: HttpClient) {}
 
-  httpOptions = {
+  public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
@@ -23,14 +23,14 @@ export class ApiService {
   /**
    * Gets information about the currently logged-in user.
    */
-  getUser(): Observable<User> {
+  public getUser(): Observable<User> {
     return Observable.of({ name: 'Jonh Doe' }); // TODO: actually call the API
   }
 
   /**
    * Gets the list of accounts to which the current user has access.
    */
-  getAccounts(): Observable<Account[]> {
+  public getAccounts(): Observable<Account[]> {
     return this.authHttp.get(`${environment.apiUrl}/accounts`).map(res => res.json());
   }
 
@@ -39,8 +39,8 @@ export class ApiService {
    *
    * @param chequeReq The cheque req object to be submitted
    */
-  async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
-    let uploadedDocuments = [];
+  public async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
+    const uploadedDocuments = [];
 
     if (chequeReq.files instanceof File) {
       uploadedDocuments.push({
@@ -91,20 +91,20 @@ export class ApiService {
     return Observable.throw(error || 'Server Error');
   }
 
-  getChequeReqs(): Observable<SubmittedChequeReq[]> {
+  public getChequeReqs(): Observable<SubmittedChequeReq[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/ChequeReqs/`)
       .map(res => res.json())
       .map(cheques => (Array.isArray(cheques) ? cheques : [cheques]));
   }
 
-  getChequeReqDetails(chequeReqId): Observable<Object> {
+  public getChequeReqDetails(chequeReqId): Observable<Object> {
     return this.authHttp
       .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
       .map(cheques => cheques.json());
   }
 
-  postStatusUpdate(status, id): Observable<Object> {
+  public postStatusUpdate(status, id): Observable<Object> {
     return this.authHttp.post(`${environment.apiUrl}/chequereqs/` + id + '/status', status);
   }
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
-import { HomeComponent } from './home/home.component';
-import { MenuComponent } from './menu/menu.component';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { LoginComponent } from './auth/login/login.component';
-import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
+import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
+import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
+import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 const routes: Routes = [
   {
     // Used for the authentication process

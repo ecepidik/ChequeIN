@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService implements CanActivate {
-  auth0 = new auth0.WebAuth({
+  public auth0 = new auth0.WebAuth({
     clientID: 'jVyq6jeftIbooUK9NYW9CUQ7VzLFCpOQ',
     domain: 'chequein-dev.auth0.com',
     responseType: 'token id_token',
@@ -59,7 +59,7 @@ export class AuthService implements CanActivate {
   /**
    * Tells the router is the user can access a route that's reserved to logged-in people
    */
-  canActivate() {
+  public canActivate() {
     if (this.isAuthenticated()) {
       return true;
     } else {

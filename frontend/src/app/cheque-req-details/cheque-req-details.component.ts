@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Account } from '../api/account';
 import { ApiService } from '../api/api.service';
 import { SubmittedChequeReq } from '../api/submitted-cheque-req';
-import { Account } from '../api/account';
-import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-cheque-req-details',
@@ -14,17 +14,17 @@ import { Router } from '@angular/router';
 export class ChequeReqDetailsComponent implements OnInit {
   constructor(public auth: AuthService, private api: ApiService, private router: Router) {}
 
-  response$: Observable<Object>;
-  chequeStatusHist: Object;
+  public response$: Observable<Object>;
+  public chequeStatusHist: Object;
 
-  feedback: String;
-  selectedStatus: String;
-  administratorApprover: String;
+  public feedback: String;
+  public selectedStatus: String;
+  public administratorApprover: String;
 
-  chequeReqId;
+  public chequeReqId;
 
-  ngOnInit() {
-    let currentUrl = this.router.url;
+  public ngOnInit() {
+    const currentUrl = this.router.url;
     this.chequeReqId = currentUrl.split('/')[3];
 
     this.api.getChequeReqDetails(this.chequeReqId).subscribe((chequeStatusHist: Object) => {
@@ -33,8 +33,8 @@ export class ChequeReqDetailsComponent implements OnInit {
     });
   }
 
-  submitStatusUpdate() {
-    var status = {
+  public submitStatusUpdate() {
+    const status = {
       feedback: this.feedback,
       selectedStatus: this.selectedStatus,
       administratorApprover: this.administratorApprover,
