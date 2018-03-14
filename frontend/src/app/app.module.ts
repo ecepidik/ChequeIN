@@ -41,7 +41,6 @@ import { CovalentFileModule } from '@covalent/core';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
   allowNegative: true,
-  allowZero: true,
   decimal: '.',
   precision: 2,
   prefix: '$',
