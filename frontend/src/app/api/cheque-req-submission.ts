@@ -15,5 +15,5 @@ export class ChequeReqSubmission {
   mailCheque: boolean = false;
   mailingAddress: string = '';
   files: FileList | File;
-  fileDescriptions: {[key: string]: string} = {};
+  fileDescriptions: { [key: string]: string } = {};
 }

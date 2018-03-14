@@ -12,7 +12,7 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-create-cheque-req',
   templateUrl: './create-cheque-req.component.html',
-  styleUrls: ['./create-cheque-req.component.scss']
+  styleUrls: ['./create-cheque-req.component.scss'],
 })
 export class CreateChequeReqComponent implements OnInit {
   chequeReq: ChequeReqSubmission = new ChequeReqSubmission();
@@ -30,9 +30,7 @@ export class CreateChequeReqComponent implements OnInit {
 
   submitChequeReq() {
     this.submitted = true;
-    this.submissionResult$ = Observable.fromPromise(
-      this.api.submitChequeReq(this.chequeReq)
-    )
+    this.submissionResult$ = Observable.fromPromise(this.api.submitChequeReq(this.chequeReq))
       .map(() => 'success')
       .catch(() => Observable.of('error'));
   }
@@ -75,10 +73,7 @@ export class CreateChequeReqComponent implements OnInit {
 
   updateTotal() {
     let total =
-      this.chequeReq.preTax +
-      this.chequeReq.GST +
-      this.chequeReq.PST +
-      this.chequeReq.HST;
+      this.chequeReq.preTax + this.chequeReq.GST + this.chequeReq.PST + this.chequeReq.HST;
     return isNaN(total) ? 0 : total;
   }
 }

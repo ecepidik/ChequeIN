@@ -16,8 +16,8 @@ export class ApiService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+      'Content-Type': 'application/json',
+    }),
   };
 
   /**
@@ -31,9 +31,7 @@ export class ApiService {
    * Gets the list of accounts to which the current user has access.
    */
   getAccounts(): Observable<Account[]> {
-    return this.authHttp
-      .get(`${environment.apiUrl}/accounts`)
-      .map((res) => res.json());
+    return this.authHttp.get(`${environment.apiUrl}/accounts`).map(res => res.json());
   }
 
   /**
@@ -47,13 +45,13 @@ export class ApiService {
     if (chequeReq.files instanceof File) {
       uploadedDocuments.push({
         Description: chequeReq.fileDescriptions[chequeReq.files.name],
-        Base64Content: await getBase64(chequeReq.files)
+        Base64Content: await getBase64(chequeReq.files),
       });
     } else {
       for (let i: number = 0; i < chequeReq.files.length; i++) {
         uploadedDocuments.push({
           Description: chequeReq.fileDescriptions[chequeReq.files[i].name],
-          Base64Content: await getBase64(chequeReq.files[i])
+          Base64Content: await getBase64(chequeReq.files[i]),
         });
       }
     }
@@ -73,17 +71,17 @@ export class ApiService {
         line1: '1645 rue des rigoles',
         line2: '',
         city: 'Sherb',
-        postalCode: 'J1M2H2'
+        postalCode: 'J1M2H2',
       },
       description: chequeReq.description,
       approvedBy: chequeReq.approver,
       ledgerAccountID: 1,
-      payeeName: chequeReq.payableAddressee
+      payeeName: chequeReq.payableAddressee,
     };
 
     return this.authHttp
       .post(`${environment.apiUrl}/chequereqs`, form)
-      .map((res) => res.json())
+      .map(res => res.json())
       .catch(this.handleError)
       .toPromise();
   }
@@ -96,21 +94,18 @@ export class ApiService {
   getChequeReqs(): Observable<SubmittedChequeReq[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/ChequeReqs/`)
-      .map((res) => res.json())
-      .map((cheques) => (Array.isArray(cheques) ? cheques : [cheques]));
+      .map(res => res.json())
+      .map(cheques => (Array.isArray(cheques) ? cheques : [cheques]));
   }
 
   getChequeReqDetails(chequeReqId): Observable<Object> {
     return this.authHttp
       .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
-      .map((cheques) => cheques.json());
+      .map(cheques => cheques.json());
   }
 
   postStatusUpdate(status, id): Observable<Object> {
-    return this.authHttp.post(
-      `${environment.apiUrl}/chequereqs/` + id + '/status',
-      status
-    );
+    return this.authHttp.post(`${environment.apiUrl}/chequereqs/` + id + '/status', status);
   }
 }
 
@@ -119,6 +114,6 @@ function getBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
+    reader.onerror = error => reject(error);
   });
 }

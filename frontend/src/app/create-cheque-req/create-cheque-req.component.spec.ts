@@ -9,7 +9,7 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatIconModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ApiService } from '../api/api.service';
@@ -29,10 +29,10 @@ describe('CreateChequeReqComponent', () => {
           return Observable.of([
             {
               name: 'foo',
-              number: 69
-            }
+              number: 69,
+            },
           ]);
-        }
+        },
       };
 
       TestBed.configureTestingModule({
@@ -50,12 +50,12 @@ describe('CreateChequeReqComponent', () => {
           MatProgressSpinnerModule,
           MatSelectModule,
           NoopAnimationsModule,
-          CurrencyMaskModule
+          CurrencyMaskModule,
         ],
         declarations: [CreateChequeReqComponent],
-        providers: [{ provide: ApiService, useValue: apiServiceMock }]
+        providers: [{ provide: ApiService, useValue: apiServiceMock }],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {

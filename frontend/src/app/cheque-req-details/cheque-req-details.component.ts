@@ -9,14 +9,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cheque-req-details',
   templateUrl: './cheque-req-details.component.html',
-  styleUrls: ['./cheque-req-details.component.scss']
+  styleUrls: ['./cheque-req-details.component.scss'],
 })
 export class ChequeReqDetailsComponent implements OnInit {
-  constructor(
-    public auth: AuthService,
-    private api: ApiService,
-    private router: Router
-  ) {}
+  constructor(public auth: AuthService, private api: ApiService, private router: Router) {}
 
   response$: Observable<Object>;
   chequeStatusHist: Object;
@@ -31,19 +27,17 @@ export class ChequeReqDetailsComponent implements OnInit {
     let currentUrl = this.router.url;
     this.chequeReqId = currentUrl.split('/')[3];
 
-    this.api
-      .getChequeReqDetails(this.chequeReqId)
-      .subscribe((chequeStatusHist: Object) => {
-        this.chequeStatusHist = chequeStatusHist;
-        console.log(this.chequeStatusHist);
-      });
+    this.api.getChequeReqDetails(this.chequeReqId).subscribe((chequeStatusHist: Object) => {
+      this.chequeStatusHist = chequeStatusHist;
+      console.log(this.chequeStatusHist);
+    });
   }
 
   submitStatusUpdate() {
     var status = {
       feedback: this.feedback,
       selectedStatus: this.selectedStatus,
-      administratorApprover: this.administratorApprover
+      administratorApprover: this.administratorApprover,
     };
 
     this.api

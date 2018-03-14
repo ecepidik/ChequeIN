@@ -10,7 +10,7 @@ export class AuthService implements CanActivate {
     responseType: 'token id_token',
     redirectUri: document.location.origin + '/callback',
     audience: 'https://quickstarts/api',
-    scope: 'openid all'
+    scope: 'openid all',
   });
 
   constructor(public router: Router) {}
@@ -34,9 +34,7 @@ export class AuthService implements CanActivate {
 
   private setSession(authResult): void {
     // Set the time that the Access Token will expire at
-    const expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
+    const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);

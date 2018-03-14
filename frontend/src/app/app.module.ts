@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
 import { HomeComponent } from './home/home.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
 import { CallbackComponent } from './auth/callback/callback.component';
@@ -26,12 +26,15 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatIcon,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import 'rxjs/Rx';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import {
+  CurrencyMaskConfig,
+  CURRENCY_MASK_CONFIG,
+} from 'ng2-currency-mask/src/currency-mask.config';
 import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
 import { CovalentLayoutModule } from '@covalent/core';
 import { CovalentStepsModule } from '@covalent/core';
@@ -45,16 +48,16 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   precision: 2,
   prefix: '$',
   suffix: '',
-  thousands: ','
+  thousands: ',',
 };
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
     new AuthConfig({
-      tokenGetter: () => localStorage.getItem('access_token')
+      tokenGetter: () => localStorage.getItem('access_token'),
     }),
     http,
-    options
+    options,
   );
 }
 
@@ -67,7 +70,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MenuComponent,
     ViewChequeReqsComponent,
-    ChequeReqDetailsComponent
+    ChequeReqDetailsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -88,7 +91,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     NgbModule,
     ReactiveFormsModule,
     CurrencyMaskModule,
-    CovalentFileModule
+    CovalentFileModule,
   ],
   providers: [
     AuthService,
@@ -96,13 +99,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
+      deps: [Http, RequestOptions],
     },
     {
       provide: CURRENCY_MASK_CONFIG,
-      useValue: CustomCurrencyMaskConfig
-    }
+      useValue: CustomCurrencyMaskConfig,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

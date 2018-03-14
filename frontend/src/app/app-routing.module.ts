@@ -12,11 +12,11 @@ const routes: Routes = [
   {
     // Used for the authentication process
     path: 'callback',
-    component: CallbackComponent
+    component: CallbackComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: '',
@@ -26,13 +26,13 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'cheque-req/new', component: CreateChequeReqComponent },
       { path: 'cheque-req/view', component: ViewChequeReqsComponent },
-      { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent }
-    ]
-  }
+      { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
