@@ -14,6 +14,6 @@ export class ChequeReqSubmission {
   public freeFood: boolean = false;
   public mailCheque: boolean = false;
   public mailingAddress: string = '';
-  public files: FileList | File;
+  public files: FileList | File; // TODO(Kareem): Make this of type FileList or File[]
   public fileDescriptions: { [key: string]: string } = {};
 }

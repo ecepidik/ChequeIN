@@ -27,7 +27,8 @@ export class ChequeReqDetailsComponent implements OnInit {
     const currentUrl = this.router.url;
     this.chequeReqId = currentUrl.split('/')[3];
 
-    this.api.getChequeReqDetails(this.chequeReqId).subscribe((chequeStatusHist: Object) => {
+    // TODO(Ece): Make this code typed (use something else than any)
+    this.api.getChequeReqDetails(this.chequeReqId).subscribe((chequeStatusHist: any) => {
       this.chequeStatusHist = chequeStatusHist;
     });
   }

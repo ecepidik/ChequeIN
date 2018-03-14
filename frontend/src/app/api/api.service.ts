@@ -12,13 +12,7 @@ import { User } from './user';
 
 @Injectable()
 export class ApiService {
-  constructor(private authHttp: AuthHttp, private http: HttpClient) {}
-
-  public httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  constructor(private authHttp: AuthHttp) {}
 
   /**
    * Gets information about the currently logged-in user.
@@ -42,6 +36,7 @@ export class ApiService {
   public async submitChequeReq(chequeReq: ChequeReqSubmission): Promise<void> {
     const uploadedDocuments = [];
 
+    // TODO(Kareem): Clean this up
     if (chequeReq.files instanceof File) {
       uploadedDocuments.push({
         Description: chequeReq.fileDescriptions[chequeReq.files.name],
@@ -66,6 +61,7 @@ export class ApiService {
       hst: chequeReq.HST,
       UploadedDocuments: uploadedDocuments,
       freeFood: chequeReq.freeFood,
+      // TODO: Put real data in here...
       mailingAddress: {
         province: 1,
         line1: '1645 rue des rigoles',
@@ -82,29 +78,25 @@ export class ApiService {
     return this.authHttp
       .post(`${environment.apiUrl}/chequereqs`, form)
       .map(res => res.json())
-      .catch(this.handleError)
       .toPromise();
-  }
-
-  private handleError(error) {
-    return Observable.throw(error || 'Server Error');
   }
 
   public getChequeReqs(): Observable<SubmittedChequeReq[]> {
     return this.authHttp
       .get(`${environment.apiUrl}/ChequeReqs/`)
-      .map(res => res.json())
-      .map(cheques => (Array.isArray(cheques) ? cheques : [cheques]));
+      .map(res => res.json());
   }
 
-  public getChequeReqDetails(chequeReqId): Observable<Object> {
+  // TODO(Ece): Make this query typed (use the real type instead of any)
+  public getChequeReqDetails(chequeReqId): Observable<any> {
     return this.authHttp
-      .get(`${environment.apiUrl}/chequereqs/` + chequeReqId + '/status')
+      .get(`${environment.apiUrl}/chequereqs/${chequeReqId}/status`)
       .map(cheques => cheques.json());
   }
 
-  public postStatusUpdate(status, id): Observable<Object> {
-    return this.authHttp.post(`${environment.apiUrl}/chequereqs/` + id + '/status', status);
+  // TODO(Ece): Make this query typed (use the real type instead of any)
+  public postStatusUpdate(status, id): Observable<any> {
+    return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
   }
 }
 
