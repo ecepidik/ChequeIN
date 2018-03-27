@@ -98,7 +98,15 @@ export class ApiService {
   public postStatusUpdate(status, id): Observable<any> {
     return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
   }
+
+  public getLedgerAccounts(): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/accounts`, status)
+    .map(accounts => accounts.json());
+  }
 }
+
+
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
