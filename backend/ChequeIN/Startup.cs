@@ -63,6 +63,14 @@ namespace ChequeIN
                     .AllowAnyHeader();
             }));
 
+            services.AddCors(o => o.AddPolicy("AllowWebFrontend", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200", "https://nostalgic-neumann-61acd7.netlify.com")
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                       .AllowAnyMethod();
+            }));
+
             // Setup the database context
             services.AddDbContext<DatabaseContext>(options =>
             {
@@ -118,6 +126,7 @@ namespace ChequeIN
             }
             else
             {
+                app.UseCors("AllowWebFrontend");
                 //var connection = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
                 var connection = "database=localdb;server=127.0.0.1;port=50638;user=azure;password=6#vWHD_$";
                 options.UseMySQL(connection);
@@ -126,14 +135,13 @@ namespace ChequeIN
             // Migrate the database and fill it with seed data
             using (var ctx = new DatabaseContext(options.Options))
             {
-                ctx.Database.EnsureDeleted();
+                //ctx.Database.EnsureDeleted();
                 ctx.Database.EnsureCreated();
                 // Do not fill it if it entity framework running it in design mode
                 if (Configuration["DesignTime"] != "true")
                 {
                     Database.Seed.SeedDatabase(ctx);
                 }
-
             }
 
             app.UseAuthentication();

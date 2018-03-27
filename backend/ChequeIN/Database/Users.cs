@@ -10,8 +10,8 @@ namespace ChequeIN.Database
     {
         public static IEnumerable<UserProfile> GetAllUsers(DatabaseContext context)
         {
-            var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
-            var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Models.UserProfile)x);
+            var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.Include("AuthorizedAccountGroups").Select(x => (Models.UserProfile)x);
+            var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.Include("AuthorizedAccountGroups").Select(x => (Models.UserProfile)x);
 
             return officers.Concat(admins);
         }
