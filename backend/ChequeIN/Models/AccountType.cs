@@ -14,7 +14,7 @@ namespace ChequeIN.Models
 
         public int UserProfileID { get; set; }
 
-        public Enums.Group Type { get; set; }
+        public String Type { get; set; }
 
     }
 }

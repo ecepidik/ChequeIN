@@ -28,7 +28,7 @@ namespace ChequeIN.Models
 
         [DisplayName("Account Group")]
         [Required]
-        public Enums.Group Group { get; set; }
+        public String Type { get; set; }
 
         [DisplayName("Account Name")]
         [Required]
