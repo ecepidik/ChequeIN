@@ -27,6 +27,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { MaterialModule } from './material.module';
+import { ViewFinancialOfficersComponent } from './view-financial-officers/view-financial-officers.component';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -59,6 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MenuComponent,
     ViewChequeReqsComponent,
     ChequeReqDetailsComponent,
+    ViewFinancialOfficersComponent,
   ],
   imports: [
     AppRoutingModule,
