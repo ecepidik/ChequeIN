@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
+import { LedgerAcc } from '../../app/api/newLedger';
 import { SubmittedChequeReq } from './submitted-cheque-req';
 import { User } from './user';
 
@@ -26,6 +27,18 @@ export class ApiService {
    */
   public getAccounts(): Observable<Account[]> {
     return this.authHttp.get(`${environment.apiUrl}/accounts`).map(res => res.json());
+  }
+
+  /**
+   * Submits a a new ledger
+   *
+   * @param newLedger The account object to be submitted
+   */
+  //TODO (Maxence Regaudie) : Write Submit to backend function
+  public async createLedger(newLedger: LedgerAcc) : Promise<void>{
+
+
+
   }
 
   /**
