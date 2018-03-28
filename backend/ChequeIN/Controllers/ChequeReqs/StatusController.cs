@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 namespace ChequeIN.Controllers.ChequeReqs
 {
     [Route("api/chequereqs/{chequeId}/[controller]")]
+    [Authorize]
     public class StatusController : Controller
     {
         private DatabaseContext _dbContext;
@@ -20,11 +21,10 @@ namespace ChequeIN.Controllers.ChequeReqs
         public StatusController(DatabaseContext dbContext, IOptions<Configurations.Authentication> authSettings)
         {
             _dbContext = dbContext;
-            _authSettings = authSettings;
+            _authSettings = authSettings.Value;
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Get(int chequeId)
         {
             if(!Database.ChequeReqs.TryGetChequeReq(_dbContext, chequeId, out ChequeReq cheque))
@@ -36,7 +36,6 @@ namespace ChequeIN.Controllers.ChequeReqs
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Post(int chequeId, [FromBody]Status status)
         {
             if (!Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId))
