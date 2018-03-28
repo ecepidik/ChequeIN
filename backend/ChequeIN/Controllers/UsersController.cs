@@ -24,16 +24,8 @@ namespace ChequeIN.Controllers
         // GET /api/users
         [HttpGet]
         [Authorize]
-        public IEnumerable<UserProfile> GetAll([FromQuery(Name = "userType")] string userType) {
-            switch (userType)
-            {
-                case "officer":
-                    return Database.Users.GetAllFinancialOfficers(_dbContext);
-                case "administrator":
-                    return Database.Users.GetAllFinancialAdministrators(_dbContext);
-                default:
-                    return Database.Users.GetAllUsers(_dbContext);
-            }
+        public IEnumerable<UserProfile> Get() {
+                return Database.Users.GetAllUsers(_dbContext);
         }
 
         // GET api/users/id
