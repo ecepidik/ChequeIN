@@ -135,7 +135,7 @@ namespace ChequeIN
             // Migrate the database and fill it with seed data
             using (var ctx = new DatabaseContext(options.Options))
             {
-                //ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureDeleted();
                 ctx.Database.EnsureCreated();
                 // Do not fill it if it entity framework running it in design mode
                 if (Configuration["DesignTime"] != "true")
