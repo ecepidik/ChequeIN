@@ -16,6 +16,17 @@ namespace ChequeIN.Database
             return officers.Concat(admins);
         }
 
+        public static IEnumerable<FinancialOfficer> GetAllFinancialOfficers(DatabaseContext context)
+        {
+            return context.FinancialOfficers;
+        }
+
+        public static IEnumerable<FinancialAdministrator> GetAllFinancialAdministrators(DatabaseContext context)
+        {
+            return context.FinancialAdministrators;
+        }
+
+
         public static bool TryGetUserById(DatabaseContext context, string id, out UserProfile user)
         {
             var officers = context.FinancialOfficers
