@@ -70,5 +70,12 @@ namespace ChequeIN.Database
             }
             return user;
         }
+
+        public static bool IsCurrentUserAdmin(DatabaseContext context, System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
+        {
+            var user = GetCurrentUser(context, identity, disableAuth, developmentUserId);
+
+            return context.FinancialAdministrators.Where(a => a.AuthenticationIdentifier == user.AuthenticationIdentifier).Count() > 0;
+        }
     }
 }
