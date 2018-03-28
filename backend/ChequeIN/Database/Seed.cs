@@ -9,6 +9,11 @@ namespace ChequeIN.Database
     {
         public static void SeedDatabase(DatabaseContext ctx)
         {
+            if(!ctx.ValidTypes.Any())
+            {
+                GenerateValidTypes(ctx);
+            }
+
             if (!ctx.LedgerAccounts.Any())
             {
                 GenerateLedgerAccounts(ctx);
@@ -31,6 +36,16 @@ namespace ChequeIN.Database
                 var chequereqs = GenerateChequeReq(ledgerID, userID);
                 DatabaseUtils.AddToDatabase(ctx, chequereqs);
             }
+        }
+
+        private static void GenerateValidTypes(DatabaseContext ctx)
+        {
+            ctx.ValidTypes.Add(new ValidType() { Type = "GSTORE" });
+            ctx.ValidTypes.Add(new ValidType() { Type = "FROSTBITE" });
+            ctx.ValidTypes.Add(new ValidType() { Type = "COPIEUS" });
+            ctx.ValidTypes.Add(new ValidType() { Type = "SERVICES" });
+            ctx.ValidTypes.Add(new ValidType() { Type = "RANDOM" });
+            ctx.SaveChanges();
         }
 
         private static ChequeReq GenerateChequeReq(int ledgerID, int userID)
@@ -166,26 +181,26 @@ namespace ChequeIN.Database
 
             //This was an attempt at getting the foreign key to not be null when LedgerAccounts held an AccountType object instead of just the enum.
             //Now that it's an enum, it looks a bit dumb, but I'm not changing it.
-            accounts.ElementAt(0).Group = Enums.Group.SERVICES;
-            accounts.ElementAt(1).Group = Enums.Group.SERVICES;
-            accounts.ElementAt(2).Group = Enums.Group.SERVICES;
-            accounts.ElementAt(3).Group = Enums.Group.GSTORE;
-            accounts.ElementAt(4).Group = Enums.Group.GSTORE;
-            accounts.ElementAt(5).Group = Enums.Group.GSTORE;
-            accounts.ElementAt(6).Group = Enums.Group.GSTORE;
-            accounts.ElementAt(7).Group = Enums.Group.GSTORE;
-            accounts.ElementAt(8).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(9).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(10).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(11).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(12).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(13).Group = Enums.Group.COPIEUS;
-            accounts.ElementAt(14).Group = Enums.Group.FROSTBITE;
-            accounts.ElementAt(15).Group = Enums.Group.FROSTBITE;
-            accounts.ElementAt(16).Group = Enums.Group.FROSTBITE;
-            accounts.ElementAt(17).Group = Enums.Group.FROSTBITE;
-            accounts.ElementAt(18).Group = Enums.Group.FROSTBITE;
-            accounts.ElementAt(19).Group = Enums.Group.RANDOM;
+            accounts.ElementAt(0).Type = "SERVICES";
+            accounts.ElementAt(1).Type = "SERVICES";
+            accounts.ElementAt(2).Type = "SERVICES";
+            accounts.ElementAt(3).Type = "GSTORE";
+            accounts.ElementAt(4).Type = "GSTORE";
+            accounts.ElementAt(5).Type = "GSTORE";
+            accounts.ElementAt(6).Type = "GSTORE";
+            accounts.ElementAt(7).Type = "GSTORE";
+            accounts.ElementAt(8).Type = "COPIEUS";
+            accounts.ElementAt(9).Type = "COPIEUS";
+            accounts.ElementAt(10).Type = "COPIEUS";
+            accounts.ElementAt(11).Type = "COPIEUS";
+            accounts.ElementAt(12).Type = "COPIEUS";
+            accounts.ElementAt(13).Type = "COPIEUS";
+            accounts.ElementAt(14).Type = "FROSTBITE";
+            accounts.ElementAt(15).Type = "FROSTBITE";
+            accounts.ElementAt(16).Type = "FROSTBITE";
+            accounts.ElementAt(17).Type = "FROSTBITE";
+            accounts.ElementAt(18).Type = "FROSTBITE";
+            accounts.ElementAt(19).Type = "RANDOM";
 
             foreach (LedgerAccount l in accounts)
             {
@@ -204,19 +219,19 @@ namespace ChequeIN.Database
 
             profile.AuthorizedAccountGroups.Add(new AccountType()
             {
-                Type = Enums.Group.SERVICES
+                Type = "SERVICES"
             });
             profile.AuthorizedAccountGroups.Add(new AccountType()
             {
-                Type = Enums.Group.COPIEUS
+                Type = "COPIEUS"
             });
             profile.AuthorizedAccountGroups.Add(new AccountType()
             {
-                Type = Enums.Group.GSTORE
+                Type = "GSTORE"
             });
             profile.AuthorizedAccountGroups.Add(new AccountType()
             {
-                Type = Enums.Group.FROSTBITE
+                Type = "FROSTBITE"
             });
 
             context.FinancialOfficers.Add(profile);

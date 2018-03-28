@@ -10,7 +10,7 @@ namespace ChequeIN.Tests
 {
     public class DatabaseTests
     {
-        private DatabaseContext createContext() {
+        private DatabaseContext CreateContext() {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=chequein_test.db.sqlite");
             return new DatabaseContext(optionsBuilder.Options);
@@ -25,7 +25,7 @@ namespace ChequeIN.Tests
             {
                 Name = "General Expenses",
                 Number = 6530,
-                Group = Enums.Group.COPIEUS,
+                Type = "COPIEUS",
             };
 
             var officer = new Models.FinancialOfficer()
@@ -52,7 +52,7 @@ namespace ChequeIN.Tests
         [Fact]
         public void Database_addValidChequeReq()
         {
-            using (var context = createContext())
+            using (var context = CreateContext())
             {
                 SetupDatabase(context);
 
