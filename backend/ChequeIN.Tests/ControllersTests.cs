@@ -1,4 +1,4 @@
-﻿using ChequeIN.Models;
+using ChequeIN.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace ChequeIN.Tests
         private ChequeReq _cheque;
         private FinancialOfficer _officer;
 
-        private DatabaseContext createContext()
+        private DatabaseContext CreateContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=chequein_test_controllers.db.sqlite");
@@ -30,7 +30,7 @@ namespace ChequeIN.Tests
             {
                 Name = "General Expenses",
                 Number = 6530,
-                Group = Enums.Group.COPIEUS,
+                Type = "COPIEUS",
             };
 
             _officer = new FinancialOfficer()
@@ -49,7 +49,7 @@ namespace ChequeIN.Tests
         [Fact]
         public void ControllerChequeReqs()
         {
-            using (var context = createContext())
+            using (var context = CreateContext())
             {
                 SetupDatabase(context);
 
