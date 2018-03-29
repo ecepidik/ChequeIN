@@ -38,12 +38,18 @@ namespace ChequeIN.Controllers
         // POST api/accounts
         [HttpPost]
         [Authorize]
-        public IActionResult Post([FromBody] ChequeIN.Models.LedgerAccount account)
+        public IActionResult Post([FromBody] ChequeIN.Models.API.Input.LedgerAccount account)
         {
+            LedgerAccount existingAccount;
+            bool alreadyExists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out existingAccount);
+            if (alreadyExists)
+                return BadRequest("This account number already exists");
+
             ChequeIN.Models.LedgerAccount a = new ChequeIN.Models.LedgerAccount()
             {
                 Number = account.Number,
-                Name = account.Name
+                Name = account.Name,
+                Type = Database.Accounts.GetNewLedgerAccoundID(_dbContext).ToString()
             };
 
             Database.Accounts.StoreAccount(_dbContext, a);
@@ -51,7 +57,7 @@ namespace ChequeIN.Controllers
             LedgerAccount savedAccount;
             bool exists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out savedAccount);
             if (!exists)
-                return NotFound("Account was not saved correctly.");
+                return NotFound("The ledger account was not saved correctly.");
 
             return Ok(savedAccount);
         }
