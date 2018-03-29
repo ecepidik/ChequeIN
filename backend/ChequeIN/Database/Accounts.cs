@@ -61,5 +61,18 @@ namespace ChequeIN.Database
             }
             return;
         }
+
+        public static int GetNewLedgerAccoundID(DatabaseContext context)
+        {
+            int maxID = context.LedgerAccounts.Max(a => a.LedgerAccountID as int?) ?? 0;
+
+            return maxID + 1;
+        }
+
+        public static void StoreAccount(DatabaseContext context, LedgerAccount account)
+        {
+            context.Add(account as LedgerAccount);
+            context.SaveChanges();
+        }
     }
 }

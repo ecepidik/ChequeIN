@@ -34,5 +34,26 @@ namespace ChequeIN.Controllers
                 return Ok(accounts);
             return Ok(accounts);
         }
+
+        // POST api/accounts
+        [HttpPost]
+        [Authorize]
+        public IActionResult Post([FromBody] ChequeIN.Models.LedgerAccount account)
+        {
+            ChequeIN.Models.LedgerAccount a = new ChequeIN.Models.LedgerAccount()
+            {
+                Number = account.Number,
+                Name = account.Name
+            };
+
+            Database.Accounts.StoreAccount(_dbContext, a);
+
+            LedgerAccount savedAccount;
+            bool exists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out savedAccount);
+            if (!exists)
+                return NotFound("Account was not saved correctly.");
+
+            return Ok(savedAccount);
+        }
     }
 }
