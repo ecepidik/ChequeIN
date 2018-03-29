@@ -26,6 +26,7 @@ namespace ChequeIN.Database
             return context.FinancialAdministrators;
         }
 
+
         public static bool TryGetUserById(DatabaseContext context, string id, out UserProfile user)
         {
             var officers = context.FinancialOfficers

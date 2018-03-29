@@ -8,6 +8,7 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Configurations\" />
     <Folder Include="Controllers\ChequeReqs\" />
+    <Folder Include="Controllers\Users\" />
   </ItemGroup>
 
   <ItemGroup>
