@@ -10,11 +10,22 @@ namespace ChequeIN.Database
     {
         public static IEnumerable<UserProfile> GetAllUsers(DatabaseContext context)
         {
-            var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.ToList().Select(x => (Models.UserProfile)x);
-            var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.ToList().Select(x => (Models.UserProfile)x);
+            var officers = (IEnumerable<Models.UserProfile>)context.FinancialOfficers.Include("AuthorizedAccountGroups").Select(x => (Models.UserProfile)x);
+            var admins = (IEnumerable<Models.UserProfile>)context.FinancialAdministrators.Include("AuthorizedAccountGroups").Select(x => (Models.UserProfile)x);
 
             return officers.Concat(admins);
         }
+
+        public static IEnumerable<FinancialOfficer> GetAllFinancialOfficers(DatabaseContext context)
+        {
+            return context.FinancialOfficers;
+        }
+
+        public static IEnumerable<FinancialAdministrator> GetAllFinancialAdministrators(DatabaseContext context)
+        {
+            return context.FinancialAdministrators;
+        }
+
 
         public static bool TryGetUserById(DatabaseContext context, string id, out UserProfile user)
         {
@@ -59,6 +70,13 @@ namespace ChequeIN.Database
                 return null;
             }
             return user;
+        }
+
+        public static bool IsCurrentUserAdmin(DatabaseContext context, System.Security.Claims.ClaimsPrincipal identity, bool disableAuth = false, string developmentUserId = "")
+        {
+            var user = GetCurrentUser(context, identity, disableAuth, developmentUserId);
+
+            return context.FinancialAdministrators.Where(a => a.AuthenticationIdentifier == user.AuthenticationIdentifier).Count() > 0;
         }
     }
 }

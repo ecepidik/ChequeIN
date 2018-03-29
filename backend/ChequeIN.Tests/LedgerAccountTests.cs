@@ -1,4 +1,4 @@
-﻿using ChequeIN.Models;
+using ChequeIN.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,12 +8,12 @@ namespace ChequeIN.Tests
 {
     public class LedgerAccountTests
     {
-        private LedgerAccount generateValidLedgerAcocunt(){
+        private LedgerAccount GenerateValidLedgerAcocunt(){
             return new LedgerAccount
             {
                 Number = 1234,
                 LedgerAccountID = 1,
-                Group = Enums.Group.RANDOM,
+                Type = "RANDOM",
                 Name = "Account"
             };
         }
@@ -29,7 +29,7 @@ namespace ChequeIN.Tests
         [InlineData("McGill Robotics - Project 1 Rev")]
         public void ChequeReq_AccountNameValid(String value)
         {
-            LedgerAccount acct = generateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAcocunt();
             acct.Name = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -43,7 +43,7 @@ namespace ChequeIN.Tests
         [InlineData(" ")]
         public void ChequeReq_AccountNameInvalid(String value)
         {
-            LedgerAccount acct = generateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAcocunt();
             acct.Name = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -57,7 +57,7 @@ namespace ChequeIN.Tests
         [InlineData(5420-42)]
         public void ChequeReq_AccountNumberValid(int value)
         {
-            LedgerAccount acct = generateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAcocunt();
             acct.Number = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -69,7 +69,7 @@ namespace ChequeIN.Tests
         //[Theory]
         public void ChequeReq_AccountNumberInvalid(int value)
         {
-            LedgerAccount acct = generateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAcocunt();
             acct.Number = value;
 
             var validationContext = new ValidationContext(acct, null, null);

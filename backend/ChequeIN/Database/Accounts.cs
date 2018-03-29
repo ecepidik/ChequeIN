@@ -54,7 +54,7 @@ namespace ChequeIN.Database
         {
             foreach (AccountType t in accountTypes) {
                 foreach(LedgerAccount a in ledgerAccounts) {
-                    if(a.Group == t.Type) {
+                    if(a.Type.ToLower().Equals(t.Type.ToLower())) {
                         accounts.Add(a);
                     }
                 }
