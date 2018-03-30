@@ -40,22 +40,40 @@ namespace ChequeIN.Controllers
         [Authorize]
         public IActionResult Post([FromBody] ChequeIN.Models.API.Input.LedgerAccount account)
         {
-            LedgerAccount existingAccount;
-            bool alreadyExists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out existingAccount);
+            var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            if (user == null)
+                return Forbid();
+            
+            bool alreadyExists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out LedgerAccount existingAccount);
             if (alreadyExists)
                 return BadRequest("This account number already exists");
+
+
+            String accountType = Database.Accounts.GetNewLedgerAccoundID(_dbContext).ToString();
 
             ChequeIN.Models.LedgerAccount a = new ChequeIN.Models.LedgerAccount()
             {
                 Number = account.Number,
                 Name = account.Name,
-                Type = Database.Accounts.GetNewLedgerAccoundID(_dbContext).ToString()
+                Type = accountType
             };
 
-            Database.Accounts.StoreAccount(_dbContext, a);
+            ChequeIN.Models.AccountType t = new ChequeIN.Models.AccountType()
+            {
+                UserProfileID = user.UserProfileID,
+                Type = accountType
+            };
 
-            LedgerAccount savedAccount;
-            bool exists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out savedAccount);
+            if (Database.AccountTypeValidation.TypeExists(_dbContext, accountType))
+                return BadRequest("This account type already exists");
+
+            Database.Accounts.StoreLedgerAccount(_dbContext, a);
+            Database.Accounts.StoreAccountType(_dbContext, t);
+
+            user.AuthorizedAccountGroups.Add(t);
+            _dbContext.SaveChanges();
+
+            bool exists = Database.Accounts.TryGetAccountByNumber(_dbContext, account.Number, out LedgerAccount savedAccount);
             if (!exists)
                 return NotFound("The ledger account was not saved correctly.");
 
