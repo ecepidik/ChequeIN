@@ -36,9 +36,16 @@ export class ApiService {
    */
   //TODO (Maxence Regaudie) : Write Submit to backend function
   public async createLedger(newLedger: LedgerAcc) : Promise<void>{
-
-
-
+    const form = {
+      name : newLedger.name,
+      number : newLedger.number
+  
+    };
+    
+    return this.authHttp
+      .post(`${environment.apiUrl}/accounts`, form)
+      .map(res => res.json())
+      .toPromise();
   }
 
   /**
