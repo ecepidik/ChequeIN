@@ -25,6 +25,7 @@ namespace ChequeIN.Controllers.Users
 
         // GET: api/values
         [HttpGet]
+        [Authorize]
         public ActionResult Get(string userId)
         {
             if (!Database.Accounts.TryGetAccountsOfUserId(_dbContext, userId, out List<LedgerAccount> accounts)) {
