@@ -48,5 +48,12 @@ namespace ChequeIN.Controllers
             }
             return Ok(user);
         }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] ChequeIN.Models.FinancialOfficer fo){
+            Database.Users.StoreFinancialOfficer(_dbContext, fo);
+
+            return Ok(fo);
+        }
     }
 }
