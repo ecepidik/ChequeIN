@@ -40,7 +40,7 @@ namespace ChequeIN.Controllers.Users
         {
             if(!Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId))
             {
-                Forbid();
+                return Forbid();
             } else if(!Database.Users.TryGetUserById(_dbContext, userId, out UserProfile user))
             {
                 return BadRequest("Unable to find User");
@@ -61,7 +61,7 @@ namespace ChequeIN.Controllers.Users
         {
             if (!Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId))
             {
-                Forbid();
+                return Forbid();
             }
             else if (!Database.Users.TryGetUserById(_dbContext, userId, out UserProfile user))
             {
