@@ -8,7 +8,7 @@ namespace ChequeIN.Tests
 {
     public class LedgerAccountTests
     {
-        private LedgerAccount GenerateValidLedgerAcocunt(){
+        private LedgerAccount GenerateValidLedgerAccount(){
             return new LedgerAccount
             {
                 Number = 1234,
@@ -29,7 +29,7 @@ namespace ChequeIN.Tests
         [InlineData("McGill Robotics - Project 1 Rev")]
         public void ChequeReq_AccountNameValid(String value)
         {
-            LedgerAccount acct = GenerateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAccount();
             acct.Name = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -43,7 +43,7 @@ namespace ChequeIN.Tests
         [InlineData(" ")]
         public void ChequeReq_AccountNameInvalid(String value)
         {
-            LedgerAccount acct = GenerateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAccount();
             acct.Name = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -57,7 +57,7 @@ namespace ChequeIN.Tests
         [InlineData(5420-42)]
         public void ChequeReq_AccountNumberValid(int value)
         {
-            LedgerAccount acct = GenerateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAccount();
             acct.Number = value;
 
             var validationContext = new ValidationContext(acct, null, null);
@@ -69,7 +69,7 @@ namespace ChequeIN.Tests
         //[Theory]
         public void ChequeReq_AccountNumberInvalid(int value)
         {
-            LedgerAccount acct = GenerateValidLedgerAcocunt();
+            LedgerAccount acct = GenerateValidLedgerAccount();
             acct.Number = value;
 
             var validationContext = new ValidationContext(acct, null, null);
