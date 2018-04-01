@@ -8,6 +8,7 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Configurations\" />
     <Folder Include="Controllers\ChequeReqs\" />
+    <Folder Include="Controllers\Users\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
     <PackageReference Include="AWSSDK.S3" Version="3.3.17.1" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>

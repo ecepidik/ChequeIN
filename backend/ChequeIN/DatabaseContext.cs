@@ -11,6 +11,7 @@ namespace ChequeIN
         public DbSet<Models.FinancialAdministrator> FinancialAdministrators { get; set; }
         public DbSet<Models.ChequeReq> ChequeReqs { get; set; }
         public DbSet<Models.LedgerAccount> LedgerAccounts { get; set; }
+        public DbSet<Models.ValidType> ValidTypes { get; set; }
 
         public DatabaseContext(DbContextOptions options)
             :base(options)

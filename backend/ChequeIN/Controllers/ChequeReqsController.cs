@@ -102,6 +102,8 @@ namespace ChequeIN.Controllers
             }
 
             var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            if (user == null)
+                return Forbid();
 
             var convert = ChequeIN.Models.API.Input.ChequeReq.ToModel(cheque, user.UserProfileID, supportingDocuments, status);
             Database.ChequeReqs.StoreChequeReq(_dbContext, convert);

@@ -1,4 +1,4 @@
-﻿using ChequeIN.Models;
+using ChequeIN.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace ChequeIN.Tests
         private ChequeReq _cheque;
         private FinancialOfficer _officer;
 
-        private DatabaseContext createContext()
+        private DatabaseContext CreateContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=chequein_test_controllers.db.sqlite");
@@ -28,9 +28,9 @@ namespace ChequeIN.Tests
 
             var ledger = new LedgerAccount()
             {
-                Name = "General Expenses",
-                Number = 6530,
-                Group = Enums.Group.COPIEUS,
+                Name = "0",
+                Number = 0,
+                Type = "0",
             };
 
             _officer = new FinancialOfficer()
@@ -49,7 +49,7 @@ namespace ChequeIN.Tests
         [Fact]
         public void ControllerChequeReqs()
         {
-            using (var context = createContext())
+            using (var context = CreateContext())
             {
                 SetupDatabase(context);
 
@@ -110,6 +110,111 @@ namespace ChequeIN.Tests
                 Assert.Equal(2, outChequeList_2.Count);
 
 
+            }
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(4)]
+        public void AccountsControllerGetAccounts(int num)
+        {
+            using (var context = CreateContext())
+            {
+
+                SetupDatabase(context);
+
+                List<LedgerAccount> accounts = new List<LedgerAccount>();
+                
+                var remove = context.LedgerAccounts.Single(a => a.Number == 0);
+                context.LedgerAccounts.Remove(remove);
+                context.SaveChanges();
+                
+                
+                for (int i = 0; i < num; i++)
+                {
+                    context.LedgerAccounts.Add(new LedgerAccount()
+                    {
+                        Name = "" + i,
+                        Number = i,
+                        Type = "" + i,
+                    });
+                }
+                context.SaveChanges();
+
+                Database.Accounts.TryGetAllAccounts(context, out accounts);
+
+                Assert.Equal(num, accounts.Count());
+
+            }
+        }
+
+        [Fact]
+        public void UsersAccountsControllerAuthorizeAccount()
+        {
+            using (var context = CreateContext())
+            {
+
+                SetupDatabase(context);
+
+                FinancialOfficer cool = new FinancialOfficer()
+                {
+                    Email = "cool@hotmail.com",
+                    AuthenticationIdentifier = "COOOL",
+                };
+
+                context.FinancialOfficers.Add(cool);
+                context.SaveChanges();
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.Equal(0, cool.AuthorizedAccountGroups.Count());
+
+                LedgerAccount acc = context.LedgerAccounts.Single(a => a.Number == 0);
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.True(Database.Accounts.TryAuthorizeAccountForUser(context, cool, acc));
+                Assert.Equal(1, cool.AuthorizedAccountGroups.Count());
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.False(Database.Accounts.TryAuthorizeAccountForUser(context, cool, acc));
+            }
+        }
+
+        [Fact]
+        public void UsersAccountsControllerUnauthorizeAccount()
+        {
+            using (var context = CreateContext())
+            {
+
+                SetupDatabase(context);
+
+                FinancialOfficer cool = new FinancialOfficer()
+                {
+                    Email = "cool@hotmail.com",
+                    AuthenticationIdentifier = "COOOL",
+                };
+
+                context.FinancialOfficers.Add(cool);
+                context.SaveChanges();
+
+                LedgerAccount acc = context.LedgerAccounts.Single(a => a.Number == 0);
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.True(Database.Accounts.TryAuthorizeAccountForUser(context, cool, acc));
+                Assert.Equal(1, cool.AuthorizedAccountGroups.Count());
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.True(Database.Accounts.TryUnauthorizeAccountForUser(context, cool, acc));
+                Assert.Equal(0, cool.AuthorizedAccountGroups.Count());
+
+                cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
+
+                Assert.False(Database.Accounts.TryUnauthorizeAccountForUser(context, cool, acc));
             }
         }
     }
