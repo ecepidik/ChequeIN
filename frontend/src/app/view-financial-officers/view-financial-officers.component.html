@@ -28,33 +28,50 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  
+
   <mat-accordion>
-    <!--<mat-expansion-panel *ngFor="let chequeReq of chequeReqs">-->
-    <mat-expansion-panel>
+    <mat-expansion-panel *ngFor="let financialOfficer of financialOfficerAccounts">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <b>Financial Officer Name: </b>&nbsp; <!--{{financialOfficer.name}}-->
+          <b>Financial Officer Name:&nbsp; </b>{{financialOfficer.name}}
         </mat-panel-title>
         <mat-panel-title>
-          <b>Email: </b>&nbsp;<!--{{financialOfficer.email}}-->
+          <b>Email: </b>&nbsp;{{financialOfficer.email}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-  
-      <li>
-      <!--<li *ngFor="TODO: accounts">-->
-        <mat-panel-title>
-          <b>Account: <!--account number--> </b>
-        </mat-panel-title>
-        <b>Name: </b> <!--account name-->
-  
-        </li>
+
+      <div *ngFor="let accounts of financialOfficer.authorizedAccountGroups">
+        <div class="row">
+          <div class="col-md-3">
+            <mat-panel-title>
+              <b>Account: </b> &nbsp; {{accounts.accountTypeID}}
+            </mat-panel-title>
+          </div>
+          <div class="col-md-3">
+            <span>{{accounts.number}} {{accounts.name}}</span>
+          </div>
+          <div class="col-md-3">
+            <span>{{accounts.type}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!--<li>-->
+      <!--&lt;!&ndash;<li *ngFor="TODO: accounts">&ndash;&gt;-->
+        <!--<mat-panel-title>-->
+          <!--<b>Account: &lt;!&ndash;account number&ndash;&gt; </b>-->
+        <!--</mat-panel-title>-->
+        <!--<b>Name: </b> &lt;!&ndash;account name&ndash;&gt;-->
+
+        <!--</li>-->
       <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Add Account</button>
+        <!--<button mat-button color="primary" (click)="nextStep()">Add Account</button>-->
+        <a class="button" routerLink="/cheque-req/add-account/{{financialOfficer.UserProfileID}}">Add Account</a>
+
       </mat-action-row>
-  
-  
-  
+
+
+
     </mat-expansion-panel>
-  
+
   </mat-accordion>
