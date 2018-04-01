@@ -78,5 +78,11 @@ namespace ChequeIN.Database
 
             return context.FinancialAdministrators.Where(a => a.AuthenticationIdentifier == user.AuthenticationIdentifier).Count() > 0;
         }
+
+        public static void StoreFinancialOfficer(DatabaseContext context, FinancialOfficer fo)
+        {
+            context.Add(fo as FinancialOfficer);
+            context.SaveChanges();
+        } 
     }
 }
