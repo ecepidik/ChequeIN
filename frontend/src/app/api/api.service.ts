@@ -105,6 +105,12 @@ export class ApiService {
     .map(accounts => accounts.json());
   }
 
+  public getLedgerAccountOfFinancialOfficer(id): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/users/${id}/accounts`, status)
+    .map(accounts => accounts.json());
+  }
+
   public getFinancialOfficer(): Observable<any> {
     return this.authHttp
     .get(`${environment.apiUrl}/users?userType=officer`, status)

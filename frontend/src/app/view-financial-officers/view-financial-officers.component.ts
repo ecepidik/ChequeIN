@@ -23,22 +23,20 @@ export class ViewFinancialOfficersComponent implements OnInit {
   });
   
   this.api.getFinancialOfficer().subscribe((financialOfficerAccounts$: any) => {
-    // financialOfficerAccounts$[0].authorizedAccountGroups[0] = "ECSESS Exp";
-    // financialOfficerAccounts$[0].authorizedAccountGroups[1] = "ECSESS Rev";
 
-    // financialOfficerAccounts$[1].authorizedAccountGroups[0] = "MAME Exp";
-    // financialOfficerAccounts$[1].authorizedAccountGroups[1] = "MAME Rev";
-    
     financialOfficerAccounts$.forEach(financialOfficer => {
-      this.api.getFinancialOfficerDetails(financialOfficer.authenticationIdentifier).subscribe((financialOfficerDetails$: any) => {
-        financialOfficer.authorizedAccountGroups = financialOfficerDetails$.authorizedAccountGroups;
+      this.api.getLedgerAccountOfFinancialOfficer(financialOfficer.authenticationIdentifier).subscribe((financialOfficerDetails$: any) => {
+       console.log(financialOfficerDetails$)
+       financialOfficer.accounts = financialOfficerDetails$
+        // financialOfficer.authorizedAccountGroups = financialOfficerDetails$.authorizedAccountGroups;
       })
     });
     this.financialOfficerAccounts = financialOfficerAccounts$;
+
 });
 
 
-
+console.log(localStorage);
 }
 
 }

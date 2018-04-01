@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Amazon;
 using Amazon.Runtime.CredentialManagement;
 using Amazon.S3;
@@ -63,6 +63,14 @@ namespace ChequeIN
                     .AllowAnyHeader();
             }));
 
+            services.AddCors(o => o.AddPolicy("AllowWebFrontend", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200", "https://nostalgic-neumann-61acd7.netlify.com")
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                       .AllowAnyMethod();
+            }));
+
             // Setup the database context
             services.AddDbContext<DatabaseContext>(options =>
             {
@@ -118,6 +126,7 @@ namespace ChequeIN
             }
             else
             {
+                app.UseCors("AllowWebFrontend");
                 //var connection = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
                 var connection = "database=localdb;server=127.0.0.1;port=50638;user=azure;password=6#vWHD_$";
                 options.UseMySQL(connection);
@@ -133,7 +142,6 @@ namespace ChequeIN
                 {
                     Database.Seed.SeedDatabase(ctx);
                 }
-
             }
 
             app.UseAuthentication();
