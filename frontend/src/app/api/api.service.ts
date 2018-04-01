@@ -9,6 +9,7 @@ import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
 import { SubmittedChequeReq } from './submitted-cheque-req';
 import { User } from './user';
+import {FinancialOfficer} from './financial-officer';
 
 @Injectable()
 export class ApiService {
@@ -26,6 +27,14 @@ export class ApiService {
    */
   public getAccounts(): Observable<Account[]> {
     return this.authHttp.get(`${environment.apiUrl}/accounts`).map(res => res.json());
+  }
+
+  /**
+   * Creates a new Financial Officer
+   */
+  public submitNewOfficer(financialOfficer: FinancialOfficer): Observable<string> {
+    return this.authHttp.post(`${environment.apiUrl}/users`, financialOfficer)
+      .map(res => res.json());
   }
 
   /**

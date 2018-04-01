@@ -8,6 +8,7 @@ import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
+import {NewFinancialOfficerComponent} from './new-financial-officer/new-financial-officer.component';
 const routes: Routes = [
   {
     // Used for the authentication process
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'cheque-req/new', component: CreateChequeReqComponent },
       { path: 'cheque-req/view', component: ViewChequeReqsComponent },
       { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
+      { path: 'users/new', component: NewFinancialOfficerComponent}
     ],
   },
 ];
