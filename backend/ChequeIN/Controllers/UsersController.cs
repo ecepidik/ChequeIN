@@ -56,6 +56,13 @@ namespace ChequeIN.Controllers
             return Ok(Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId));
         }
 
+        [HttpGet("current/isadmin")]
+        [Authorize]
+        public IActionResult IsAdmin()
+        {
+            return Ok(Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId));
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Post([FromBody] ChequeIN.Models.FinancialOfficer fo){
