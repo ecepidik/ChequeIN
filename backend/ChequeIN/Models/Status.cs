@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,24 +11,16 @@ namespace ChequeIN.Models
     {
 
         private String feedback;
-
         [Key]
-        public long ChequeReqID { get; set; }
-
+        public int StatusID { get; set; }
+        //Could use some validation to make sure the date isn't set to something crazy.
         [DisplayName("Date of Status")]
         [Required]
         public DateTime StatusDate { get; set; }
 
-        [Required]
         public String Feedback {
-            get
-            {
-                return this.feedback;
-            }
-            set
-            {
-                this.feedback = value.Trim();
-            }
+            get { return this.feedback; }
+            set { this.feedback = value.Trim(); }
         }
 
         [DisplayName("Status")]
@@ -36,7 +28,7 @@ namespace ChequeIN.Models
         public Enums.StatusType SelectedStatus { get; set; }
 
         [DisplayName("Administrator Approver")]
-        public FinancialAdministrator AdminApprover { get; set; }
+        public String AdministratorApprover { get; set; }
 
     }
 }

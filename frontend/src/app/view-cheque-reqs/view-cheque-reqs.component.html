@@ -1,0 +1,31 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let chequeReq of chequeReqs">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Approved By: </b>&nbsp;{{chequeReq.approvedBy}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{chequeReq.description}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>
+      <b>Ledger Account: </b>{{chequeReq.ledgerAccountID}}&nbsp;&nbsp;&nbsp;&nbsp;
+      <b>Payee: </b>{{chequeReq.payeeName}}</p>
+    <p>
+      <b>Pre Tax Amount: </b> {{chequeReq.preTax}}$
+    </p>
+    <p>
+      <b>GST: </b>{{chequeReq.gst}}$&nbsp;&nbsp;&nbsp;&nbsp;
+      <b>HST: </b>{{chequeReq.hst}}$&nbsp;&nbsp;&nbsp;&nbsp;
+      <b>PST: </b>{{chequeReq.pst}}$
+    </p>
+    <p>
+      <b>Mailing Adress: </b>
+      <br>{{chequeReq.mailingAddress.line1}}, {{chequeReq.mailingAddress.city}}, {{chequeReq.mailingAddress.province}}
+      <br>{{chequeReq.mailingAddress.postalCode}}
+    </p>
+    <p>
+      <a class="nav-link" routerLink="/cheque-req/statushistory/{{chequeReq.chequeReqID}}">See status history and create a new status</a>
+    </p>
+  </mat-expansion-panel>
+</mat-accordion>

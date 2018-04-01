@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
-    "test": "ng test",
+    "start:no-live": "ng serve --live-reload=false",
+    "build": "ng build --prod --aot=false",
+    "test": "jest",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "precommit": "lint-staged"
   },
   "private": true,
   "dependencies": {
@@ -22,9 +24,14 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@covalent/core": "^1.0.0",
     "angular2-jwt": "^0.2.3",
     "auth0-js": "^9.2.3",
     "core-js": "^2.4.1",
+    "jest": "^22.4.2",
+    "jest-preset-angular": "^5.2.1",
+    "ng2-currency-mask": "^5.2.0",
+    "ng2-expanding-table": "^1.5.2",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -39,6 +46,7 @@
     "@types/node": "~6.0.60",
     "bootstrap": "^4.0.0",
     "codelyzer": "^4.0.1",
+    "husky": "^0.14.3",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
@@ -46,9 +54,30 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
+    "tslint-config-prettier": "^1.10.0",
     "typescript": "~2.5.3"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "<rootDir>/setupJest.ts"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "lint-staged": {
+    "*.{ts,scss,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "ignore": [
+      "package-lock.json"
+    ]
   }
 }

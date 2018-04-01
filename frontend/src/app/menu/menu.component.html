@@ -1,12 +1,14 @@
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link" href="/">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/cheque-req/new">New Cheque Req</a>
-  </li>
+<mat-toolbar>
+    <a href="/">Home</a>
+    <a href="/cheque-req/new">New Cheque Req</a>
+    <a href="/cheque-req/view">View Cheque Reqs</a>
 
-  <button class="btn btn-primary" (click)="auth.logout()">Logout</button>
-</ul>
+    <div class="fill"></div>
+
+    <div class="white">Logged in as <b>{{ (user$ | async).name }}</b></div>
+    <div>
+      <button mat-raised-button (click)="auth.logout()"><b>Logout</b></button>
+    </div>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

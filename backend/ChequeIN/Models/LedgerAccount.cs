@@ -1,27 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChequeIN.Models
 {
-    public class LedgerAccount : AuthorizedAccountSet
+    public class LedgerAccount
     {
         private String name;
 
-        [DisplayName("Account Name")]
-        [Required]
-        public String Name {
-            get
-            {
-                return this.name;
-            }
-            set
-            {
-                this.name = value.Trim();
-            }
+        public LedgerAccount()
+        {
+            ChequeReqs = new List<ChequeReq>();
         }
 
         [DisplayName("Account Number")]
@@ -29,8 +20,21 @@ namespace ChequeIN.Models
         public int Number { get; set; }
 
         [DisplayName("Associated Cheque Reqs")]
-        [Required]
-        public ICollection<ChequeReq> ChequeReqs { get; set; }
+        [ForeignKey("LedgerAccountID")]
+        public ICollection<ChequeReq> ChequeReqs { get; private set; }
 
+        [Key]
+        public int LedgerAccountID { get; set; }
+
+        [DisplayName("Account Group")]
+        [Required]
+        public String Type { get; set; }
+
+        [DisplayName("Account Name")]
+        [Required]
+        public String Name {
+            get { return this.name; }
+            set { this.name = value.Trim(); }
+        }
     }
 }
