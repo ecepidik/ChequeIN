@@ -9,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { ViewFinancialOfficersComponent } from './view-financial-officers/view-financial-officers.component';
-
 const routes: Routes = [
   {
     // Used for the authentication process
