@@ -41,9 +41,8 @@ export class ViewFinancialOfficersComponent implements OnInit {
 
   }
 
-  public addAccountToOfficer(officerId) {
-    console.log(officerId)
-    //this.api.postAddAccountToOfficer(accountId, officerId)
+  public addAccountToOfficer(ledgerAccount, officerId) {
+    this.api.postAddAccountToOfficer(ledgerAccount.ledgerAccountID, officerId)
   }
 
 }
