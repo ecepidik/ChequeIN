@@ -3,16 +3,29 @@
       <mat-expansion-panel-header>
         <div class="col-md-6">
           <mat-panel-title>
-            <span>Financial Officer Name: {{financialOfficer.name}}</span>
+            <b>Financial Officer Name:&nbsp; </b>{{financialOfficer.name}}
           </mat-panel-title>
         </div>
         <div class="col-md-6">
-          <mat-panel-description>
-            <span>{{financialOfficer.email}}</span>
-          </mat-panel-description>
+          <mat-panel-title>
+            <b>Email: </b>&nbsp;{{financialOfficer.email}}
+          </mat-panel-title>
         </div>
       </mat-expansion-panel-header>
-      <label>Accounts:</label>
+      <div>
+        <div class="row">
+          <div class="col-md-3">
+            <b>Accounts: </b>
+          </div>
+          <div class="col-md-3">
+            <b>Number: </b>
+          </div>
+          <div class="col-md-3">
+            <b>Type: </b>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
       <div *ngFor="let accounts of financialOfficer.accounts">
         <div class="row">
         <div class="col-md-3">
@@ -25,6 +38,7 @@
               <span>{{accounts.type}}</span>
             </div>
             </div>
+        <mat-divider></mat-divider>
       </div>
       <mat-action-row>
           <mat-select placeholder="Select a Ledger Account" [(value)]="ledgerAccount" required>
@@ -36,34 +50,4 @@
           <button mat-button color="primary" (click)="addAccountToOfficer(ledgerAccount, financialOfficer.authenticationIdentifier)">Add Account</button>
         </mat-action-row>
     </mat-expansion-panel>
-  </mat-accordion>
-  
-  <mat-accordion>
-    <!--<mat-expansion-panel *ngFor="let chequeReq of chequeReqs">-->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <b>Financial Officer Name: </b>&nbsp; <!--{{financialOfficer.name}}-->
-        </mat-panel-title>
-        <mat-panel-title>
-          <b>Email: </b>&nbsp;<!--{{financialOfficer.email}}-->
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-  
-      <li>
-      <!--<li *ngFor="TODO: accounts">-->
-        <mat-panel-title>
-          <b>Account: <!--account number--> </b>
-        </mat-panel-title>
-        <b>Name: </b> <!--account name-->
-  
-        </li>
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Add Account</button>
-      </mat-action-row>
-  
-  
-  
-    </mat-expansion-panel>
-  
   </mat-accordion>
