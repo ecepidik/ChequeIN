@@ -63,10 +63,7 @@ export class AuthService implements CanActivate {
   }
 
   public isAdmin(): Observable<boolean> {
-    return this.authHttp
-      .get(`${environment.apiUrl}/accounts`)
-      .map(() => true)
-      .catch(() => Observable.of(false));
+    return this.authHttp.get(`${environment.apiUrl}/users/current/isadmin`).map(res => res.json());
   }
 
   /**
