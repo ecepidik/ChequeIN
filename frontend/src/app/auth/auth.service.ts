@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { AuthHttp } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -13,7 +16,7 @@ export class AuthService implements CanActivate {
     scope: 'openid all',
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private authHttp: AuthHttp) {}
 
   public login(): void {
     this.auth0.authorize();
@@ -59,6 +62,10 @@ export class AuthService implements CanActivate {
     // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
+  }
+
+  public isAdmin(): Observable<boolean> {
+    return this.authHttp.get(`${environment.apiUrl}/users/current/isadmin`).map(res => res.json());
   }
 
   /**

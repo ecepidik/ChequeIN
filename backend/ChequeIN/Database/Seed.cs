@@ -219,19 +219,7 @@ namespace ChequeIN.Database
 
             profile.AuthorizedAccountGroups.Add(new AccountType()
             {
-                Type = "SERVICES"
-            });
-            profile.AuthorizedAccountGroups.Add(new AccountType()
-            {
                 Type = "COPIEUS"
-            });
-            profile.AuthorizedAccountGroups.Add(new AccountType()
-            {
-                Type = "GSTORE"
-            });
-            profile.AuthorizedAccountGroups.Add(new AccountType()
-            {
-                Type = "FROSTBITE"
             });
 
             context.FinancialOfficers.Add(profile);
