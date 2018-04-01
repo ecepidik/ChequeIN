@@ -31,14 +31,10 @@ export class ViewFinancialOfficersComponent implements OnInit {
     
     financialOfficerAccounts$.forEach(financialOfficer => {
       this.api.getFinancialOfficerDetails(financialOfficer.authenticationIdentifier).subscribe((financialOfficerDetails$: any) => {
-        console.log(financialOfficerDetails$.authorizedAccountGroups);
         financialOfficer.authorizedAccountGroups = financialOfficerDetails$.authorizedAccountGroups;
       })
-      console.log(financialOfficer.authenticationIdentifier)
     });
-    this.api.getFinancialOfficer
     this.financialOfficerAccounts = financialOfficerAccounts$;
-    console.log(this.financialOfficerAccounts);
 });
 
 
