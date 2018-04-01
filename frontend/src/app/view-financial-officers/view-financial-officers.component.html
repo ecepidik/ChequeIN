@@ -1,33 +1,33 @@
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let financialOfficer of financialOfficerAccounts">
-      <mat-expansion-panel-header>
-        <div class="col-md-6">
-          <mat-panel-title>
-            <span>{{financialOfficer.name}}</span>
-          </mat-panel-title>
-        </div>
-        <div class="col-md-6">
-          <mat-panel-description>
-            <span>{{financialOfficer.email}}</span>
-          </mat-panel-description>
-        </div>
-      </mat-expansion-panel-header>
-      <label>Accounts:</label>
-      <div *ngFor="let accounts of financialOfficer.authorizedAccountGroups">
-        <div class="row">
-        <div class="col-md-3">
-          <span>{{accounts.accountTypeID}}</span>
-        </div>
-        <div class="col-md-3">
-            <span>{{accounts.userProfileID}}</span>
-          </div>
-          <div class="col-md-3">
-              <span>{{accounts.type}}</span>
-            </div>
-            </div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+<!--<mat-accordion>-->
+    <!--<mat-expansion-panel *ngFor="let financialOfficer of financialOfficerAccounts">-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<div class="col-md-6">-->
+          <!--<mat-panel-title>-->
+            <!--<span>{{financialOfficer.name}}</span>-->
+          <!--</mat-panel-title>-->
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+          <!--<mat-panel-description>-->
+            <!--<span>{{financialOfficer.email}}</span>-->
+          <!--</mat-panel-description>-->
+        <!--</div>-->
+      <!--</mat-expansion-panel-header>-->
+      <!--<label>Accounts:</label>-->
+      <!--<div *ngFor="let accounts of financialOfficer.authorizedAccountGroups">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-3">-->
+          <!--<span>{{accounts.accountTypeID}}</span>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+            <!--<span>{{accounts.userProfileID}}</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-3">-->
+              <!--<span>{{accounts.type}}</span>-->
+            <!--</div>-->
+            <!--</div>-->
+      <!--</div>-->
+    <!--</mat-expansion-panel>-->
+  <!--</mat-accordion>-->
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let financialOfficer of financialOfficerAccounts">
