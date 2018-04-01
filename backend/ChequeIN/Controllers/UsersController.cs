@@ -48,5 +48,12 @@ namespace ChequeIN.Controllers
             }
             return Ok(user);
         }
+
+        [HttpGet("current")]
+        [Authorize]
+        public IActionResult GetCurrent()
+        {
+            return Ok(Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId));
+        }
     }
 }
