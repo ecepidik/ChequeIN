@@ -32,10 +32,12 @@ namespace ChequeIN.Controllers
             if (!Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId)) // TODO: This shouldn't have to be handled by individual api calls
             {
                 exists = Database.Accounts.TryGetAccountsOfUserId(_dbContext, user.AuthenticationIdentifier, out accounts);
+                if (accounts == null) { accounts = new List<LedgerAccount>(); }
                 return Ok(accounts);
             }
             exists = Database.Accounts.TryGetAllAccounts(_dbContext, out accounts);
-            
+
+            if (accounts == null) { accounts = new List<LedgerAccount>(); }
             return Ok(accounts);
         }
     }
