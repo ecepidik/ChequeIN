@@ -27,9 +27,14 @@ namespace ChequeIN.Controllers
         public IActionResult Get()
         {
             var user = Database.Users.GetCurrentUser(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId);
+            bool exists;
+            List<LedgerAccount> accounts;
             if (!Database.Users.IsCurrentUserAdmin(_dbContext, User, _authSettings.DisableAuthentication, _authSettings.DevelopmentUserId)) // TODO: This shouldn't have to be handled by individual api calls
-                return Forbid();
-            bool exists = Database.Accounts.TryGetAllAccounts(_dbContext, out List<LedgerAccount> accounts);
+            {
+                exists = Database.Accounts.TryGetAccountsOfUserId(_dbContext, user.AuthenticationIdentifier, out accounts);
+                return Ok(accounts);
+            }
+            exists = Database.Accounts.TryGetAllAccounts(_dbContext, out accounts);
             
             return Ok(accounts);
         }
