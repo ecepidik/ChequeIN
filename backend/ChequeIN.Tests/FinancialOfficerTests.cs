@@ -21,20 +21,17 @@ namespace ChequeIN.Tests
                 
             return new FinancialOfficer
             {
-                Name = "Kareem",
                 Email = "kareem@eus.com",
-                AuthorizedAccountGroups = aag,
                 AuthenticationIdentifier = "kareemh",
-                Organization = "EUS Executives"
             };
         }
 
         [Theory]
         [InlineData("Lucy")]
         [InlineData("Lucy   ")]
-        public void validName(string value){
+        public void validAuthId(string value){
             FinancialOfficer fo = GenerateFinancialOfficer();
-            fo.Name = value;
+            fo.AuthenticationIdentifier = value;
 
             var validationContext = new ValidationContext(fo, null, null);
             var validationResults = new List<ValidationResult>();
@@ -45,10 +42,10 @@ namespace ChequeIN.Tests
         [Theory]
         [InlineData("")]
         [InlineData("   ")]
-        public void invalidName(string value)
+        public void invalidAuthId(string value)
         {
             FinancialOfficer fo = GenerateFinancialOfficer();
-            fo.Name = value;
+            fo.AuthenticationIdentifier = value;
 
             var validationContext = new ValidationContext(fo, null, null);
             var validationResults = new List<ValidationResult>();
