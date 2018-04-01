@@ -8,18 +8,10 @@ import { environment } from '../../environments/environment';
 import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
 import { SubmittedChequeReq } from './submitted-cheque-req';
-import { User } from './user';
 
 @Injectable()
 export class ApiService {
   constructor(private authHttp: AuthHttp) {}
-
-  /**
-   * Gets information about the currently logged-in user.
-   */
-  public getUser(): Observable<User> {
-    return Observable.of({ name: 'Jonh Doe' }); // TODO: actually call the API
-  }
 
   /**
    * Gets the list of accounts to which the current user has access.
