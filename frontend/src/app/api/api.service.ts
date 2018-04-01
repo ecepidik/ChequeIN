@@ -125,7 +125,7 @@ export class ApiService {
   }
 
   public postAddAccountToOfficer(accountId, officerId): Observable<any> {
-    console.log(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
+    // console.log(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
     return this.authHttp
     .post(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`, status);
   }

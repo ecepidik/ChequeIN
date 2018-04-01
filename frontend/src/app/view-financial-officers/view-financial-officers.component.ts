@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Account } from '../api/account';
 import { ApiService } from '../api/api.service';
 import { AuthService } from '../auth/auth.service';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-view-financial-officers',
@@ -12,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ViewFinancialOfficersComponent implements OnInit {
 
-  constructor(public auth: AuthService, private api: ApiService, private router: Router) { }
+  constructor(public auth: AuthService, private api: ApiService, private router: Router, private zone:NgZone) { }
 
 
   public financialOfficerAccounts: Object;
@@ -42,7 +43,9 @@ export class ViewFinancialOfficersComponent implements OnInit {
   }
 
   public addAccountToOfficer(ledgerAccount, officerId) {
-    this.api.postAddAccountToOfficer(ledgerAccount.ledgerAccountID, officerId)
+    this.api.postAddAccountToOfficer(ledgerAccount.ledgerAccountID, officerId).subscribe((res: any) => {
+      location.reload();
+    })
   }
 
 }
