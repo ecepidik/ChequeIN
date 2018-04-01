@@ -12,31 +12,38 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ViewFinancialOfficersComponent implements OnInit {
 
-  constructor(public auth: AuthService, private api: ApiService, private router: Router) {}
+  constructor(public auth: AuthService, private api: ApiService, private router: Router) { }
 
 
   public financialOfficerAccounts: Object;
+  public ledgerAccounts: Object;
 
   ngOnInit() {
     this.api.getLedgerAccounts().subscribe((LedgerAccounts: any) => {
       console.log(LedgerAccounts)
-  });
-  
-  this.api.getFinancialOfficer().subscribe((financialOfficerAccounts$: any) => {
-
-    financialOfficerAccounts$.forEach(financialOfficer => {
-      this.api.getLedgerAccountOfFinancialOfficer(financialOfficer.authenticationIdentifier).subscribe((financialOfficerDetails$: any) => {
-       console.log(financialOfficerDetails$)
-       financialOfficer.accounts = financialOfficerDetails$
-        // financialOfficer.authorizedAccountGroups = financialOfficerDetails$.authorizedAccountGroups;
-      })
     });
-    this.financialOfficerAccounts = financialOfficerAccounts$;
 
-});
+    this.api.getFinancialOfficer().subscribe((financialOfficerAccounts$: any) => {
 
+      financialOfficerAccounts$.forEach(financialOfficer => {
+        this.api.getLedgerAccountOfFinancialOfficer(financialOfficer.authenticationIdentifier).subscribe((financialOfficerDetails$: any) => {
+          console.log(financialOfficerDetails$)
+          financialOfficer.accounts = financialOfficerDetails$
+        })
+      });
+      this.financialOfficerAccounts = financialOfficerAccounts$;
 
-console.log(localStorage);
-}
+    });
+
+    this.api.getAccounts().subscribe((ledgerAccounts$: any) => {
+      this.ledgerAccounts = ledgerAccounts$;
+    });
+
+  }
+
+  public addAccountToOfficer(officerId) {
+    console.log(officerId)
+    //this.api.postAddAccountToOfficer(accountId, officerId)
+  }
 
 }

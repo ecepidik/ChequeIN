@@ -96,7 +96,8 @@ export class ApiService {
 
   // TODO(Ece): Make this query typed (use the real type instead of any)
   public postStatusUpdate(status, id): Observable<any> {
-    return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
+    return this.authHttp
+    .post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
   }
 
   public getLedgerAccounts(): Observable<any> {
@@ -121,6 +122,11 @@ export class ApiService {
     return this.authHttp
     .get(`${environment.apiUrl}/users/${id}`, status)
     .map(officers => officers.json());
+  }
+
+  public postAddAccountToOfficer(accountId, officerId): Observable<any> {
+    return this.authHttp
+    .post(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`, status);
   }
 }
 
