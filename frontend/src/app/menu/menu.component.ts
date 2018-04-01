@@ -10,11 +10,11 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  public user$: Observable<User>;
+  public isAdmin$: Observable<boolean>;
 
-  constructor(public auth: AuthService, private api: ApiService) {}
+  constructor(public auth: AuthService) {}
 
   public ngOnInit() {
-    this.user$ = this.api.getUser();
+    this.isAdmin$ = this.auth.isAdmin();
   }
 }

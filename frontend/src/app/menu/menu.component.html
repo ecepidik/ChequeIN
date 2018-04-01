@@ -5,7 +5,10 @@
 
     <div class="fill"></div>
 
-    <div class="white">Logged in as <b>{{ (user$ | async).name }}</b></div>
+    <div class="white">Logged in as a
+      <b *ngIf="!(isAdmin$ | async)">Financial Officer</b>
+      <b *ngIf="isAdmin$ | async">Financial Administrator</b>
+    </div>
     <div>
       <button mat-raised-button (click)="auth.logout()"><b>Logout</b></button>
     </div>
