@@ -13,13 +13,13 @@
         </div>
       </mat-expansion-panel-header>
       <label>Accounts:</label>
-      <div *ngFor="let accounts of financialOfficer.authorizedAccountGroups">
+      <div *ngFor="let accounts of financialOfficer.accounts">
         <div class="row">
         <div class="col-md-3">
-          <span>{{accounts.accountTypeID}}</span>
+          <span>{{accounts.name}}</span>
         </div>
         <div class="col-md-3">
-            <span>{{accounts.userProfileID}}</span>
+            <span>{{accounts.number}}</span>
           </div>
           <div class="col-md-3">
               <span>{{accounts.type}}</span>
