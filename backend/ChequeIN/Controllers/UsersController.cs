@@ -50,6 +50,7 @@ namespace ChequeIN.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] ChequeIN.Models.FinancialOfficer fo){
             Database.Users.StoreFinancialOfficer(_dbContext, fo);
 
