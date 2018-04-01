@@ -1,3 +1,33 @@
 <p>
   view-financial-officers works!
 </p>
+
+<mat-accordion>
+  <!--<mat-expansion-panel *ngFor="let chequeReq of chequeReqs">-->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Financial Officer Name: </b>&nbsp; <!--{{financialOfficer.name}}-->
+      </mat-panel-title>
+      <mat-panel-title>
+        <b>Email: </b>&nbsp;<!--{{financialOfficer.email}}-->
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <li>
+    <!--<li *ngFor="TODO: accounts">-->
+      <mat-panel-title>
+        <b>Account: <!--account number--> </b>
+      </mat-panel-title>
+      <b>Name: </b> <!--account name-->
+
+      </li>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="nextStep()">Add Account</button>
+    </mat-action-row>
+
+
+
+  </mat-expansion-panel>
+
+</mat-accordion>
