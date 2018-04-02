@@ -1,18 +1,12 @@
 <br>
 <ol class = "px-2">
   <li>
-    <!-- Button for Creating Ledger (TO DO : PopUp on Click) -->
-    <button mat-raised-button color="warn" (click)="openDialog()"> <strong> Create New Ledger </strong></button>
+    <button mat-raised-button color="warn" (click)="openDialog()"> <strong>Create New Ledger Account</strong></button>
   </li>
   <br>
-  <!-- Display List (TO DO : Import List from Back End) -->
   <li class="list-group">
-      <button type="button" class="list-group-item list-group-item-action">Martin L. King - 28940</button>
-      <button type="button" class="list-group-item list-group-item-action">Jack Kirby - 112342</button>
-      <button type="button" class="list-group-item list-group-item-action">Axel Roses - 266334</button>
-      <button type="button" class="list-group-item list-group-item-action">Stan Lee - 2323432</button>
+      <button *ngFor="let account of (this.accounts$ | async)" type="button" class="list-group-item list-group-item-action">{{account.name}} - {{account.number}}</button>
   </li>
 
 
 </ol>
-  
