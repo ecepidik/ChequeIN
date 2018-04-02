@@ -36,6 +36,7 @@ export class AuthService implements CanActivate {
         console.log(err);
       }
     });
+    
   }
 
   private setSession(authResult): void {
@@ -44,6 +45,7 @@ export class AuthService implements CanActivate {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    
   }
 
   public logout(): void {
