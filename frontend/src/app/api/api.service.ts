@@ -9,6 +9,7 @@ import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
 import { LedgerAcc } from '../../app/api/newLedger';
 import { SubmittedChequeReq } from './submitted-cheque-req';
+import { FinancialOfficer } from './financial-officer';
 
 @Injectable()
 export class ApiService {
@@ -31,6 +32,14 @@ export class ApiService {
       .post(`${environment.apiUrl}/accounts`, newLedger)
       .map(res => res.json())
       .toPromise();
+  }
+
+  /**
+   * Creates a new Financial Officer
+   */
+  public submitNewOfficer(financialOfficer: FinancialOfficer): Observable<string> {
+    return this.authHttp.post(`${environment.apiUrl}/users`, financialOfficer)
+      .map(res => res.json());
   }
 
   /**

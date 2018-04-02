@@ -4,6 +4,4 @@ export interface FinancialOfficer {
     authenticationIdentifier: string;
     email: string;
     authorizedAccountGroups: Object;
-
-  }
-  
+}
