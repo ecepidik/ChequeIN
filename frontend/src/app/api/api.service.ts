@@ -9,18 +9,10 @@ import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
 import { LedgerAcc } from '../../app/api/newLedger';
 import { SubmittedChequeReq } from './submitted-cheque-req';
-import { User } from './user';
 
 @Injectable()
 export class ApiService {
   constructor(private authHttp: AuthHttp) {}
-
-  /**
-   * Gets information about the currently logged-in user.
-   */
-  public getUser(): Observable<User> {
-    return Observable.of({ name: 'Jonh Doe' }); // TODO: actually call the API
-  }
 
   /**
    * Gets the list of accounts to which the current user has access.
@@ -116,9 +108,42 @@ export class ApiService {
 
   // TODO(Ece): Make this query typed (use the real type instead of any)
   public postStatusUpdate(status, id): Observable<any> {
-    return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
+    return this.authHttp
+    .post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
+  }
+
+  public getLedgerAccounts(): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/accounts`, status)
+    .map(accounts => accounts.json());
+  }
+
+  public getLedgerAccountOfFinancialOfficer(id): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/users/${id}/accounts`, status)
+    .map(accounts => accounts.json());
+  }
+
+  public getFinancialOfficer(): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/users?userType=officer`, status)
+    .map(officers => officers.json());
+  }
+
+  public getFinancialOfficerDetails(id): Observable<any> {
+    return this.authHttp
+    .get(`${environment.apiUrl}/users/${id}`, status)
+    .map(officers => officers.json());
+  }
+
+  public postAddAccountToOfficer(accountId, officerId): Observable<any> {
+    // console.log(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
+    return this.authHttp
+    .post(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`, status);
   }
 }
+
+
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {

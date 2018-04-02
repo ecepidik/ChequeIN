@@ -50,6 +50,13 @@ namespace ChequeIN.Database
             return account != null;
         }
 
+        public static bool TryGetAccountById(DatabaseContext context, int id, out LedgerAccount account)
+        {
+            account = context.LedgerAccounts.Where(a => a.LedgerAccountID == id).FirstOrDefault();
+
+            return account != null;
+        }
+
         private static void FindAllAuthorizedAccounts(List<LedgerAccount> ledgerAccounts, List<LedgerAccount> accounts, List<AccountType> accountTypes)
         {
             foreach (AccountType t in accountTypes) {
@@ -79,6 +86,44 @@ namespace ChequeIN.Database
         {
             context.Add(account as AccountType);
             context.SaveChanges();
+        }
+
+        public static bool TryGetAllAccounts(DatabaseContext context, out List<LedgerAccount> accounts)
+        {
+            accounts = context.LedgerAccounts.ToList();
+            return accounts.Count() > 0;
+        }
+
+        public static bool TryAuthorizeAccountForUser(DatabaseContext context, UserProfile user, LedgerAccount account)
+        {
+            context.Attach(user);
+            context.Attach(account);
+            foreach (AccountType a in user.AuthorizedAccountGroups)
+            {
+                if (a.Type.Equals(account.Type))
+                {
+                    return false;
+                }
+            }
+            user.AuthorizedAccountGroups.Add(new AccountType() { Type = account.Type });
+            context.SaveChanges();
+            return true;
+        }
+
+        public static bool TryUnauthorizeAccountForUser(DatabaseContext context, UserProfile user, LedgerAccount account)
+        {
+            context.Attach(user);
+            context.Attach(account);
+            foreach (AccountType a in user.AuthorizedAccountGroups)
+            {
+                if (a.Type.Equals(account.Type))
+                {
+                    user.AuthorizedAccountGroups.Remove(a);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
