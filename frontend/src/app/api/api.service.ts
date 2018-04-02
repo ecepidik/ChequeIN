@@ -144,6 +144,10 @@ export class ApiService {
       status,
     );
   }
+
+  public deleteAccountToOfficer(accountId, officerId): Observable<any> {
+    return this.authHttp.delete(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
+  }
 }
 
 function getBase64(file) {

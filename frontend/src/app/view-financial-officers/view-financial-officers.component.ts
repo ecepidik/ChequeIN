@@ -51,4 +51,12 @@ export class ViewFinancialOfficersComponent implements OnInit {
         location.reload();
       });
   }
+
+  public removeAccountFromOfficer(ledgerAccount, officerId) {
+    this.api
+      .deleteAccountToOfficer(ledgerAccount.ledgerAccountID, officerId)
+      .subscribe((res: any) => {
+        location.reload();
+      });
+  }
 }
