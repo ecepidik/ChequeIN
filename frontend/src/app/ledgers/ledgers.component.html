@@ -1,0 +1,12 @@
+<br>
+<ol class = "px-2">
+  <li>
+    <button mat-raised-button color="warn" (click)="openDialog()"> <strong>Create New Ledger Account</strong></button>
+  </li>
+  <br>
+  <li class="list-group">
+      <button *ngFor="let account of (this.accounts$ | async)" type="button" class="list-group-item list-group-item-action">{{account.name}} - {{account.number}}</button>
+  </li>
+
+
+</ol>

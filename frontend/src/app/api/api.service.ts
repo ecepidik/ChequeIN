@@ -7,7 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Account } from './account';
 import { ChequeReqSubmission } from './cheque-req-submission';
+import { LedgerAcc } from '../../app/api/newLedger';
 import { SubmittedChequeReq } from './submitted-cheque-req';
+import { FinancialOfficer } from './financial-officer';
 
 @Injectable()
 export class ApiService {
@@ -18,6 +20,26 @@ export class ApiService {
    */
   public getAccounts(): Observable<Account[]> {
     return this.authHttp.get(`${environment.apiUrl}/accounts`).map(res => res.json());
+  }
+
+  /**
+   * Submits a a new ledger
+   *
+   * @param newLedger The account object to be submitted
+   */
+  public async createLedger(newLedger: LedgerAcc): Promise<void> {
+    return this.authHttp
+      .post(`${environment.apiUrl}/accounts`, newLedger)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+  /**
+   * Creates a new Financial Officer
+   */
+  public submitNewOfficer(financialOfficer: FinancialOfficer): Observable<string> {
+    return this.authHttp.post(`${environment.apiUrl}/users`, financialOfficer)
+      .map(res => res.json());
   }
 
   /**
@@ -74,9 +96,7 @@ export class ApiService {
   }
 
   public getChequeReqs(): Observable<SubmittedChequeReq[]> {
-    return this.authHttp
-      .get(`${environment.apiUrl}/ChequeReqs/`)
-      .map(res => res.json());
+    return this.authHttp.get(`${environment.apiUrl}/ChequeReqs/`).map(res => res.json());
   }
 
   // TODO(Ece): Make this query typed (use the real type instead of any)
@@ -89,6 +109,38 @@ export class ApiService {
   // TODO(Ece): Make this query typed (use the real type instead of any)
   public postStatusUpdate(status, id): Observable<any> {
     return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
+  }
+
+  public getLedgerAccounts(): Observable<any> {
+    return this.authHttp
+      .get(`${environment.apiUrl}/accounts`, status)
+      .map(accounts => accounts.json());
+  }
+
+  public getLedgerAccountOfFinancialOfficer(id): Observable<any> {
+    return this.authHttp
+      .get(`${environment.apiUrl}/users/${id}/accounts`, status)
+      .map(accounts => accounts.json());
+  }
+
+  public getFinancialOfficer(): Observable<any> {
+    return this.authHttp
+      .get(`${environment.apiUrl}/users?userType=officer`, status)
+      .map(officers => officers.json());
+  }
+
+  public getFinancialOfficerDetails(id): Observable<any> {
+    return this.authHttp
+      .get(`${environment.apiUrl}/users/${id}`, status)
+      .map(officers => officers.json());
+  }
+
+  public postAddAccountToOfficer(accountId, officerId): Observable<any> {
+    // console.log(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
+    return this.authHttp.post(
+      `${environment.apiUrl}/users/${officerId}/accounts/${accountId}`,
+      status,
+    );
   }
 }
 

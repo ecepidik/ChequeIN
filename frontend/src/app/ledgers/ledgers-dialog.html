@@ -1,0 +1,24 @@
+
+<form style="padding-left: 20px;padding-top: 45px;" #CreateLedger="ngForm">
+    <h1 mat-dialog-title><strong>Create New Ledger</strong></h1>
+    <p>Please enter information in both field</p>
+    <mat-form-field>
+        <textarea matInput placeholder="Account Name" [(ngModel)]="newAccount.name" #name="ngModel" name="name"
+        matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" required style="float : left"></textarea>
+        <mat-error *ngIf="name.errors?.required">
+        You need fill that section !
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="Account Number" [(ngModel)]="newAccount.number" #number="ngModel" name="number"
+        matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" required style="float : right"></textarea>
+        <mat-error *ngIf="number.errors?.required">
+        You need fill that section !
+        </mat-error>
+    </mat-form-field>
+
+</form>
+<div >
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button (click)="createLedger()" mat-dialog-close cdkFocusInitial color="warn" [disabled]="!CreateLedger.form.valid"  >Create</button>
+  </div>
