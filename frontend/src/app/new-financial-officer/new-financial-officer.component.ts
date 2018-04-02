@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {FinancialOfficer} from '../api/financial-officer';
-import {ApiService} from '../api/api.service';
+import { Observable } from 'rxjs/Observable';
+import { NewFinancialOfficer } from '../api/new-financial-officer';
+import { ApiService } from '../api/api.service';
 
 @Component({
   selector: 'app-new-financial-officer',
@@ -10,7 +10,7 @@ import {ApiService} from '../api/api.service';
 })
 export class NewFinancialOfficerComponent implements OnInit {
 
-  public financialOfficer: FinancialOfficer = new FinancialOfficer();
+  public financialOfficer: NewFinancialOfficer = new NewFinancialOfficer();
   public submissionResult$: Observable<string>;
   public submitted: boolean = false;
 
