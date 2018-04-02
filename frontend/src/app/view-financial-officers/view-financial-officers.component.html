@@ -23,21 +23,27 @@
           <div class="col-md-3">
             <b>Type: </b>
           </div>
+          <div class="col-md-3">
+            <b>Remove Association</b>
+          </div>
         </div>
         <mat-divider></mat-divider>
       </div>
       <div *ngFor="let accounts of financialOfficer.accounts">
         <div class="row">
-        <div class="col-md-3">
-          <span>{{accounts.name}}</span>
-        </div>
-        <div class="col-md-3">
+          <div class="col-md-3">
+            <span>{{accounts.name}}</span>
+          </div>
+          <div class="col-md-3">
             <span>{{accounts.number}}</span>
           </div>
           <div class="col-md-3">
-              <span>{{accounts.type}}</span>
-            </div>
-            </div>
+            <span>{{accounts.type}}</span>
+          </div>
+          <div class="col-md-3">
+            <button mat-raised-button color="warn" (click)="removeAccountFromOfficer(accounts, financialOfficer.userProfileID)">Delete</button>
+          </div>
+        </div>
         <mat-divider></mat-divider>
       </div>
       <mat-action-row>

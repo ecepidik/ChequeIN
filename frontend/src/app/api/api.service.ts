@@ -38,7 +38,8 @@ export class ApiService {
    * Creates a new Financial Officer
    */
   public submitNewOfficer(financialOfficer: FinancialOfficer): Observable<string> {
-    return this.authHttp.post(`${environment.apiUrl}/users`, financialOfficer)
+    return this.authHttp
+      .post(`${environment.apiUrl}/users`, financialOfficer)
       .map(res => res.json());
   }
 
@@ -141,6 +142,10 @@ export class ApiService {
       `${environment.apiUrl}/users/${officerId}/accounts/${accountId}`,
       status,
     );
+  }
+
+  public deleteAccountToOfficer(accountId, officerId): Observable<any> {
+    return this.authHttp.delete(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
   }
 }
 
