@@ -26,16 +26,9 @@ export class ApiService {
    *
    * @param newLedger The account object to be submitted
    */
-  //TODO (Maxence Regaudie) : Write Submit to backend function
   public async createLedger(newLedger: LedgerAcc) : Promise<void>{
-    const form = {
-      name : newLedger.name,
-      number : newLedger.number
-  
-    };
-    
     return this.authHttp
-      .post(`${environment.apiUrl}/accounts`, form)
+      .post(`${environment.apiUrl}/accounts`, newLedger)
       .map(res => res.json())
       .toPromise();
   }

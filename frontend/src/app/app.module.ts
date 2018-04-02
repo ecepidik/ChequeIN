@@ -61,6 +61,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MenuComponent,
     ViewChequeReqsComponent,
+    ChequeReqDetailsComponent,
     LedgersComponent,
     LedgersDialog,
     ViewFinancialOfficersComponent,
