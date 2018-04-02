@@ -32,7 +32,7 @@ const routes: Routes = [
       { path: 'cheque-req/view', component: ViewChequeReqsComponent },
       { path: 'cheque-req/LedgerAccounts', component: LedgersComponent },
       { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
-      { path: 'users/new', component: NewFinancialOfficerComponent}
+      { path: 'users/new', component: NewFinancialOfficerComponent },
       { path: 'financial-officer/view', component: ViewFinancialOfficersComponent },
     ],
   },
