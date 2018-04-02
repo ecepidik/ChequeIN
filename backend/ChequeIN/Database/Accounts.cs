@@ -69,9 +69,15 @@ namespace ChequeIN.Database
             return maxID + 1;
         }
 
-        public static void StoreAccount(DatabaseContext context, LedgerAccount account)
+        public static void StoreLedgerAccount(DatabaseContext context, LedgerAccount account)
         {
             context.Add(account as LedgerAccount);
+            context.SaveChanges();
+        }
+
+        public static void StoreAccountType(DatabaseContext context, AccountType account)
+        {
+            context.Add(account as AccountType);
             context.SaveChanges();
         }
     }
