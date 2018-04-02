@@ -32,8 +32,6 @@ namespace ChequeIN.Models
         }
 
         [DisplayName("Authorized Account Groups")]
-        [Required]
-        [MinimumLength(1, ErrorMessage = "An account must have at least one authorized account group.")]
         [ForeignKey("UserProfileID")]
         public ICollection<AccountType> AuthorizedAccountGroups { get; set; }
 

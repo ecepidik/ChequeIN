@@ -10,6 +10,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatToolbarModule,
+  MatDialogModule, 
 } from '@angular/material';
 
 const modules = [
@@ -23,6 +24,7 @@ const modules = [
   MatRadioModule,
   MatSelectModule,
   MatToolbarModule,
+  MatDialogModule, 
 ];
 
 @NgModule({

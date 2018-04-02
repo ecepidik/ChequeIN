@@ -28,6 +28,8 @@ import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
 import { MaterialModule } from './material.module';
 import { NewFinancialOfficerComponent } from './new-financial-officer/new-financial-officer.component';
+import { LedgersComponent, LedgersDialog } from './ledgers/ledgers.component';
+import { ViewFinancialOfficersComponent } from './view-financial-officers/view-financial-officers.component';
 
 // Config for currency mask on dollar input fields
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -61,6 +63,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ViewChequeReqsComponent,
     ChequeReqDetailsComponent,
     NewFinancialOfficerComponent,
+    LedgersComponent,
+    LedgersDialog,
+    ViewFinancialOfficersComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -75,6 +80,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CurrencyMaskModule,
     CovalentFileModule,
   ],
+  entryComponents: [LedgersComponent, LedgersDialog],
   providers: [
     AuthService,
     ApiService,
