@@ -13,6 +13,7 @@ namespace ChequeIN.Tests
 
         private ChequeReq _cheque;
         private FinancialOfficer _officer;
+        private LedgerAccount _account;
 
         private DatabaseContext CreateContext()
         {
@@ -215,6 +216,59 @@ namespace ChequeIN.Tests
                 cool = context.FinancialOfficers.Include("AuthorizedAccountGroups").Single(a => a.AuthenticationIdentifier == "COOOL");
 
                 Assert.False(Database.Accounts.TryUnauthorizeAccountForUser(context, cool, acc));
+            }
+        }
+
+        // Easter Egg
+        [Fact]
+        public void ControllerAccounts()
+        {
+            using (var context = CreateContext())
+            {
+                SetupDatabase(context);
+
+                var ledgerAccounts = context.LedgerAccounts
+                                    .ToList();
+
+                var officers = context.FinancialOfficers
+                                    .ToList();
+
+                var newAccountType = Database.Accounts.GetNewLedgerAccoundID(context).ToString();
+
+                _account = new LedgerAccount()
+                {
+                    Number = 10,
+                    Name = "EUS account",
+                    Type = newAccountType
+                };
+
+                AccountType t = new AccountType()
+                {
+                    UserProfileID = officers.ElementAt(0).UserProfileID,
+                    Type = newAccountType
+                };
+
+                bool typeExists = Database.AccountTypeValidation.TypeExists(context, newAccountType);
+
+                Database.Accounts.StoreLedgerAccount(context, _account);
+                Database.Accounts.StoreAccountType(context, t);
+
+                officers.ElementAt(0).AuthorizedAccountGroups.Add(t);
+                context.SaveChanges();
+
+                bool accountNowExists = Database.Accounts.TryGetAccountByNumber(context, _account.Number, out LedgerAccount savedAccount);
+
+                var ledgerAccountsAfter = context.LedgerAccounts
+                                    .ToList();
+
+                var newAccountTypeAfter = Database.Accounts.GetNewLedgerAccoundID(context).ToString();
+
+                Assert.Equal(1, ledgerAccounts.Count);
+                Assert.Equal(2, ledgerAccountsAfter.Count);
+                Assert.False(typeExists);
+                Assert.True(accountNowExists);
+                Assert.True(newAccountType != newAccountTypeAfter);
+
             }
         }
     }
