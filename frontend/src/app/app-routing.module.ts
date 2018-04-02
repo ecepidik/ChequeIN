@@ -5,7 +5,7 @@ import { CallbackComponent } from './auth/callback/callback.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ChequeReqDetailsComponent } from './cheque-req-details/cheque-req-details.component';
 import { CreateChequeReqComponent } from './create-cheque-req/create-cheque-req.component';
-import {LedgersComponent} from './ledgers/ledgers.component';
+import { LedgersComponent } from './ledgers/ledgers.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
@@ -32,7 +32,6 @@ const routes: Routes = [
       { path: 'cheque-req/LedgerAccounts', component: LedgersComponent },
       { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
       { path: 'financial-officer/view', component: ViewFinancialOfficersComponent },
-
     ],
   },
 ];

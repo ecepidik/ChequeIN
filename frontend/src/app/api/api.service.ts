@@ -26,7 +26,7 @@ export class ApiService {
    *
    * @param newLedger The account object to be submitted
    */
-  public async createLedger(newLedger: LedgerAcc) : Promise<void>{
+  public async createLedger(newLedger: LedgerAcc): Promise<void> {
     return this.authHttp
       .post(`${environment.apiUrl}/accounts`, newLedger)
       .map(res => res.json())
@@ -87,9 +87,7 @@ export class ApiService {
   }
 
   public getChequeReqs(): Observable<SubmittedChequeReq[]> {
-    return this.authHttp
-      .get(`${environment.apiUrl}/ChequeReqs/`)
-      .map(res => res.json());
+    return this.authHttp.get(`${environment.apiUrl}/ChequeReqs/`).map(res => res.json());
   }
 
   // TODO(Ece): Make this query typed (use the real type instead of any)
@@ -101,42 +99,41 @@ export class ApiService {
 
   // TODO(Ece): Make this query typed (use the real type instead of any)
   public postStatusUpdate(status, id): Observable<any> {
-    return this.authHttp
-    .post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
+    return this.authHttp.post(`${environment.apiUrl}/chequereqs/${id}/status`, status);
   }
 
   public getLedgerAccounts(): Observable<any> {
     return this.authHttp
-    .get(`${environment.apiUrl}/accounts`, status)
-    .map(accounts => accounts.json());
+      .get(`${environment.apiUrl}/accounts`, status)
+      .map(accounts => accounts.json());
   }
 
   public getLedgerAccountOfFinancialOfficer(id): Observable<any> {
     return this.authHttp
-    .get(`${environment.apiUrl}/users/${id}/accounts`, status)
-    .map(accounts => accounts.json());
+      .get(`${environment.apiUrl}/users/${id}/accounts`, status)
+      .map(accounts => accounts.json());
   }
 
   public getFinancialOfficer(): Observable<any> {
     return this.authHttp
-    .get(`${environment.apiUrl}/users?userType=officer`, status)
-    .map(officers => officers.json());
+      .get(`${environment.apiUrl}/users?userType=officer`, status)
+      .map(officers => officers.json());
   }
 
   public getFinancialOfficerDetails(id): Observable<any> {
     return this.authHttp
-    .get(`${environment.apiUrl}/users/${id}`, status)
-    .map(officers => officers.json());
+      .get(`${environment.apiUrl}/users/${id}`, status)
+      .map(officers => officers.json());
   }
 
   public postAddAccountToOfficer(accountId, officerId): Observable<any> {
     // console.log(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`);
-    return this.authHttp
-    .post(`${environment.apiUrl}/users/${officerId}/accounts/${accountId}`, status);
+    return this.authHttp.post(
+      `${environment.apiUrl}/users/${officerId}/accounts/${accountId}`,
+      status,
+    );
   }
 }
-
-
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {

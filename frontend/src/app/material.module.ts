@@ -10,7 +10,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatToolbarModule,
-  MatDialogModule, 
+  MatDialogModule,
 } from '@angular/material';
 
 const modules = [
@@ -24,11 +24,11 @@ const modules = [
   MatRadioModule,
   MatSelectModule,
   MatToolbarModule,
-  MatDialogModule, 
+  MatDialogModule,
 ];
 
 @NgModule({
   imports: modules,
-  exports: modules
+  exports: modules,
 })
 export class MaterialModule {}
