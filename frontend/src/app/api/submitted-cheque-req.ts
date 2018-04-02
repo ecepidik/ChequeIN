@@ -14,6 +14,6 @@ export interface SubmittedChequeReq {
   approver: string;
   account: Account;
   freeFood: boolean;
-  mailCheque: boolean ;
+  mailCheque: boolean;
   mailingAddress: string;
 }

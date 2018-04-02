@@ -34,7 +34,6 @@ const routes: Routes = [
       { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
       { path: 'users/new', component: NewFinancialOfficerComponent}
       { path: 'financial-officer/view', component: ViewFinancialOfficersComponent },
-
     ],
   },
 ];

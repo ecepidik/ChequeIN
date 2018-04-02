@@ -72,12 +72,9 @@
     "trailingComma": "all"
   },
   "lint-staged": {
-    "*.{ts,scss,json}": [
-      "prettier --write",
-      "git add"
-    ],
-    "ignore": [
-      "package-lock.json"
-    ]
+    "linters": {
+      "*.{ts,scss,json}": ["prettier --write", "git add"]
+    },
+    "ignore": ["package-lock.json"]
   }
 }
