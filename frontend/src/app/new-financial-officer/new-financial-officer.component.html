@@ -1,0 +1,32 @@
+<form style="padding-left: 20px;padding-top: 45px;" (ngSubmit)="submitNewOfficer()" #CreateFO="ngForm">
+  <mat-form-field>
+    <input matInput name="email" type="email" [(ngModel)]="financialOfficer.email" placeholder="Email:" required/>
+    <mat-error>
+      Email is required
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput name="auth0id" type="text" [(ngModel)]="financialOfficer.AuthenticationIdentifier" placeholder="Auth0 ID:" required/>
+    <mat-error>
+      Auth0 ID is required
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!CreateFO.form.valid">Submit</button>
+
+  <div *ngIf="submitted">
+    <ng-container *ngIf="this.submissionResult$ | async as result; else else2">
+      <ng-container *ngIf="result == 'success'">
+        Success !
+      </ng-container>
+      <ng-container *ngIf="result == 'error'">
+        Error from server
+      </ng-container>
+    </ng-container>
+    <ng-template #else2>
+      Loading...
+      <mat-progress-spinner></mat-progress-spinner>
+    </ng-template>
+  </div>
+</form>

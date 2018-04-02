@@ -9,6 +9,7 @@ import { LedgersComponent } from './ledgers/ledgers.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { ViewChequeReqsComponent } from './view-cheque-reqs/view-cheque-reqs.component';
+import { NewFinancialOfficerComponent } from './new-financial-officer/new-financial-officer.component';
 import { ViewFinancialOfficersComponent } from './view-financial-officers/view-financial-officers.component';
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'cheque-req/view', component: ViewChequeReqsComponent },
       { path: 'cheque-req/LedgerAccounts', component: LedgersComponent },
       { path: 'cheque-req/statushistory/:chequeReqId', component: ChequeReqDetailsComponent },
+      { path: 'users/new', component: NewFinancialOfficerComponent}
       { path: 'financial-officer/view', component: ViewFinancialOfficersComponent },
     ],
   },
